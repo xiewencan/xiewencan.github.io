@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>ros基础学习笔记 |  谢文灿</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-ros基础学习笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  ros基础学习笔记
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/07/06/ros%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2024-07-06T14:53:43.000Z" itemprop="datePublished">2024-07-06</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">13 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="ROS基础学习笔记"><a href="#ROS基础学习笔记" class="headerlink" title="ROS基础学习笔记"></a>ROS基础学习笔记</h1><p>本文参考赵虚左的视频和笔记而成，原文链接：<a target="_blank" rel="noopener" href="http://www.autolabor.com.cn/book/ROSTutorials/">Introduction · Autolabor-ROS机器人入门课程《ROS理论与实践》零基础教程</a></p>
+<h2 id="ROS概述"><a href="#ROS概述" class="headerlink" title="ROS概述"></a>ROS概述</h2><h3 id="ROS文件系统"><a href="#ROS文件系统" class="headerlink" title="ROS文件系统"></a>ROS文件系统</h3><p>ROS文件系统级指的是在硬盘上ROS源代码的组织形式，其结构大致可以如下图所示：</p>
+<p><img src="/./ros%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.images/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.jpg" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line">Copy</span><br></pre></td></tr></table></figure>
+
+<p>ROS 文件系统中部分目录和文件前面编程中已经有所涉及，比如功能包的创建、src目录下cpp文件的编写、scripts目录下python文件的编写、launch目录下launch文件的编写，并且也配置了 package.xml 与 CMakeLists.txt 文件。其他目录下的内容后面教程将会再行介绍，当前我们主要介绍: package.xml 与 CMakeLists.txt 这两个配置文件。</p>
+<span id="more"></span>
+
+<h4 id="1-package-xml"><a href="#1-package-xml" class="headerlink" title="1.package.xml"></a>1.package.xml</h4><p>该文件定义有关软件包的属性，例如软件包名称，版本号，作者，维护者以及对其他catkin软件包的依赖性。请注意，该概念类似于旧版 rosbuild 构建系统中使用的<em>manifest.xml</em>文件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 格式: 以前是 1，推荐使用格式 2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">package</span> <span class="attr">format</span>=<span class="string">&quot;2&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 包名 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>demo01_hello_vscode<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 版本 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 描述信息 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>The demo01_hello_vscode package<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- One maintainer tag required, multiple allowed, one person per tag --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Example:  --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;maintainer email=&quot;jane.doe@example.com&quot;&gt;Jane Doe&lt;/maintainer&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 维护人员 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">maintainer</span> <span class="attr">email</span>=<span class="string">&quot;xuzuo@todo.todo&quot;</span>&gt;</span>xuzuo<span class="tag">&lt;/<span class="name">maintainer</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- One license tag required, multiple allowed, one license per tag --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Commonly used license strings: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 许可证信息，ROS核心组件默认 BSD --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">license</span>&gt;</span>TODO<span class="tag">&lt;/<span class="name">license</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Url tags are optional, but multiple are allowed, one per tag --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Optional attribute type can be: website, bugtracker, or repository --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Example: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;url type=&quot;website&quot;&gt;http://wiki.ros.org/demo01_hello_vscode&lt;/url&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- Author tags are optional, multiple are allowed, one per tag --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Authors do not have to be maintainers, but could be --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Example: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- &lt;author email=&quot;jane.doe@example.com&quot;&gt;Jane Doe&lt;/author&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- The *depend tags are used to specify dependencies --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Dependencies can be catkin packages or system dependencies --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Examples: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Use depend as a shortcut for packages that are both build and exec dependencies --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;depend&gt;roscpp&lt;/depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   Note that this is equivalent to the following: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;build_depend&gt;roscpp&lt;/build_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;exec_depend&gt;roscpp&lt;/exec_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Use build_depend for packages you need at compile time: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;build_depend&gt;message_generation&lt;/build_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Use build_export_depend for packages you need in order to build against this package: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;build_export_depend&gt;message_generation&lt;/build_export_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Use buildtool_depend for build tool packages: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;buildtool_depend&gt;catkin&lt;/buildtool_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Use exec_depend for packages you need at runtime: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;exec_depend&gt;message_runtime&lt;/exec_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Use test_depend for packages you need only for testing: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;test_depend&gt;gtest&lt;/test_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- Use doc_depend for packages you need only for building documentation: --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--   &lt;doc_depend&gt;doxygen&lt;/doc_depend&gt; --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 依赖的构建工具，这是必须的 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">buildtool_depend</span>&gt;</span>catkin<span class="tag">&lt;/<span class="name">buildtool_depend</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 指定构建此软件包所需的软件包 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>roscpp<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>rospy<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build_depend</span>&gt;</span>std_msgs<span class="tag">&lt;/<span class="name">build_depend</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 指定根据这个包构建库所需要的包 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build_export_depend</span>&gt;</span>roscpp<span class="tag">&lt;/<span class="name">build_export_depend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build_export_depend</span>&gt;</span>rospy<span class="tag">&lt;/<span class="name">build_export_depend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">build_export_depend</span>&gt;</span>std_msgs<span class="tag">&lt;/<span class="name">build_export_depend</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- 运行该程序包中的代码所需的程序包 --&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>roscpp<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>rospy<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exec_depend</span>&gt;</span>std_msgs<span class="tag">&lt;/<span class="name">exec_depend</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">&lt;!-- The export tag contains other, unspecified, tags --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">export</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Other tools can request additional information be placed here --&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">export</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br><span class="line">Copy</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-CMakelists-txt"><a href="#2-CMakelists-txt" class="headerlink" title="2.CMakelists.txt"></a>2.CMakelists.txt</h4><p>文件<strong>CMakeLists.txt</strong>是CMake构建系统的输入，用于构建软件包。任何兼容CMake的软件包都包含一个或多个CMakeLists.txt文件，这些文件描述了如何构建代码以及将代码安装到何处。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.0</span>.<span class="number">2</span>) <span class="comment">#所需 cmake 版本</span></span><br><span class="line"><span class="keyword">project</span>(demo01_hello_vscode) <span class="comment">#包名称，会被 $&#123;PROJECT_NAME&#125; 的方式调用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Compile as C++11, supported in ROS Kinetic and newer</span></span><br><span class="line"><span class="comment"># add_compile_options(-std=c++11)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Find catkin macros and libraries</span></span><br><span class="line"><span class="comment">## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)</span></span><br><span class="line"><span class="comment">## is used, also find other catkin packages</span></span><br><span class="line"><span class="comment">#设置构建所需要的软件包</span></span><br><span class="line"><span class="keyword">find_package</span>(catkin REQUIRED COMPONENTS</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">## System dependencies are found with CMake&#x27;s conventions</span></span><br><span class="line"><span class="comment">#默认添加系统依赖</span></span><br><span class="line"><span class="comment"># find_package(Boost REQUIRED COMPONENTS system)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## Uncomment this if the package has a setup.py. This macro ensures</span></span><br><span class="line"><span class="comment">## modules and global scripts declared therein get installed</span></span><br><span class="line"><span class="comment">## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html</span></span><br><span class="line"><span class="comment"># 启动 python 模块支持</span></span><br><span class="line"><span class="comment"># catkin_python_setup()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################</span></span><br><span class="line"><span class="comment">## Declare ROS messages, services and actions ##</span></span><br><span class="line"><span class="comment">## 声明 ROS 消息、服务、动作... ##</span></span><br><span class="line"><span class="comment">################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## To declare and build messages, services or actions from within this</span></span><br><span class="line"><span class="comment">## package, follow these steps:</span></span><br><span class="line"><span class="comment">## * Let MSG_DEP_SET be the set of packages whose message types you use in</span></span><br><span class="line"><span class="comment">##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).</span></span><br><span class="line"><span class="comment">## * In the file package.xml:</span></span><br><span class="line"><span class="comment">##   * add a build_depend tag for &quot;message_generation&quot;</span></span><br><span class="line"><span class="comment">##   * add a build_depend and a exec_depend tag for each package in MSG_DEP_SET</span></span><br><span class="line"><span class="comment">##   * If MSG_DEP_SET isn&#x27;t empty the following dependency has been pulled in</span></span><br><span class="line"><span class="comment">##     but can be declared for certainty nonetheless:</span></span><br><span class="line"><span class="comment">##     * add a exec_depend tag for &quot;message_runtime&quot;</span></span><br><span class="line"><span class="comment">## * In this file (CMakeLists.txt):</span></span><br><span class="line"><span class="comment">##   * add &quot;message_generation&quot; and every package in MSG_DEP_SET to</span></span><br><span class="line"><span class="comment">##     find_package(catkin REQUIRED COMPONENTS ...)</span></span><br><span class="line"><span class="comment">##   * add &quot;message_runtime&quot; and every package in MSG_DEP_SET to</span></span><br><span class="line"><span class="comment">##     catkin_package(CATKIN_DEPENDS ...)</span></span><br><span class="line"><span class="comment">##   * uncomment the add_*_files sections below as needed</span></span><br><span class="line"><span class="comment">##     and list every .msg/.srv/.action file to be processed</span></span><br><span class="line"><span class="comment">##   * uncomment the generate_messages entry below</span></span><br><span class="line"><span class="comment">##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Generate messages in the &#x27;msg&#x27; folder</span></span><br><span class="line"><span class="comment"># add_message_files(</span></span><br><span class="line"><span class="comment">#   FILES</span></span><br><span class="line"><span class="comment">#   Message1.msg</span></span><br><span class="line"><span class="comment">#   Message2.msg</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Generate services in the &#x27;srv&#x27; folder</span></span><br><span class="line"><span class="comment"># add_service_files(</span></span><br><span class="line"><span class="comment">#   FILES</span></span><br><span class="line"><span class="comment">#   Service1.srv</span></span><br><span class="line"><span class="comment">#   Service2.srv</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Generate actions in the &#x27;action&#x27; folder</span></span><br><span class="line"><span class="comment"># add_action_files(</span></span><br><span class="line"><span class="comment">#   FILES</span></span><br><span class="line"><span class="comment">#   Action1.action</span></span><br><span class="line"><span class="comment">#   Action2.action</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Generate added messages and services with any dependencies listed here</span></span><br><span class="line"><span class="comment"># 生成消息、服务时的依赖包</span></span><br><span class="line"><span class="comment"># generate_messages(</span></span><br><span class="line"><span class="comment">#   DEPENDENCIES</span></span><br><span class="line"><span class="comment">#   std_msgs</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################</span></span><br><span class="line"><span class="comment">## Declare ROS dynamic reconfigure parameters ##</span></span><br><span class="line"><span class="comment">## 声明 ROS 动态参数配置 ##</span></span><br><span class="line"><span class="comment">################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## To declare and build dynamic reconfigure parameters within this</span></span><br><span class="line"><span class="comment">## package, follow these steps:</span></span><br><span class="line"><span class="comment">## * In the file package.xml:</span></span><br><span class="line"><span class="comment">##   * add a build_depend and a exec_depend tag for &quot;dynamic_reconfigure&quot;</span></span><br><span class="line"><span class="comment">## * In this file (CMakeLists.txt):</span></span><br><span class="line"><span class="comment">##   * add &quot;dynamic_reconfigure&quot; to</span></span><br><span class="line"><span class="comment">##     find_package(catkin REQUIRED COMPONENTS ...)</span></span><br><span class="line"><span class="comment">##   * uncomment the &quot;generate_dynamic_reconfigure_options&quot; section below</span></span><br><span class="line"><span class="comment">##     and list every .cfg file to be processed</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Generate dynamic reconfigure parameters in the &#x27;cfg&#x27; folder</span></span><br><span class="line"><span class="comment"># generate_dynamic_reconfigure_options(</span></span><br><span class="line"><span class="comment">#   cfg/DynReconf1.cfg</span></span><br><span class="line"><span class="comment">#   cfg/DynReconf2.cfg</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">###################################</span></span><br><span class="line"><span class="comment">## catkin specific configuration ##</span></span><br><span class="line"><span class="comment">## catkin 特定配置##</span></span><br><span class="line"><span class="comment">###################################</span></span><br><span class="line"><span class="comment">## The catkin_package macro generates cmake config files for your package</span></span><br><span class="line"><span class="comment">## Declare things to be passed to dependent projects</span></span><br><span class="line"><span class="comment">## INCLUDE_DIRS: uncomment this if your package contains header files</span></span><br><span class="line"><span class="comment">## LIBRARIES: libraries you create in this project that dependent projects also need</span></span><br><span class="line"><span class="comment">## CATKIN_DEPENDS: catkin_packages dependent projects also need</span></span><br><span class="line"><span class="comment">## DEPENDS: system dependencies of this project that dependent projects also need</span></span><br><span class="line"><span class="comment"># 运行时依赖</span></span><br><span class="line">catkin_package(</span><br><span class="line"><span class="comment">#  INCLUDE_DIRS include</span></span><br><span class="line"><span class="comment">#  LIBRARIES demo01_hello_vscode</span></span><br><span class="line"><span class="comment">#  CATKIN_DEPENDS roscpp rospy std_msgs</span></span><br><span class="line"><span class="comment">#  DEPENDS system_lib</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">###########</span></span><br><span class="line"><span class="comment">## Build ##</span></span><br><span class="line"><span class="comment">###########</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Specify additional locations of header files</span></span><br><span class="line"><span class="comment">## Your package locations should be listed before other locations</span></span><br><span class="line"><span class="comment"># 添加头文件路径，当前程序包的头文件路径位于其他文件路径之前</span></span><br><span class="line"><span class="keyword">include_directories</span>(</span><br><span class="line"><span class="comment"># include</span></span><br><span class="line">  <span class="variable">$&#123;catkin_INCLUDE_DIRS&#125;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Declare a C++ library</span></span><br><span class="line"><span class="comment"># 声明 C++ 库</span></span><br><span class="line"><span class="comment"># add_library($&#123;PROJECT_NAME&#125;</span></span><br><span class="line"><span class="comment">#   src/$&#123;PROJECT_NAME&#125;/demo01_hello_vscode.cpp</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Add cmake target dependencies of the library</span></span><br><span class="line"><span class="comment">## as an example, code may need to be generated before libraries</span></span><br><span class="line"><span class="comment">## either from message generation or dynamic reconfigure</span></span><br><span class="line"><span class="comment"># 添加库的 cmake 目标依赖</span></span><br><span class="line"><span class="comment"># add_dependencies($&#123;PROJECT_NAME&#125; $&#123;$&#123;PROJECT_NAME&#125;_EXPORTED_TARGETS&#125; $&#123;catkin_EXPORTED_TARGETS&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Declare a C++ executable</span></span><br><span class="line"><span class="comment">## With catkin_make all packages are built within a single CMake context</span></span><br><span class="line"><span class="comment">## The recommended prefix ensures that target names across packages don&#x27;t collide</span></span><br><span class="line"><span class="comment"># 声明 C++ 可执行文件</span></span><br><span class="line"><span class="keyword">add_executable</span>(Hello_VSCode src/Hello_VSCode.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Rename C++ executable without prefix</span></span><br><span class="line"><span class="comment">## The above recommended prefix causes long target names, the following renames the</span></span><br><span class="line"><span class="comment">## target back to the shorter version for ease of user use</span></span><br><span class="line"><span class="comment">## e.g. &quot;rosrun someones_pkg node&quot; instead of &quot;rosrun someones_pkg someones_pkg_node&quot;</span></span><br><span class="line"><span class="comment">#重命名c++可执行文件</span></span><br><span class="line"><span class="comment"># set_target_properties($&#123;PROJECT_NAME&#125;_node PROPERTIES OUTPUT_NAME node PREFIX &quot;&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Add cmake target dependencies of the executable</span></span><br><span class="line"><span class="comment">## same as for the library above</span></span><br><span class="line"><span class="comment">#添加可执行文件的 cmake 目标依赖</span></span><br><span class="line"><span class="keyword">add_dependencies</span>(Hello_VSCode <span class="variable">$&#123;$&#123;PROJECT_NAME&#125;</span>_EXPORTED_TARGETS&#125; <span class="variable">$&#123;catkin_EXPORTED_TARGETS&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Specify libraries to link a library or executable target against</span></span><br><span class="line"><span class="comment">#指定库、可执行文件的链接库</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(Hello_VSCode</span><br><span class="line">  <span class="variable">$&#123;catkin_LIBRARIES&#125;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#############</span></span><br><span class="line"><span class="comment">## Install ##</span></span><br><span class="line"><span class="comment">## 安装 ##</span></span><br><span class="line"><span class="comment">#############</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># all install targets should use catkin DESTINATION variables</span></span><br><span class="line"><span class="comment"># See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Mark executable scripts (Python etc.) for installation</span></span><br><span class="line"><span class="comment">## in contrast to setup.py, you can choose the destination</span></span><br><span class="line"><span class="comment">#设置用于安装的可执行脚本</span></span><br><span class="line">catkin_install_python(PROGRAMS</span><br><span class="line">  scripts/Hi.py</span><br><span class="line">  DESTINATION <span class="variable">$&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">## Mark executables for installation</span></span><br><span class="line"><span class="comment">## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html</span></span><br><span class="line"><span class="comment"># install(TARGETS $&#123;PROJECT_NAME&#125;_node</span></span><br><span class="line"><span class="comment">#   RUNTIME DESTINATION $&#123;CATKIN_PACKAGE_BIN_DESTINATION&#125;</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Mark libraries for installation</span></span><br><span class="line"><span class="comment">## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html</span></span><br><span class="line"><span class="comment"># install(TARGETS $&#123;PROJECT_NAME&#125;</span></span><br><span class="line"><span class="comment">#   ARCHIVE DESTINATION $&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span></span><br><span class="line"><span class="comment">#   LIBRARY DESTINATION $&#123;CATKIN_PACKAGE_LIB_DESTINATION&#125;</span></span><br><span class="line"><span class="comment">#   RUNTIME DESTINATION $&#123;CATKIN_GLOBAL_BIN_DESTINATION&#125;</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Mark cpp header files for installation</span></span><br><span class="line"><span class="comment"># install(DIRECTORY include/$&#123;PROJECT_NAME&#125;/</span></span><br><span class="line"><span class="comment">#   DESTINATION $&#123;CATKIN_PACKAGE_INCLUDE_DESTINATION&#125;</span></span><br><span class="line"><span class="comment">#   FILES_MATCHING PATTERN &quot;*.h&quot;</span></span><br><span class="line"><span class="comment">#   PATTERN &quot;.svn&quot; EXCLUDE</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Mark other files for installation (e.g. launch and bag files, etc.)</span></span><br><span class="line"><span class="comment"># install(FILES</span></span><br><span class="line"><span class="comment">#   # myfile1</span></span><br><span class="line"><span class="comment">#   # myfile2</span></span><br><span class="line"><span class="comment">#   DESTINATION $&#123;CATKIN_PACKAGE_SHARE_DESTINATION&#125;</span></span><br><span class="line"><span class="comment"># )</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#############</span></span><br><span class="line"><span class="comment">## Testing ##</span></span><br><span class="line"><span class="comment">#############</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Add gtest based cpp test target and link libraries</span></span><br><span class="line"><span class="comment"># catkin_add_gtest($&#123;PROJECT_NAME&#125;-test test/test_demo01_hello_vscode.cpp)</span></span><br><span class="line"><span class="comment"># if(TARGET $&#123;PROJECT_NAME&#125;-test)</span></span><br><span class="line"><span class="comment">#   target_link_libraries($&#123;PROJECT_NAME&#125;-test $&#123;PROJECT_NAME&#125;)</span></span><br><span class="line"><span class="comment"># endif()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Add folders to be run by python nosetests</span></span><br><span class="line"><span class="comment"># catkin_add_nosetests(test)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ROS相关命令"><a href="#ROS相关命令" class="headerlink" title="ROS相关命令"></a>ROS相关命令</h3><p>文件操作，无外乎就是增删改查与执行等操作，接下来，我们就从这五个维度，来介绍ROS文件系统的一些常用命令。</p>
+<h4 id="1-增"><a href="#1-增" class="headerlink" title="1.增"></a>1.增</h4><p>catkin_create_pkg 自定义包名 依赖包 &#x3D;&#x3D;&#x3D; 创建新的ROS功能包</p>
+<p>sudo apt install xxx &#x3D;&#x3D;&#x3D; 安装 ROS功能包</p>
+<h4 id="2-删"><a href="#2-删" class="headerlink" title="2.删"></a>2.删</h4><p>sudo apt purge xxx &#x3D;&#x3D;&#x3D;&#x3D; 删除某个功能包</p>
+<h4 id="3-查"><a href="#3-查" class="headerlink" title="3.查"></a>3.查</h4><p>rospack list &#x3D;&#x3D;&#x3D; 列出所有功能包</p>
+<p>rospack find 包名 &#x3D;&#x3D;&#x3D; 查找某个功能包是否存在，如果存在返回安装路径</p>
+<p>roscd 包名 &#x3D;&#x3D;&#x3D; 进入某个功能包</p>
+<p>rosls 包名 &#x3D;&#x3D;&#x3D; 列出某个包下的文件</p>
+<p>apt search xxx &#x3D;&#x3D;&#x3D; 搜索某个功能包</p>
+<h4 id="4-改"><a href="#4-改" class="headerlink" title="4.改"></a>4.改</h4><p>rosed 包名 文件名 &#x3D;&#x3D;&#x3D; 修改功能包文件</p>
+<p>需要安装 vim</p>
+<p>**比如:**rosed turtlesim Color.msg</p>
+<h4 id="5-执行"><a href="#5-执行" class="headerlink" title="5.执行"></a>5.执行</h4><h5 id="5-1roscore"><a href="#5-1roscore" class="headerlink" title="5.1roscore"></a>5.1roscore</h5><p><strong>roscore &#x3D;&#x3D;&#x3D;</strong> 是 ROS 的系统先决条件节点和程序的集合， 必须运行 roscore 才能使 ROS 节点进行通信。</p>
+<p>roscore 将启动:</p>
+<ul>
+<li>ros master</li>
+<li>ros 参数服务器</li>
+<li>rosout 日志节点</li>
+</ul>
+<p>用法:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line">Copy</span><br></pre></td></tr></table></figure>
+
+<p>或(指定端口号)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">roscore -p xxxx</span><br><span class="line">Copy</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-2rosrun"><a href="#5-2rosrun" class="headerlink" title="5.2rosrun"></a>5.2rosrun</h5><p><strong>rosrun 包名 可执行文件名</strong> &#x3D;&#x3D;&#x3D; 运行指定的ROS节点</p>
+<p><strong>比如:</strong><code>rosrun turtlesim turtlesim_node</code></p>
+<h5 id="5-3roslaunch"><a href="#5-3roslaunch" class="headerlink" title="5.3roslaunch"></a>5.3roslaunch</h5><p><strong>roslaunch 包名 launch文件名</strong> &#x3D;&#x3D;&#x3D; 执行某个包下的 launch 文件</p>
+<h3 id="ROS计算图"><a href="#ROS计算图" class="headerlink" title="ROS计算图"></a>ROS计算图</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 指令</span><br><span class="line">rosrun rqt_graph rqt_graph</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/blog/202407062258266.png" alt="img"></p>
+<h3 id="ROS安装"><a href="#ROS安装" class="headerlink" title="ROS安装"></a>ROS安装</h3><p>参照赵虚左老师教程</p>
+<h3 id="开发环境搭建"><a href="#开发环境搭建" class="headerlink" title="开发环境搭建"></a>开发环境搭建</h3> 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2024/07/06/ros%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2024/07/06/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">hexo常用命令</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "TcyYb3dDlynS3nR1fHa1X58Y-gzGzoHsz",
+    app_key: "GccFMTDOddaf4TMA8pK88juZ",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2024
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="谢文灿"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="86"
+        src="//music.163.com/outchain/player?type=2&id=864711417&auto=1&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>

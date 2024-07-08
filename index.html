@@ -149,6 +149,63 @@
     
     
     <article
+  id="post-ros基础学习笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/07/06/ros%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+    >ros基础学习笔记</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/07/06/ros%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2024-07-06T14:53:43.000Z" itemprop="datePublished">2024-07-06</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="ROS基础学习笔记"><a href="#ROS基础学习笔记" class="headerlink" title="ROS基础学习笔记"></a>ROS基础学习笔记</h1><p>本文参考赵虚左的视频和笔记而成，原文链接：<a target="_blank" rel="noopener" href="http://www.autolabor.com.cn/book/ROSTutorials/">Introduction · Autolabor-ROS机器人入门课程《ROS理论与实践》零基础教程</a></p>
+<h2 id="ROS概述"><a href="#ROS概述" class="headerlink" title="ROS概述"></a>ROS概述</h2><h3 id="ROS文件系统"><a href="#ROS文件系统" class="headerlink" title="ROS文件系统"></a>ROS文件系统</h3><p>ROS文件系统级指的是在硬盘上ROS源代码的组织形式，其结构大致可以如下图所示：</p>
+<p><img src="/./ros%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.images/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.jpg" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line">Copy</span><br></pre></td></tr></table></figure>
+
+<p>ROS 文件系统中部分目录和文件前面编程中已经有所涉及，比如功能包的创建、src目录下cpp文件的编写、scripts目录下python文件的编写、launch目录下launch文件的编写，并且也配置了 package.xml 与 CMakeLists.txt 文件。其他目录下的内容后面教程将会再行介绍，当前我们主要介绍: package.xml 与 CMakeLists.txt 这两个配置文件。</p> 
+      <a class="article-more-link" href="/2024/07/06/ros%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
   id="post-hexo常用命令"
   class="article article-type-post"
   itemscope
@@ -180,7 +237,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="Hexo命令"><a href="#Hexo命令" class="headerlink" title="Hexo命令"></a>Hexo命令</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
+  <h1 id="Hexo命令和操作"><a href="#Hexo命令和操作" class="headerlink" title="Hexo命令和操作"></a>Hexo命令和操作</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [folder]</span><br></pre></td></tr></table></figure>
 
 <p>初始化网站。如果没有提供，Hexo 将在当前目录下建立一个网站。<code>folder</code></p>
 <h2 id="新增"><a href="#新增" class="headerlink" title="新增"></a>新增</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [参数] &lt;标题&gt;</span><br></pre></td></tr></table></figure>
@@ -243,93 +300,11 @@
 </tbody></table>
 <h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo publish [layout] &lt;filename&gt;</span><br></pre></td></tr></table></figure>
 
-<p>发布草稿。</p>
-<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server </span><br><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
-<p>启动本地服务器。默认情况下，它位于 。<code>http://localhost:4000/</code></p>
-<table>
-<thead>
-<tr>
-<th align="left">选择</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-p</code>,<code>--port</code></td>
-<td align="left">覆盖默认端口</td>
-</tr>
-<tr>
-<td align="left"><code>-s</code>,<code>--static</code></td>
-<td align="left">仅提供静态文件</td>
-</tr>
-<tr>
-<td align="left"><code>-l</code>,<code>--log</code></td>
-<td align="left">启用记录器。覆盖记录器格式。</td>
-</tr>
-</tbody></table>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">$ hexo d</span><br></pre></td></tr></table></figure>
-
-<p>部署您的网站。</p>
-<table>
-<thead>
-<tr>
-<th align="left">选择</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-g</code>,<code>--generate</code></td>
-<td align="left">部署前生成</td>
-</tr>
-</tbody></table>
-<h2 id="呈现"><a href="#呈现" class="headerlink" title="呈现"></a>呈现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo render &lt;file1&gt; [file2] ...</span><br></pre></td></tr></table></figure>
-
-<p>呈现文件。</p>
-<table>
-<thead>
-<tr>
-<th align="left">选择</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-o</code>,<code>--output</code></td>
-<td align="left">输出目标</td>
-</tr>
-</tbody></table>
-<h2 id="迁移"><a href="#迁移" class="headerlink" title="迁移"></a>迁移</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo migrate &lt;type&gt;</span><br></pre></td></tr></table></figure>
-
-<p>从其他博客系统<a target="_blank" rel="noopener" href="https://hexo.io/docs/migration">迁移</a>内容。</p>
-<h2 id="干净"><a href="#干净" class="headerlink" title="干净"></a>干净</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
-<p>清理缓存文件 （） 和生成的文件 （）。<code>db.json``public</code></p>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo list &lt;type&gt;</span><br></pre></td></tr></table></figure>
-
-<p>type常用参数：page, post, route, tag, category</p>
-<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo version</span><br></pre></td></tr></table></figure>
-
-<p>显示版本信息。</p>
-<h2 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h2><h3 id="安全模式"><a href="#安全模式" class="headerlink" title="安全模式"></a>安全模式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --safe</span><br></pre></td></tr></table></figure>
-
-<p>禁用加载插件和脚本。如果您在安装新插件后遇到问题，请尝试此操作。</p>
-<h3 id="调试模式"><a href="#调试模式" class="headerlink" title="调试模式"></a>调试模式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --debug</span><br></pre></td></tr></table></figure>
-
-<p>将详细消息记录到终端和 .如果您遇到 Hexo 的任何问题，请尝试此操作。如果看到错误，请<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/new?assignees=&labels=&projects=&template=bug_report.yml">提出 GitHub 问题</a>。<code>debug.log</code></p>
-<h3 id="静音模式"><a href="#静音模式" class="headerlink" title="静音模式"></a>静音模式</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --silent</span><br></pre></td></tr></table></figure>
-
-<p>将终端的输出静音。</p>
-<h3 id="自定义配置文件路径"><a href="#自定义配置文件路径" class="headerlink" title="自定义配置文件路径"></a>自定义配置文件路径</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --config custom.yml</span><br></pre></td></tr></table></figure>
-
-<p>使用自定义配置文件（而不是 ）。还接受 JSON 或 YAML 配置文件的逗号分隔列表（无空格），这些文件会将文件合并为一个 .<code>_config.yml``_multiconfig.yml</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --config custom.yml,custom2.json</span><br></pre></td></tr></table></figure>
-
-<h3 id="显示草稿"><a href="#显示草稿" class="headerlink" title="显示草稿"></a>显示草稿</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --draft</span><br></pre></td></tr></table></figure>
-
-<p>显示草稿帖子（存储在文件夹中）。<code>source/_drafts</code></p>
-<h3 id="自定义-CWD"><a href="#自定义-CWD" class="headerlink" title="自定义 CWD"></a>自定义 CWD</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo --cwd /path/to/cwd</span><br></pre></td></tr></table></figure>
-
-<p>自定义当前工作目录的路径。</p>
- 
+<p>发布草稿。</p> 
+      <a class="article-more-link" href="/2024/07/06/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"
+        >阅读更多...</a
+      >
+       
       <!-- reward -->
       
     </div>
