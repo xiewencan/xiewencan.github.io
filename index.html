@@ -149,6 +149,215 @@
     
     
     <article
+  id="post-服务器配置selenium"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/"
+    >服务器配置selenium</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/" class="article-date">
+  <time datetime="2024-08-21T12:50:39.000Z" itemprop="datePublished">2024-08-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="安装chrome浏览器"><a href="#安装chrome浏览器" class="headerlink" title="安装chrome浏览器"></a>安装chrome浏览器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 下载安装包</span><br><span class="line">$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"># 安装chrome</span><br><span class="line">$ sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"># 检查版本</span><br><span class="line">$ google-chrome --version</span><br></pre></td></tr></table></figure>
+<h4 id="安装chromedriver"><a href="#安装chromedriver" class="headerlink" title="安装chromedriver"></a>安装chromedriver</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># chromedriver地址</span><br><span class="line">https://registry.npmmirror.com/binary.html?path=chrome-for-testing</span><br><span class="line"></span><br><span class="line"># 下载驱动</span><br><span class="line">wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chrome-linux64.zip</span><br><span class="line"></span><br><span class="line"># 解压</span><br><span class="line">$ unzip chromedriver-linux64.zip</span><br><span class="line"></span><br><span class="line"># 移动位置（也可以不移，添加到环境变量或者程序中指定位置）</span><br><span class="line">cd chromedriver-linux64</span><br><span class="line">mv chromedriver /usr/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="无头模式网页加载不出-过慢"><a href="#无头模式网页加载不出-过慢" class="headerlink" title="无头模式网页加载不出&#x2F;过慢"></a>无头模式网页加载不出&#x2F;过慢</h4><ul>
+<li>更新selenium库<br>使用conda安装的selenium库版本比较老，使用pip安装和更新</li>
+</ul> 
+      <a class="article-more-link" href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
+  id="post-docker快速入门"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"
+    >docker快速入门</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2024-08-21T12:48:22.000Z" itemprop="datePublished">2024-08-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="Docker安装Mysql"><a href="#Docker安装Mysql" class="headerlink" title="Docker安装Mysql"></a>Docker安装Mysql</h2><ul>
+<li><p>Docker基础命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 启动</span><br><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ service docker start</span><br><span class="line"></span><br><span class="line"># 停止</span><br><span class="line">$ systemctl stop docker</span><br><span class="line"></span><br><span class="line"># 重启</span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询mysql</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search mysql</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>拉取mysql镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 默认最新</span><br><span class="line">$ docker pull mysql</span><br><span class="line"># 指定版本</span><br><span class="line">$ sudo docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Docker使用Mysql"><a href="#Docker使用Mysql" class="headerlink" title="Docker使用Mysql"></a>Docker使用Mysql</h2> 
+      <a class="article-more-link" href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E3%80%81%E6%95%99%E7%A8%8B/" rel="tag">工具学习、教程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
+  id="post-linux发送邮件"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/08/17/linux%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/"
+    >linux发送邮件</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/08/17/linux%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="article-date">
+  <time datetime="2024-08-17T12:54:31.000Z" itemprop="datePublished">2024-08-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>mail</code>一般都会在服务器上安装好，如果没有预装则可以通过安装<code>mailutils</code>来使用，以ubuntu为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install mailutils</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>首先编辑配置文件，mail配置文件地址为<code>/etc/mail.rc</code>，如果只是希望自己使用，那么可以将配置文件存在<code>~/mailrc</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/mail.rc</span><br></pre></td></tr></table></figure>
+
+<p>然后添加发件人配置，以<code>网易企业邮箱</code>为例，按下<code>G</code><em>（大写）</em>翻到文件最后，增加以下几行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置发送身份</span></span><br><span class="line"><span class="built_in">set</span> from=1462796248@qq.com</span><br><span class="line"><span class="comment"># 设置发送服务器</span></span><br><span class="line"><span class="built_in">set</span> smtp=smtp.qq.com</span><br><span class="line"><span class="comment"># 设置账号</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=1462796248@qq.com</span><br><span class="line"><span class="comment"># 授权码</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=bgfkarfnbfpvgaib</span><br><span class="line"><span class="built_in">set</span> smtp-auth=login</span><br><span class="line"><span class="built_in">set</span> ssl-verify=ignore</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>之后就可以用以下命令发送邮件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mail -v -s “主题” 收件人</span><br></pre></td></tr></table></figure>
+
+<p>回车后开始输入邮件内容，以<code>Ctrl</code> + <code>D</code>结束输入。</p>
+<h2 id="多账户"><a href="#多账户" class="headerlink" title="多账户"></a>多账户</h2><p>如果需要配置多个发件账户，则用以下形式：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">account cn163 &#123;</span><br><span class="line"><span class="built_in">set</span> from=admin&lt;admin@wenjinyu.me&gt;</span><br><span class="line"><span class="built_in">set</span> smtp=smtps://smtp.ym.163.com:994</span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=admin@wenjinyu.me</span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=*******</span><br><span class="line"><span class="built_in">set</span> ssl-verify=ignore</span><br><span class="line"><span class="built_in">set</span> nss-config-dir=/etc/pki/nssdb/</span><br><span class="line">&#125;</span><br><span class="line">account gmail &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时发送邮件时可以选择特定发件账户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mail -v -s “主题” -A cn163 收件人</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/2024/08/17/linux%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%82%AE%E7%AE%B1/" rel="tag">邮箱</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
   id="post-服务器搭建记录"
   class="article article-type-post"
   itemscope
@@ -681,196 +890,14 @@
 </article>
 
     
-    <article
-  id="post-深度学习环境配置"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"
-    >深度学习环境配置</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="article-date">
-  <time datetime="2024-04-08T11:54:28.000Z" itemprop="datePublished">2024-04-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="安装wsl2"><a href="#安装wsl2" class="headerlink" title="安装wsl2"></a>安装wsl2</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install-manual">https://learn.microsoft.com/zh-cn/windows/wsl/install-manual</a></p>
-<p>## 安装ROS</p>
-<p><a target="_blank" rel="noopener" href="http://wiki.ros.org/melodic/Installation/Ubuntu">http://wiki.ros.org/melodic/Installation/Ubuntu</a></p>
-<h2 id="安装cuda"><a href="#安装cuda" class="headerlink" title="安装cuda"></a>安装cuda</h2><ul>
-<li>先判断电脑的显卡型号确定算力，然后电脑的显卡驱动（CUDA Driver）型号和CUDA Version。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvidia-msi</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/blog/202404082132154.png"></p>
-<ul>
-<li>根据CUDA Driver和CUDA Version，确定自己能够按照的CUDA版本，要保证CUDA Version &gt;&#x3D; CUDA的型号。</li>
-</ul> 
-      <a class="article-more-link" href="/2024/04/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-壁纸分享001"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/06/%E5%A3%81%E7%BA%B8%E5%88%86%E4%BA%AB001/"
-    >我的壁纸</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/06/%E5%A3%81%E7%BA%B8%E5%88%86%E4%BA%AB001/" class="article-date">
-  <time datetime="2023-10-06T04:17:46.000Z" itemprop="datePublished">2023-10-06</time>
-</a>    
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="分享一张壁纸"><a href="#分享一张壁纸" class="headerlink" title="分享一张壁纸"></a>分享一张壁纸</h1><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/blog/202404082019670.jpg" alt="我的壁纸"></p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A3%81%E7%BA%B8%E5%88%86%E4%BA%AB/" rel="tag">壁纸分享</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-脑人游戏"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2023/10/05/%E8%84%91%E4%BA%BA%E6%B8%B8%E6%88%8F/"
-    >脑人游戏</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2023/10/05/%E8%84%91%E4%BA%BA%E6%B8%B8%E6%88%8F/" class="article-date">
-  <time datetime="2023-10-05T05:42:48.000Z" itemprop="datePublished">2023-10-05</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <div align='center'><font size='8'>脑人游戏</font></div>
-
-
-
-<h2 id="三天光明"><a href="#三天光明" class="headerlink" title="三天光明"></a>三天光明</h2><blockquote>
-<p>你以为生活是一道选择题，可以自己选择向左还是向右，然而当你几年之后再回首去看今天的这一切时，才会发现，生活从来都没有给过你选择，结局是命运早就写好了的，或早或晚而已。</p>
-</blockquote>
-<p>&emsp;&emsp;“只有三天的时间了，还有三天，这些恼人的脑人群体也要从这世界消失了。”李萱青拖着残破的机械身体，躺在那淡蓝色调的小床上，残缺部分的脸上还看得出嘴角略有笑意，但眼神却死灰般，深邃、绝望而没有丝毫光泽。不久前，她和李无一切去爬长白山，在长白山上遭受了袭击，同时遭遇了火山雷雨。李无的躯体是防水的，但他为了李萱青挡了几发子弹，躯体残缺，被雨腐蚀躯体而死。</p>
-<p>&emsp;&emsp;不久，实验室里的同事敲门进来，将她残破的躯体拖进设备维修，并对着李萱青嘘寒问暖，说“应该是夜袭组织把你当作肉体人了，所以才袭击你们。谢天谢地，你没事”，并微笑着让李萱青下线。第二天当李萱青的大脑重新上线时，李萱青身上已是一副完美的一模一样的躯壳。这副躯壳是她几年前设计的，无论是在外形还是功能仿真上都无限接近她原本的肉体，除了了解的人，也没人能够看出李萱青是个脑人。</p>
-<p>&emsp;&emsp;李萱青回到自己的房间，看着窗外漫山的红枫，微微的叹息下。还剩下两天，她也将离开这个世间，在此之前，她打开了老爷子临终前留给她的随笔本。随笔本已经被岁月染上了黄色，积累了不少灰尘。</p> 
-      <a class="article-more-link" href="/2023/10/05/%E8%84%91%E4%BA%BA%E6%B8%B8%E6%88%8F/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%BA%E6%80%A7%E5%88%86%E6%9E%90/" rel="tag">人性分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%87%E5%AD%A6%E5%88%9B%E4%BD%9C/" rel="tag">文学创作</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A7%91%E5%B9%BB%E5%B0%8F%E8%AF%B4/" rel="tag">科幻小说</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
   </article>
   
 
+  
+  <nav class="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+  </nav>
   
 </section>
 </div>
