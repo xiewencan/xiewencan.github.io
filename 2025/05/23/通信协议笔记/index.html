@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>通信协议笔记 |  谢文灿</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-通信协议笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  通信协议笔记
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2025-05-23T14:23:09.000Z" itemprop="datePublished">2025-05-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">9 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h1><h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><ul>
+<li>两根信号线通信：串行数据线SDA、串行时钟线SCL；</li>
+<li>SDA和SCL的输出引脚驱动为开漏输出，外接上拉电阻</li>
+<li>所有设备通过7位地址软件寻址，高四位由厂家设定，为设备类型，低三位由用户定义</li>
+<li>所有设备都具有自动应答功能，主机和从机区别在于主机有对SCL的发送权</li>
+<li>最大挂载数取决于总线上的最大电容值，一般为400pf</li>
+</ul>
+<h3 id="工作时序"><a href="#工作时序" class="headerlink" title="工作时序"></a>工作时序</h3><ul>
+<li>数据读取在SCL为高时发生，所以当SCL为高时，数据要保持稳定</li>
+<li>SCL为高时，SDA从高跳到低为开始信号start，从低跳到高为结束信号stop</li>
+<li>SDA传送字节数没有限制，传送完紧跟应答信号，数据高位在前<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082028795.png" alt="d3bbca378362c28829cee243a8497ef7.png"></li>
+<li>当应答信号为高电平时，为ACK信号，当应答信号为高电平时，为NACK信号</li>
+<li>主机发送从机接受时，ACK由从机发出，若为NACK，主机直接尝试STOP信号终止后续传输</li>
+<li>从机发送主机接收时，ACK有主机发出，表示还要接受数据，当接受完后，发送NACK，告知从机读取结束，释放总线，随后主机发送stop命令，将释放总线，结束读操作。</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="信号传输"><a href="#信号传输" class="headerlink" title="信号传输"></a>信号传输</h3><ul>
+<li><p>完整数据传输时序图<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082049591.png" alt="f313f22e0c7bc962ff6e9e5afc2bbc95.png"></p>
+</li>
+<li><p>主机写-从机收：开始字节（写）+ 寄存器地址 + 寄存器数据<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082051202.png" alt="2k5s4wic.ujp.png"></p>
+</li>
+<li><p>主机读-从机发：开始字节（写）+ 要读寄存器地址 + 开始字节（读）+ 寄存器数据<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082051839.png" alt="inm2vrnt.1o1.png"></p>
+</li>
+</ul>
+<h1 id="UART"><a href="#UART" class="headerlink" title="UART"></a>UART</h1><h3 id="主要特性-1"><a href="#主要特性-1" class="headerlink" title="主要特性"></a>主要特性</h3><ul>
+<li>串行、异步、全双工，有两根数据线RX（接受）和RT（发送）</li>
+<li>数据传输速率用波特率来表示，即每秒传输的二进制位数</li>
+<li>异步通信以字符为传输单位，字符间的间隔是不固定的，当字符内相邻位的间隔是固定的</li>
+</ul>
+<h3 id="信号传输-1"><a href="#信号传输-1" class="headerlink" title="信号传输"></a>信号传输</h3><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082134141.jpg" alt="v2-2ebc83957b33a1525468eed46d3139c8_1440w.jpg"></p>
+<h1 id="SPI"><a href="#SPI" class="headerlink" title="SPI"></a>SPI</h1><h3 id="主要特性-2"><a href="#主要特性-2" class="headerlink" title="主要特性"></a>主要特性</h3><ul>
+<li>包括4调逻辑线，MISO（主入从出）、MOSI（主出从入）、SCLK（时钟信号）、SS（片选信号）</li>
+<li>主线在MOSI发送一位数据，从机读取他，从机也需要发送一位数据。尽管在单向传输中也需要。</li>
+<li>时钟极性：CKP&#x3D;0时，时钟空闲位低电平</li>
+<li>时钟相位：CKE&#x3D;0时，在第一个跳变沿采样，CKE&#x3D;1时，在第二个跳变沿采样<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082151158.jpg" alt="v2-ed078045bc5e1095e39fcf3bce765f9c_1440w.jpg|300"></li>
+</ul>
+<h3 id="工作时序-1"><a href="#工作时序-1" class="headerlink" title="工作时序"></a>工作时序</h3><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082207990.png" alt="6dfb54b2d1704bcdaa53c1effd8ba144.png"></p>
+<h3 id="信号传输-2"><a href="#信号传输-2" class="headerlink" title="信号传输"></a>信号传输</h3><ul>
+<li>主机先将NSS信号拉低，确保开始接受数据</li>
+<li>当接收端检测到时钟边沿信号，立即读取信号线上的信号</li>
+<li>主机发送到从机时，主机产生相应的时钟信号，然后数据一位位的从MOSI发送</li>
+<li>当主机接受信号时，主机要生成预定数量的时钟信号，从机将数据从MISO发送</li>
+<li>多从机模式：多NSS和菊花链<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082158572.jpg" alt="v2-069df3709fb1a0c5486acbf620890313_1440w.jpg"></li>
+</ul>
+<h1 id="CAN"><a href="#CAN" class="headerlink" title="CAN"></a>CAN</h1><h3 id="主要特性-3"><a href="#主要特性-3" class="headerlink" title="主要特性"></a>主要特性</h3><ul>
+<li>异步通信，由两根信号线CANH和CANL，有开环结构和闭环结果两种</li>
+<li>两根信号的电压差CANH-CANL表示CAN总线电平，具有良好的抗干扰性</li>
+<li>没有主从之分，但同一时刻只能由一个节点发送数据，其他节点只能接受数据</li>
+<li>总线节点没有地址概念，数据以帧位单位传输，分为多种帧</li>
+<li>采用非破坏性仲裁机制，通过比较帧上标识符（ID）的优先级决定哪个节点发送数据</li>
+<li>显性电平逻辑值为0，隐形电平逻辑值为1</li>
+<li>总线具有“线与”特性，0&amp;1&#x3D;0，当两个节点同时发送信号时，使用这个特性进行总线仲裁</li>
+<li>位填充：CAN协议规定当发送5个相同位信号时，自动插入一个补码，访问为SOF与CRC之间</li>
+<li>三种工作模式：REC（接受）和TEC（发送）为错误计数器<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092235735.png" alt="dtkzp5cd.y5y.png"></li>
+</ul>
+<h3 id="位时序与同步"><a href="#位时序与同步" class="headerlink" title="位时序与同步"></a>位时序与同步</h3><h5 id="位时序"><a href="#位时序" class="headerlink" title="位时序"></a>位时序</h5><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092055836.png" alt="xfezi2nj.reb.png|500"><br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092124028.png" alt="wbbfeizg.qvi.png"></p>
+<h5 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h5><p><strong>同步规则：</strong></p>
+<ul>
+<li>一个位只进行一次同步</li>
+<li>只有上次采样点的总线值和边沿后的总线值不同时，该边沿才能用于调整同步</li>
+<li>总线空闲时且存在隐形电平到显性电平的边沿时，一定要硬同步</li>
+<li>非空闲时检测到的同时满足条件1和2，还要满足5和6才进行再同步</li>
+<li>发送单元观测到自身输出的显性电平有延迟时不进行再同步</li>
+<li>发送单元在帧起始到仲裁段有多个单元同时发送时，对延迟边沿不在进行同步<br>**同步方式：</li>
+<li>硬同步<br><strong>接收单元在总线空闲状态检测出帧起始时进行的同步调整。在检测出边沿的地方不考虑 SJW 的值而认为是 SS 段。</strong><br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092058533.png" alt="oyaqi4ue.abt.png"></li>
+<li>再同步<br><strong>在接收过程中检测出总线上的电平变化时进行的同步调整。每当检测出边沿时，根据 SJW 值通过加长 PBS1 段，或缩短 PBS2 段，以调整同步。但如果发生了超出 SJW  值的误差时，最大调整量不能超过 SJW 值。</strong><br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092100927.png" alt="mhlvymkd.xa5.png"></li>
+</ul>
+<h3 id="帧的类型"><a href="#帧的类型" class="headerlink" title="帧的类型"></a>帧的类型</h3><h5 id="数据帧"><a href="#数据帧" class="headerlink" title="数据帧"></a>数据帧</h5><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092006889.png" alt="aa48abfb39c952e5a31b3726c1990210.png"></p>
+<ul>
+<li>帧起始：1位，显性位</li>
+<li>仲裁段：表示数据的优先级的段，禁止高七位全为隐形</li>
+<li>控制段：6位，表示数据段的字节数（0到8字节），IDE判断帧格式为标准还是拓展,保留位r0、r1发送时要求位显性电平</li>
+<li>数据段：包含0到8个字节数据</li>
+<li>CRC段：16位，15位CRC+1位CRC界定符，检查帧传输错误的帧，计算包含CRC段前的所有位</li>
+<li>ACK段：2位，ACK槽+ACK界定符，确定是否正确接受，发送端置隐性，接收端成功接收后置显性</li>
+<li>帧结束：7位，全为隐形位，表示帧结束</li>
+</ul>
+<h5 id="遥控帧"><a href="#遥控帧" class="headerlink" title="遥控帧"></a>遥控帧</h5><p><strong>接受单元向发送单元请求发送数据所用的帧</strong><br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092006794.png" alt="9de4b0d45380e61bf441e92352d45a60.png"></p>
+<ul>
+<li>与数据帧相比，没有数据段，RTR位为隐形位</li>
+<li>遥控帧的的数据长度码代表所请求数据帧的数据数据长度码</li>
+</ul>
+<h5 id="错误帧"><a href="#错误帧" class="headerlink" title="错误帧"></a>错误帧</h5><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092018664.png" alt="701bf29eda70a93d2306a2a57db4630e.png"></p>
+<ul>
+<li>错误标志：6个位，全为显性表示主动错误，全为隐形表示被动错误</li>
+<li>错误界定符：8个位，全为隐形</li>
+<li>错误检测：<ul>
+<li>位错误：发送节点检测到总线电平与自身发送位不符。</li>
+<li>CRC错误：接收节点校验失败。</li>
+<li>格式错误：固定字段（如界定符）电平不符协议规定。</li>
+<li>ACK错误：发送端未收到ACK确认</li>
+<li>填充错误：连续出现6个相同的位</li>
+</ul>
+</li>
+</ul>
+<h5 id="过载帧"><a href="#过载帧" class="headerlink" title="过载帧"></a>过载帧</h5><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092021687.png" alt="936c070ac077efd5af0c85a4e8ee0f5b.png"></p>
+<h5 id="帧间隔"><a href="#帧间隔" class="headerlink" title="帧间隔"></a>帧间隔</h5><p><strong>用来分隔数据帧和遥控帧，将数据帧与遥控帧与前面的任何帧分开</strong><br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504092023166.png" alt="717e77946f263d6f6858cdf0da850bee.png"></p>
+<ul>
+<li>延迟传输只存在于被动错误状态的单元刚发送一个消息后</li>
+</ul>
+<h3 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h3><ul>
+<li>空闲态下，先发送信息的单元获得发送权</li>
+<li>同时发送时，从仲裁位第一位开始仲裁，显性电平获得发送权</li>
+<li>ID相同的数据帧和遥控帧，RTR为显性的有优先权（数据帧）</li>
+<li>ID相同的标准数据帧和拓展数据帧，IDE为显性有优先权（标准）</li>
+</ul>
+<h3 id="传输流程"><a href="#传输流程" class="headerlink" title="传输流程"></a>传输流程</h3><p><strong>步骤1：总线空闲检测</strong></p>
+<ul>
+<li><strong>条件</strong>：总线空闲时，所有节点均处于隐性电平（逻辑1）。</li>
+<li><strong>触发传输</strong>：任意节点检测到总线空闲且需发送数据时，启动传输。</li>
+</ul>
+<p><strong>步骤2：帧起始（SOF）</strong></p>
+<ul>
+<li><strong>硬同步</strong>：节点发送SOF（显性0），所有接收节点通过<strong>硬同步</strong>调整位时间，确保时序一致。</li>
+</ul>
+<p><strong>步骤3：仲裁段（非破坏性仲裁）</strong></p>
+<ul>
+<li><strong>逐位竞争</strong>：节点同时发送标识符（从最高位开始），并实时监听总线电平。<ul>
+<li>若节点发送隐性（1）但监听到显性（0），则<strong>退出仲裁</strong>，转为接收模式。   </li>
+<li>标识符数值越小（显性位越多），优先级越高。</li>
+</ul>
+</li>
+<li><strong>仲裁胜出</strong>：仅剩一个节点继续发送，其他节点等待总线空闲后重试。</li>
+</ul>
+<p> <strong>步骤4：控制段与数据段传输</strong></p>
+<ul>
+<li><strong>控制段</strong>：发送IDE、DLC等信息，指明帧类型和数据长度。</li>
+<li><strong>数据段</strong>：发送0~8字节数据，按DLC指定长度填充。</li>
+</ul>
+<p><strong>步骤5：CRC校验</strong></p>
+<ul>
+<li><strong>生成CRC</strong>：发送端计算数据段和部分控制段的CRC值，附加到CRC段。</li>
+<li><strong>接收端校验</strong>：接收节点重新计算CRC，若与接收值不符，触发错误帧。</li>
+</ul>
+<p><strong>步骤6：ACK确认</strong></p>
+<ul>
+<li><strong>ACK槽</strong>：发送端释放总线（置隐性1），接收节点在ACK槽内回显显性0，表示成功接收。</li>
+<li><strong>ACK失败</strong>：若发送端未检测到显性0，视为传输失败，触发重传。</li>
+</ul>
+<p><strong>步骤7：帧结束（EOF）</strong></p>
+<ul>
+<li><strong>结束标志</strong>：发送7位隐性1，所有节点确认帧传输完成。</li>
+<li><strong>总线释放</strong>：节点等待总线空闲后，可发起新一轮传输。</li>
+</ul>
+<h1 id="I2S"><a href="#I2S" class="headerlink" title="I2S"></a>I2S</h1><h1 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h1><h3 id="1-核心特性对比"><a href="#1-核心特性对比" class="headerlink" title="1. 核心特性对比"></a><strong>1. 核心特性对比</strong></h3><table>
+<thead>
+<tr>
+<th><strong>特性</strong></th>
+<th><strong>UART</strong></th>
+<th><strong>I2C</strong></th>
+<th><strong>SPI</strong></th>
+<th><strong>CAN</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>通信方式</strong></td>
+<td>异步（无时钟）</td>
+<td>同步（时钟线 SCL）</td>
+<td>同步（时钟线 SCK）</td>
+<td>异步（基于数据帧）</td>
+</tr>
+<tr>
+<td><strong>拓扑结构</strong></td>
+<td>点对点</td>
+<td>多主多从（总线）</td>
+<td>单主多从（总线）</td>
+<td>多主多从（总线）</td>
+</tr>
+<tr>
+<td><strong>数据线数量</strong></td>
+<td>2（TX、RX）</td>
+<td>2（SDA、SCL）</td>
+<td>4（MOSI、MISO、SCK、SS）</td>
+<td>2（CAN_H、CAN_L）</td>
+</tr>
+<tr>
+<td><strong>传输速率</strong></td>
+<td>低（通常 &lt; 1 Mbps）</td>
+<td>中（标准模式 100 Kbps，高速模式 3.4 Mbps）</td>
+<td>高（可达 100+ Mbps）</td>
+<td>中（1 Mbps 典型）</td>
+</tr>
+<tr>
+<td><strong>通信距离</strong></td>
+<td>短（&lt; 15m）</td>
+<td>短（板内或 &lt; 1m）</td>
+<td>短（板内或 &lt; 1m）</td>
+<td>长（可达 1km）</td>
+</tr>
+<tr>
+<td><strong>错误检测</strong></td>
+<td>奇偶校验（可选）</td>
+<td>无</td>
+<td>无</td>
+<td>CRC校验、自动重传</td>
+</tr>
+<tr>
+<td><strong>抗干扰能力</strong></td>
+<td>弱</td>
+<td>弱</td>
+<td>弱</td>
+<td>强（差分信号）</td>
+</tr>
+<tr>
+<td><strong>典型应用</strong></td>
+<td>调试接口、简单通信</td>
+<td>传感器、EEPROM</td>
+<td>高速外设（Flash、LCD）</td>
+<td>汽车电子、工业控制</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="2-优缺点分析"><a href="#2-优缺点分析" class="headerlink" title="2. 优缺点分析"></a><strong>2. 优缺点分析</strong></h3><h4 id="UART-1"><a href="#UART-1" class="headerlink" title="UART"></a><strong>UART</strong></h4><ul>
+<li><strong>优点</strong>：<ul>
+<li>简单易用，成本低。</li>
+<li>全双工通信（可同时收发）。</li>
+<li>无需时钟同步，适合异步场景。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>不支持多设备通信。</li>
+<li>速率低，易受时钟偏移影响。</li>
+<li>无硬件错误检测（依赖软件校验）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="I2C-1"><a href="#I2C-1" class="headerlink" title="I2C"></a><strong>I2C</strong></h4><ul>
+<li><strong>优点</strong>：<ul>
+<li>仅需两根线，支持多主多从。</li>
+<li>地址寻址机制（7&#x2F;10位地址）。</li>
+<li>适合低速、短距离设备互联。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>速率较低（受上拉电阻限制）。</li>
+<li>总线冲突需仲裁（可能增加延迟）。</li>
+<li>无错误检测和流控机制。</li>
+</ul>
+</li>
+</ul>
+<h4 id="SPI-1"><a href="#SPI-1" class="headerlink" title="SPI"></a><strong>SPI</strong></h4><ul>
+<li><strong>优点</strong>：<ul>
+<li>高速全双工通信。</li>
+<li>无地址限制（通过片选信号选择设备）。</li>
+<li>灵活性高（时钟极性和相位可调）。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>需要较多引脚（每增加一个从设备需多一个SS线）。</li>
+<li>无硬件错误检测和冲突处理。</li>
+<li>仅支持单主模式。</li>
+</ul>
+</li>
+</ul>
+<h4 id="CAN-1"><a href="#CAN-1" class="headerlink" title="CAN"></a><strong>CAN</strong></h4><ul>
+<li><strong>优点</strong>：<ul>
+<li>高可靠性（差分信号、CRC校验、自动重传）。</li>
+<li>多主架构，支持优先级仲裁。</li>
+<li>长距离、强抗干扰能力（适合工业环境）。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>：<ul>
+<li>协议复杂，开发成本高。</li>
+<li>硬件成本较高（需专用CAN控制器）。</li>
+<li>速率较低（高可靠性牺牲了速度）。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%9A%E4%BF%A1/" rel="tag">通信</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/05/23/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5%E6%95%B4%E7%90%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            资源链接整理
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">cmake简易入门</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.staticfile.org/valine/1.4.16/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "TcyYb3dDlynS3nR1fHa1X58Y-gzGzoHsz",
+    app_key: "GccFMTDOddaf4TMA8pK88juZ",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2025
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="谢文灿"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://yelo056883.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="86"
+        src="//music.163.com/outchain/player?type=2&id=864711417&auto=1&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>
