@@ -149,6 +149,149 @@
     
     
     <article
+  id="post-cmake简易入门"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/"
+    >cmake简易入门</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2025-05-23T13:57:04.000Z" itemprop="datePublished">2025-05-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h1><ol>
+<li><strong>创建 <code>CMakeLists.txt</code> 文件</strong>：定义项目、目标和依赖。</li>
+<li><strong>创建构建目录</strong>：保持源代码目录整洁。</li>
+<li><strong>配置项目</strong>：使用 CMake 生成构建系统文件。</li>
+<li><strong>编译项目</strong>：使用构建系统文件编译项目。</li>
+<li><strong>运行可执行文件</strong>：执行生成的程序。</li>
+<li><strong>清理构建文件</strong>：删除中间文件和目标文件。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">配置CMakeLists.txt后</span><br><span class="line">mkdir build 创建目录</span><br><span class="line">cd build</span><br><span class="line">cmake ..  # 配置</span><br><span class="line">make      # 编译</span><br><span class="line">./MyExcutable  # 运行</span><br><span class="line">make clean   # 清理</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
+<li><p><code>cmake_minimum_required(VERSION &lt;num&gt;)</code>：设置最低版本</p>
+</li>
+<li><p><code>project(&lt;name&gt; [version])</code>：设置项目名和版本</p>
+</li>
+<li><p><code>add_executable(&lt;target&gt; [dependence])</code>：添加项目可执行文件和依赖</p>
+</li>
+<li><p><code>set(&lt;var&gt; &lt;val&gt;)</code>：设置变量</p>
+</li>
+<li><p><code>$&#123;var&#125;</code>：变量使用</p>
+</li>
+<li><p><code>configure_file(&lt;ifile&gt; &lt;ofile&gt; [copy_only] [escape_quotes] [@only])</code>：复制一个文件到目标位置，并对文件内容进行变量替换</p>
+<ul>
+<li><code>ifile</code>：指定输入文件的路径。</li>
+<li><code>ofile</code>：指定输出文件的路径</li>
+<li><code>COPY_ONLY</code>：如果指定这个选项，CMake将不会对文件内容进行变量替换，只是简单地复制文件。</li>
+<li><code>ESCAPE_QUOTES</code>：如果指定这个选项，CMake将对输出文件中的双引号进行转义。</li>
+<li><code>@ONLY</code>：如果指定这个选项，CMake将只替换<code>@</code>符号包围的变量。这在某些情况下可以提高性能。</li>
+</ul> 
+      <a class="article-more-link" href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
+  id="post-Makefile教程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/03/16/Makefile%E6%95%99%E7%A8%8B/"
+    >Makefile教程</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/03/16/Makefile%E6%95%99%E7%A8%8B/" class="article-date">
+  <time datetime="2025-03-16T13:56:49.000Z" itemprop="datePublished">2025-03-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;project&gt;</span><br><span class="line">├── Makefile</span><br><span class="line">├── build</span><br><span class="line">└── src</span><br><span class="line">    ├── hello.c</span><br><span class="line">    ├── hello.h</span><br><span class="line">    └── main.c</span><br></pre></td></tr></table></figure>
+<h2 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">SRC_DIR = ./src</span><br><span class="line">BUILD_DIR = ./build</span><br><span class="line">TARGET = <span class="variable">$(BUILD_DIR)</span>/world.out</span><br><span class="line"></span><br><span class="line">CC = cc</span><br><span class="line">CFLAGS = -Wall</span><br><span class="line"></span><br><span class="line"><span class="comment"># ./src/*.c</span></span><br><span class="line">SRCS = <span class="variable">$(<span class="built_in">shell</span> find <span class="variable">$(SRC_DIR)</span> -name &#x27;*.c&#x27;)</span></span><br><span class="line"><span class="comment"># ./src/*.c =&gt; ./build/*.o</span></span><br><span class="line">OBJS = <span class="variable">$(<span class="built_in">patsubst</span> <span class="variable">$(SRC_DIR)</span>/%.c,<span class="variable">$(BUILD_DIR)</span>/%.o,<span class="variable">$(SRCS)</span>)</span></span><br><span class="line"><span class="comment"># ./src/*.c =&gt; ./build/*.d</span></span><br><span class="line">DEPS = <span class="variable">$(<span class="built_in">patsubst</span> <span class="variable">$(SRC_DIR)</span>/%.c,<span class="variable">$(BUILD_DIR)</span>/%.d,<span class="variable">$(SRCS)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认目标:</span></span><br><span class="line"><span class="section">all: <span class="variable">$(TARGET)</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment"># build/xyz.d 的规则由 src/xyz.c 生成:</span></span><br><span class="line"><span class="variable">$(BUILD_DIR)</span>/%.d: <span class="variable">$(SRC_DIR)</span>/%.c</span><br><span class="line">	@mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span>; \</span><br><span class="line">	rm -f <span class="variable">$@</span>; \</span><br><span class="line">	<span class="variable">$(CC)</span> -MM <span class="variable">$&lt;</span> &gt;<span class="variable">$@</span>.tmp; \</span><br><span class="line">	sed &#x27;s,\(<span class="variable">$*</span>\)\.o[ :]*,<span class="variable">$(BUILD_DIR)</span>/\1.o <span class="variable">$@</span> : ,g&#x27; &lt; <span class="variable">$@</span>.tmp &gt; <span class="variable">$@</span>; \</span><br><span class="line">	rm -f <span class="variable">$@</span>.tmp</span><br><span class="line"></span><br><span class="line"><span class="comment"># build/xyz.o 的规则由 src/xyz.c 生成:</span></span><br><span class="line"><span class="variable">$(BUILD_DIR)</span>/%.o: <span class="variable">$(SRC_DIR)</span>/%.c</span><br><span class="line">	@mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(CFLAGS)</span> -c -o <span class="variable">$@</span> <span class="variable">$&lt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 链接:</span></span><br><span class="line"><span class="variable">$(TARGET)</span>: <span class="variable">$(OBJS)</span></span><br><span class="line">	@echo <span class="string">&quot;buiding <span class="variable">$@</span>...&quot;</span></span><br><span class="line">	@mkdir -p <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$@</span>)</span></span><br><span class="line">	<span class="variable">$(CC)</span> -o <span class="variable">$(TARGET)</span> <span class="variable">$(OBJS)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理 build 目录:</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	@echo <span class="string">&quot;clean...&quot;</span></span><br><span class="line">	rm -rf <span class="variable">$(BUILD_DIR)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 引入所有 .d 文件:</span></span><br><span class="line"><span class="keyword">-include</span> <span class="variable">$(DEPS)</span></span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/2025/03/16/Makefile%E6%95%99%E7%A8%8B/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+  
+</article>
+
+    
+    <article
   id="post-大众与小众的选择"
   class="article article-type-post"
   itemscope
@@ -160,7 +303,7 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2025/05/23/%E5%A4%A7%E4%BC%97%E4%B8%8E%E5%B0%8F%E4%BC%97%E7%9A%84%E9%80%89%E6%8B%A9/"
+  <a class="article-title" href="/2025/02/23/%E5%A4%A7%E4%BC%97%E4%B8%8E%E5%B0%8F%E4%BC%97%E7%9A%84%E9%80%89%E6%8B%A9/"
     >大众与小众的选择</a> 
 </h2>
  
@@ -169,8 +312,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2025/05/23/%E5%A4%A7%E4%BC%97%E4%B8%8E%E5%B0%8F%E4%BC%97%E7%9A%84%E9%80%89%E6%8B%A9/" class="article-date">
-  <time datetime="2025-05-23T13:47:28.000Z" itemprop="datePublished">2025-05-23</time>
+      <a href="/2025/02/23/%E5%A4%A7%E4%BC%97%E4%B8%8E%E5%B0%8F%E4%BC%97%E7%9A%84%E9%80%89%E6%8B%A9/" class="article-date">
+  <time datetime="2025-02-23T13:47:28.000Z" itemprop="datePublished">2025-02-23</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a>
@@ -182,10 +325,11 @@
        
   <p>前几天，我看到一个很有意思的问题：我们既从众，跟随潮流，同时我们又追求小众，选择与众不同。这既矛盾又统一的现象，引起了我对其本质以及我们的人生的一些思考。</p>
 <h4 id="场景决定我们的选择"><a href="#场景决定我们的选择" class="headerlink" title="场景决定我们的选择"></a>场景决定我们的选择</h4><p>大众与小众的选择，本质上是我们在不同场景下的选择。在面向效率的场景下，我们更倾向于大众，因为使用者众多，代表有更多的资源就行维护与优化，就有着更加方便、高效的使用体验。而在面向娱乐的场景下，可以选择小众，展示自己的与众不同，展示自己的特立独行。</p>
-<h4 id="真的是由场景决定的吗？"><a href="#真的是由场景决定的吗？" class="headerlink" title="真的是由场景决定的吗？"></a>真的是由场景决定的吗？</h4><p>上述的说法有一些道理，但是界限不清，也有着众多的反例的。马克思将人的需求分为三种：基本生存的需求、发展的需求和享受的需求。选择大众与小众，由需求决定，由强弱决定。追求大众，是来自于前两种需求，是在自身弱小情况下借助大众的力量获取的一种保障。追求大众，是聚少成多。公司不会重视我们个人对他们服务的感受，而我们想要他们重视，投入力量去优化，只有当我们的力量变得足够大，大到能够对公司产生足够的影响，甚至是危机感。选择小众的人，要么是自身有着足够的力量自己进行优化，或者是自身的力量足够让公司重视，要么就是这件事的体验在与我展示个性这种价值相比下，显得无关紧要，不值一提。弱者从众，强者独行，与其说是弱者和强者的特性，不如说是在其背景和力量下的最优选择，尽管夹杂些无奈。这导致了不少人因果倒置，开始宣传你是因为从众，才成为的弱者，只有特立独行的人才能成为强者。这也挺荒诞的。</p>
-<p>幸而强弱不是恒定的，需求也可以进行自我调整。强者在其弱小的方面，不也得从众，弱者在其自信的领域，也能特立独行。有人或许会说，创新是特立独行的人的专利，你从众只能平庸下去。这点，我不敢苟同，两者的关系目前我还不明晰，但是目前，创新不在我的论域之内，因为他与大众和小众的选择无关。顺便说提一句，我认为创新来自于需求和欲望。不要将属于小众的事物，算在选择小众理由和优点。这个世界本就不平均，在任何一方面都是两端小中间大，极强极弱者少，大众者多，与概率论中的高斯分布异曲同工。但他们都不是选择的理由，因为小众有两面，既不好也不坏，你的选择也与你想成为的无关，与你成为了什么有关，因为你不会知道你的选择会带来什么反应。</p>
-<p>最后，强弱如何转化呢，加法和减法。增加自身能量或是借助他人能量而变强，减少需求，无语则刚，没有人不会害怕一个连性命都在所不顾的人。</p>
- 
+<h4 id="真的是由场景决定的吗？"><a href="#真的是由场景决定的吗？" class="headerlink" title="真的是由场景决定的吗？"></a>真的是由场景决定的吗？</h4> 
+      <a class="article-more-link" href="/2025/02/23/%E5%A4%A7%E4%BC%97%E4%B8%8E%E5%B0%8F%E4%BC%97%E7%9A%84%E9%80%89%E6%8B%A9/"
+        >阅读更多...</a
+      >
+       
       <!-- reward -->
       
     </div>
@@ -301,11 +445,11 @@
   <p>前几天我无意间看到钱文忠的酒事会，谈到了中国人有关于山水的看法。我回想起我这10年的经历，浅谈一下我的看法。</p>
 <p>游山玩水，我们骨子里或多或少都有些期待，他寄托了我们摆脱工作、生活上各种繁杂琐碎的各种想象。现在文旅开始爆火，各大名山望川的人是络绎不绝。我玩水较少，但游山频繁。但每每游山多是乘兴而去，流连忘返，败兴而归。缘由以后有时间再专门讲述一番。每次游山归来，我禁不住问自己，我为什么这么喜欢去山里。</p>
 <h4 id="第一次理解：-纵使晴明无雨色，入云深处亦沾衣"><a href="#第一次理解：-纵使晴明无雨色，入云深处亦沾衣" class="headerlink" title="第一次理解： 纵使晴明无雨色，入云深处亦沾衣"></a>第一次理解： 纵使晴明无雨色，入云深处亦沾衣</h4><p>山中多云雾，凉爽宜人，又时有风。我很是喜欢沉浸在这种环境中，经常像效仿古人，建一小亭，叫上三五好友，带点酒，畅谈一下人生宇宙。累了便躺下，可以望着青树翠蔓、云深见寺发呆，任凭思绪四处飘悠。也可以闭上双眼，享受着清风的微抚，聆听山鸟鸣啼、流水潺潺。此行我们不为登山，只为享受这难得的良辰美景。</p>
-<h4 id="第二次理解：会当凌绝顶，一览众山小"><a href="#第二次理解：会当凌绝顶，一览众山小" class="headerlink" title="第二次理解：会当凌绝顶，一览众山小"></a>第二次理解：会当凌绝顶，一览众山小</h4><p>高处的风景很是壮观，可以俯看群山，可以极目远眺，往往此时我们壮怀激烈，心境开阔，有达成目标、苦尽甘来的舒畅、有一马平川的豪情、甚至有征服世界的雄心。除此之外，山顶的云海、日出、日落、雾凇，都是难得的美景。这时的我，此番来，只为登顶，去享受登顶带来的征服快感，去寻找、挑战和突破身体的极限，去体验山顶的那份开阔壮观。</p>
-<h4 id="第三次理解：可以是一个人的孤独，也可以是一群人的互助"><a href="#第三次理解：可以是一个人的孤独，也可以是一群人的互助" class="headerlink" title="第三次理解：可以是一个人的孤独，也可以是一群人的互助"></a>第三次理解：可以是一个人的孤独，也可以是一群人的互助</h4><p>后来我爬山迷上了野路。主要是一些上开发过度，路上全是观光车，每一两分钟过一辆，搞得路上乌烟瘴气。这时候，我发现了野路。循着野路，有一种探索前人足迹的感觉，但路上的人很少，空气比公路上好太多。记得有一次，我沿着一条野路走，走了大概一个多小时，中途没有碰到一个人，手机信号时断时续，发个消息很难，定位更是不准。在这一个多小时中，我也曾担心受怕过，害怕迷失在这深山之中，也曾大声放歌，享受这种短暂的与世隔绝。在这种兴奋与害怕交杂中，慢慢的完成一次自我的升华，或者是解脱。一个人走，总是格外的快，休息的时候，很喜欢胡思乱想，来一个人面对自己。直到前面逐渐开阔，人声逐渐喧哗，我走出了野路，既是欣喜，也有失落。路总是有尽头的。</p>
-<p>当然，野路也不总是一个人走。有的时候，特别是在相对危险的地方，也会有一群人堵在那里，你会看到有人手脚并用、止不住下滑，她无法站立，如果没有人帮助，她可能会滑倒山底，滑向那危险的深渊。不过，这个时候人们会挺身而出，互帮互助。在我们的帮助下，最后还是帮她度过了难关。我也有时被这种氛围感染，不在那么内向，在互助之中完善自己。一群人走得远。</p>
-<h4 id="第四次理解：归来，也无风雨也无晴"><a href="#第四次理解：归来，也无风雨也无晴" class="headerlink" title="第四次理解：归来，也无风雨也无晴"></a>第四次理解：归来，也无风雨也无晴</h4><p>现在，我依旧爬山，不过只是为了能够抽出时间来享受这自然，这清风流水，这日出日落，这鸟鸣山幽。用一个睡不着的午觉，什么都不干，摆脱永远处理不完的琐事，安顿自己漂着的内心，学会和享受闲。以后上山，不为登顶，只为闲。</p>
- 
+<h4 id="第二次理解：会当凌绝顶，一览众山小"><a href="#第二次理解：会当凌绝顶，一览众山小" class="headerlink" title="第二次理解：会当凌绝顶，一览众山小"></a>第二次理解：会当凌绝顶，一览众山小</h4><p>高处的风景很是壮观，可以俯看群山，可以极目远眺，往往此时我们壮怀激烈，心境开阔，有达成目标、苦尽甘来的舒畅、有一马平川的豪情、甚至有征服世界的雄心。除此之外，山顶的云海、日出、日落、雾凇，都是难得的美景。这时的我，此番来，只为登顶，去享受登顶带来的征服快感，去寻找、挑战和突破身体的极限，去体验山顶的那份开阔壮观。</p> 
+      <a class="article-more-link" href="/2024/11/28/%E5%B1%B1%E6%B0%B4%E2%80%94%E2%80%94%E6%B8%B8%E5%B1%B1%E7%AF%87/"
+        >阅读更多...</a
+      >
+       
       <!-- reward -->
       
     </div>
@@ -483,43 +627,29 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ul>
-<li>精准匹配：<ul>
+<li><p>精准匹配：</p>
+<ul>
 <li><code>\d</code>：数字</li>
 <li><code>\w</code>：字符</li>
 <li><code>\s</code> ：任何空白字符，包括空格、制表符、换行符等</li>
 </ul>
 </li>
-<li>模糊匹配：<ul>
+<li><p>模糊匹配：</p>
+<ul>
 <li><code>.</code>：单个任意字符</li>
 </ul>
 </li>
-<li>可变匹配：<ul>
+<li><p>可变匹配：</p>
+<ul>
 <li><code>*</code>：任意个字符</li>
 <li><code>+</code>：至少一个字符</li>
 <li><code>?</code>：0或1个字符</li>
 <li><code>&#123;&#125;</code>：<code>&#123;n&#125;</code>表示n个字符，用<code>&#123;n,m&#125;</code>表示n-m个字符</li>
-</ul>
-</li>
-</ul>
-<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><ul>
-<li><code>[]</code>：方括号中的符号需要转义，多个条件可以直接连接，或<ul>
-<li><code>0-9</code></li>
-<li><code>a-z</code></li>
-<li><code>A-Z</code></li>
-<li><code>\_</code></li>
-</ul>
-</li>
-<li><code>|</code>：表示或，<code>A|B</code>可以匹配A或B</li>
-<li><code>^</code>：表示行的开头，<code>^\d</code>表示必须以数字开头</li>
-<li><code>$</code>：表示行的结束，<code>\d$</code>表示必须以数字结束</li>
-</ul>
-<h2 id="re模块"><a href="#re模块" class="headerlink" title="re模块"></a>re模块</h2><h4 id="切分"><a href="#切分" class="headerlink" title="切分"></a>切分</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">re.split(正则表达式,字符串)</span><br><span class="line"></span><br><span class="line"># 举例，以多个空格或者逗号分割 </span><br><span class="line">&gt;&gt;&gt; re.split(r&#x27;[\s\,]+&#x27;, &#x27;a,b, c  d&#x27;)</span><br><span class="line">[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">re.match(表达式,字符串)</span><br><span class="line">分组用括号，括号内多个条件或时用|连接</span><br><span class="line"># 举例 时间分割</span><br><span class="line">&gt;&gt;&gt; t = &#x27;19:05:30&#x27;</span><br><span class="line">&gt;&gt;&gt; m = re.match(r&#x27;^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$&#x27;, t)</span><br><span class="line">&gt;&gt;&gt; m.groups()</span><br><span class="line">(&#x27;19&#x27;, &#x27;05&#x27;, &#x27;30&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h4><ul>
-<li>正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符</li>
-<li>在匹配符后面加上<code>?</code>号，为非贪婪匹配</li>
-</ul>
- 
+</ul> 
+      <a class="article-more-link" href="/2024/09/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/"
+        >阅读更多...</a
+      >
+       
       <!-- reward -->
       
     </div>
@@ -529,7 +659,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
 
     </footer>
   </div>
@@ -653,141 +783,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-服务器配置selenium"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/"
-    >服务器配置selenium</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/" class="article-date">
-  <time datetime="2024-08-21T12:50:39.000Z" itemprop="datePublished">2024-08-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h4 id="安装chrome浏览器"><a href="#安装chrome浏览器" class="headerlink" title="安装chrome浏览器"></a>安装chrome浏览器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 下载安装包</span><br><span class="line">$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"># 安装chrome</span><br><span class="line">$ sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"># 检查版本</span><br><span class="line">$ google-chrome --version</span><br></pre></td></tr></table></figure>
-<h4 id="安装chromedriver"><a href="#安装chromedriver" class="headerlink" title="安装chromedriver"></a>安装chromedriver</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># chromedriver地址</span><br><span class="line">https://registry.npmmirror.com/binary.html?path=chrome-for-testing</span><br><span class="line"></span><br><span class="line"># 下载驱动</span><br><span class="line">wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chrome-linux64.zip</span><br><span class="line"></span><br><span class="line"># 解压</span><br><span class="line">$ unzip chromedriver-linux64.zip</span><br><span class="line"></span><br><span class="line"># 移动位置（也可以不移，添加到环境变量或者程序中指定位置）</span><br><span class="line">cd chromedriver-linux64</span><br><span class="line">mv chromedriver /usr/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="无头模式网页加载不出-过慢"><a href="#无头模式网页加载不出-过慢" class="headerlink" title="无头模式网页加载不出&#x2F;过慢"></a>无头模式网页加载不出&#x2F;过慢</h4><ul>
-<li>更新selenium库<br>使用conda安装的selenium库版本比较老，使用pip安装和更新</li>
-</ul> 
-      <a class="article-more-link" href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-docker快速入门"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"
-    >docker快速入门</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="article-date">
-  <time datetime="2024-08-21T12:48:22.000Z" itemprop="datePublished">2024-08-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="Docker安装Mysql"><a href="#Docker安装Mysql" class="headerlink" title="Docker安装Mysql"></a>Docker安装Mysql</h2><ul>
-<li><p>Docker基础命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 启动</span><br><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ service docker start</span><br><span class="line"></span><br><span class="line"># 停止</span><br><span class="line">$ systemctl stop docker</span><br><span class="line"></span><br><span class="line"># 重启</span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询mysql</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search mysql</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>拉取mysql镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 默认最新</span><br><span class="line">$ docker pull mysql</span><br><span class="line"># 指定版本</span><br><span class="line">$ sudo docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="Docker使用Mysql"><a href="#Docker使用Mysql" class="headerlink" title="Docker使用Mysql"></a>Docker使用Mysql</h2> 
-      <a class="article-more-link" href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E3%80%81%E6%95%99%E7%A8%8B/" rel="tag">工具学习、教程</a></li></ul>
 
     </footer>
   </div>
