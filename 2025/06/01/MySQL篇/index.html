@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>大众与小众的选择 |  谢文灿</title>
+      <title>MySQL篇 |  谢文灿</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-大众与小众的选择"
+  id="post-MySQL篇"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  大众与小众的选择
+  MySQL篇
 </h1>
  
 
@@ -72,11 +72,11 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2025/02/23/%E5%A4%A7%E4%BC%97%E4%B8%8E%E5%B0%8F%E4%BC%97%E7%9A%84%E9%80%89%E6%8B%A9/" class="article-date">
-  <time datetime="2025-02-23T13:47:28.000Z" itemprop="datePublished">2025-02-23</time>
+      <a href="/2025/06/01/MySQL%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:08:11.000Z" itemprop="datePublished">2025-06-01</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a>
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
   </div>
   
 <div class="word_count">
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">878</span>
+            <span class="post-count">3.3k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">11 min</span>
         </span>
     </span>
 </div>
@@ -108,13 +108,136 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>前几天，我看到一个很有意思的问题：我们既从众，跟随潮流，同时我们又追求小众，选择与众不同。这既矛盾又统一的现象，引起了我对其本质以及我们的人生的一些思考。</p>
-<h4 id="场景决定我们的选择"><a href="#场景决定我们的选择" class="headerlink" title="场景决定我们的选择"></a>场景决定我们的选择</h4><p>大众与小众的选择，本质上是我们在不同场景下的选择。在面向效率的场景下，我们更倾向于大众，因为使用者众多，代表有更多的资源就行维护与优化，就有着更加方便、高效的使用体验。而在面向娱乐的场景下，可以选择小众，展示自己的与众不同，展示自己的特立独行。</p>
-<h4 id="真的是由场景决定的吗？"><a href="#真的是由场景决定的吗？" class="headerlink" title="真的是由场景决定的吗？"></a>真的是由场景决定的吗？</h4><span id="more"></span>
+  <h4 id="一条-SQL-查询语句是如何执行的"><a href="#一条-SQL-查询语句是如何执行的" class="headerlink" title="一条 SQL 查询语句是如何执行的"></a>一条 SQL 查询语句是如何执行的</h4><ol>
+<li>连接器:连接器负责跟客户端建立连接、获取权限、维持和管理连接。</li>
+<li>查询缓存: <code>MySQL</code> 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以<code>key-value</code> 对的形式，被直接缓存在内存中。</li>
+<li>分析器:你输入的是由多个字符串和空格组成的一条<code>SQL</code> 语句，<code>MySQL</code> 需要识别出里面的字符串分别是什么，代表什么。</li>
+<li>优化器:优化器是在表里面有多个索引的时候，决定使用哪个索引; 或者在一个语句有多表关联(<code>join</code> )的时候，决定各个表的连接顺序。</li>
+<li>执行器: <code>MySQL</code>通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进入了执行器阶段，开始执行语句。</li>
+</ol>
+<span id="more"></span>
 
-<p>上述的说法有一些道理，但是界限不清，也有着众多的反例的。马克思将人的需求分为三种：基本生存的需求、发展的需求和享受的需求。选择大众与小众，由需求决定，由强弱决定。追求大众，是来自于前两种需求，是在自身弱小情况下借助大众的力量获取的一种保障。追求大众，是聚少成多。公司不会重视我们个人对他们服务的感受，而我们想要他们重视，投入力量去优化，只有当我们的力量变得足够大，大到能够对公司产生足够的影响，甚至是危机感。选择小众的人，要么是自身有着足够的力量自己进行优化，或者是自身的力量足够让公司重视，要么就是这件事的体验在与我展示个性这种价值相比下，显得无关紧要，不值一提。弱者从众，强者独行，与其说是弱者和强者的特性，不如说是在其背景和力量下的最优选择，尽管夹杂些无奈。这导致了不少人因果倒置，开始宣传你是因为从众，才成为的弱者，只有特立独行的人才能成为强者。这也挺荒诞的。</p>
-<p>幸而强弱不是恒定的，需求也可以进行自我调整。强者在其弱小的方面，不也得从众，弱者在其自信的领域，也能特立独行。有人或许会说，创新是特立独行的人的专利，你从众只能平庸下去。这点，我不敢苟同，两者的关系目前我还不明晰，但是目前，创新不在我的论域之内，因为他与大众和小众的选择无关。顺便说提一句，我认为创新来自于需求和欲望。不要将属于小众的事物，算在选择小众理由和优点。这个世界本就不平均，在任何一方面都是两端小中间大，极强极弱者少，大众者多，与概率论中的高斯分布异曲同工。但他们都不是选择的理由，因为小众有两面，既不好也不坏，你的选择也与你想成为的无关，与你成为了什么有关，因为你不会知道你的选择会带来什么反应。</p>
-<p>最后，强弱如何转化呢，加法和减法。增加自身能量或是借助他人能量而变强，减少需求，无语则刚，没有人不会害怕一个连性命都在所不顾的人。</p>
+<h4 id="事务的四大特性有哪些？"><a href="#事务的四大特性有哪些？" class="headerlink" title="事务的四大特性有哪些？"></a>事务的四大特性有哪些？</h4><p>事务的四大特性通常被称为 <code>ACID</code> 特性</p>
+<ol>
+<li>原子性：确保事务的所有操作要么全部执行成功，要么全部失败回滚，不存在部分成功的情况。</li>
+<li>一致性：事务在执行前后，数据库从一个一致性状态转变到另一个一致性状态。</li>
+<li>隔离性：多个事务并发执行时，每个事务都应该被隔离开来，一个事务的执行不应该影响其他事务的执行。</li>
+<li>持久性：一旦事务被提交，它对数据库的改变就是永久性的，即使在系统故障或崩溃后也能够保持。</li>
+</ol>
+<h4 id="数据库的事务隔离级别有哪些？"><a href="#数据库的事务隔离级别有哪些？" class="headerlink" title="数据库的事务隔离级别有哪些？"></a>数据库的事务隔离级别有哪些？</h4><ol>
+<li><strong>读未提交（Read Uncommitted）：</strong><ul>
+<li>允许一个事务读取另一个事务尚未提交的数据修改。</li>
+<li>最低的隔离级别，存在脏读、不可重复读和幻读的问题。</li>
+</ul>
+</li>
+<li><strong>读已提交（Read Committed）：</strong><ul>
+<li>一个事务只能读取已经提交的数据。其他事务的修改在该事务提交之后才可见。</li>
+<li>解决了脏读问题，但仍可能出现不可重复读和幻读。</li>
+</ul>
+</li>
+<li><strong>可重复读（Repeatable Read）：</strong><ul>
+<li>事务执行期间，多次读取同一数据会得到相同的结果，即在事务开始和结束之间，其他事务对数据的修改不可见。</li>
+<li>解决了不可重复读问题，但仍可能出现幻读。</li>
+</ul>
+</li>
+<li><strong>序列化（Serializable）：</strong><ul>
+<li>最高的隔离级别，确保事务之间的并发执行效果与串行执行的效果相同，即不会出现脏读、不可重复读和幻读。</li>
+</ul>
+</li>
+</ol>
+<h4 id="MySQL的执行引擎有哪些？"><a href="#MySQL的执行引擎有哪些？" class="headerlink" title="MySQL的执行引擎有哪些？"></a>MySQL的执行引擎有哪些？</h4><p>MySQL的执行引擎主要负责查询的执行和数据的存储, 其执行引擎主要有<code>MyISAM</code>、<code>InnoDB</code>、<code>Memory</code> 等。</p>
+<ul>
+<li><p><code>InnoDB</code>引擎提供了对事务ACID的支持，还提供了行级锁和外键的约束，是目前MySQL的默认存储引擎，适用于需要事务和高并发的应用。</p>
+</li>
+<li><p><code>MyISAM</code>引擎是早期的默认存储引擎，支持全文索引，但是不支持事务，也不支持行级锁和外键约束，适用于快速读取且数据量不大的场景。</p>
+</li>
+<li><p><code>Memory</code>就是将数据放在内存中，访问速度快，但数据在数据库服务器重启后会丢失。</p>
+</li>
+</ul>
+<h4 id="MySQL为什么使用B-树来作索引【重点】"><a href="#MySQL为什么使用B-树来作索引【重点】" class="headerlink" title="MySQL为什么使用B+树来作索引【重点】"></a>MySQL为什么使用B+树来作索引【重点】</h4><p>B+树是一个B树的变种，提供了高效的数据检索、插入、删除和范围查询性能。</p>
+<ul>
+<li><p>单点查询：B 树进行单个索引查询时，时间代价为O(logn)。从平均时间代价来看，会比 B+ 树稍快一些。但是 B 树的查询波动会比较大，因为每个节点既存索引又存记录，所以有时候访问到了非叶子节点就可以找到索引，而有时需要访问到叶子节点才能找到索引。<strong>B+树的非叶子节点不存放实际的记录数据</strong>，仅存放索引，所以数据量相同的情况下，相比存储即存索引又存记录的 B 树，B+树的非叶子节点可以存放更多的索引，因此 B+ 树可以比 B 树更「矮胖」，查询底层节点的磁盘 I&#x2F;O次数会更少。</p>
+</li>
+<li><p>插入和删除效率：B+ 树有大量的冗余节点，删除一个节点的时候，可以直接从叶子节点中删除，甚至可以不动非叶子节点，删除非常快。B+ 树的插入也是一样，有冗余节点，插入可能存在节点的分裂（如果节点饱和），但是最多只涉及树的一条路径。B 树没有冗余节点，删除节点的时候非常复杂，可能涉及复杂的树的变形。</p>
+</li>
+<li><p>范围查询：B+ 树所有叶子节点间有一个链表进行连接，而 B 树没有将所有叶子节点用链表串联起来的结构，因此只能通过树的遍历来完成范围查询，这会涉及多个节点的磁盘 I&#x2F;O 操作，范围查询效率不如 B+ 树。存在大量范围检索的场景，适合使用 B+树，比如数据库。而对于大量的单个索引查询的场景，可以考虑 B 树，比如nosql的MongoDB。</p>
+</li>
+</ul>
+<h4 id="说一下索引失效的场景？"><a href="#说一下索引失效的场景？" class="headerlink" title="说一下索引失效的场景？"></a>说一下索引失效的场景？</h4><p>索引失效意味着查询操作不能有效利用索引进行数据检索，从而导致性能下降，下面一些场景会发生索引失效。</p>
+<ol>
+<li><strong>使用OR条件</strong>：当使用OR连接多个条件，并且每个条件用到不同的索引列时，索引可能不会被使用。</li>
+<li><strong>使用非等值查询</strong>：当使用<code>!=</code>或<code>&lt;&gt;</code>操作符时，索引可能不会被使用，特别是当非等值条件在WHERE子句的开始部分时。</li>
+<li>对列进行类型转换： 如果在查询中对列进行类型转换，例如将字符列转换为数字或日期，索引可能会失效。</li>
+<li><strong>使用LIKE语句</strong>：以通配符<code>%</code>开头的LIKE查询会导致索引失效。</li>
+<li><strong>函数或表达式</strong>：在列上使用函数或表达式作为查询条件，通常会导致索引失效。</li>
+<li>表连接中的列类型不匹配： 如果在连接操作中涉及的两个表的列类型不匹配，索引可能会失效。例如，一个表的列是整数，另一个表的列是字符，连接时可能会导致索引失效。</li>
+</ol>
+<h4 id="undo-log、redo-log、binlog-有什么用？"><a href="#undo-log、redo-log、binlog-有什么用？" class="headerlink" title="undo log、redo log、binlog 有什么用？"></a>undo log、redo log、binlog 有什么用？</h4><ul>
+<li><code>undo log</code>是<code>Innodb</code>存储引擎层生成的日志，实现了事务中的原子性，主要用于事务回滚和<code>MVCC</code>。</li>
+<li><code>redo log</code>是物理日志，记录了某个数据页做了什么修改，每当执行一个事务就会产生一条或者多条物理日志。</li>
+<li><code>binlog</code> (归档日志）是<code>Server</code> 层生成的日志，主要用于数据备份和主从复制。</li>
+</ul>
+<h4 id="什么是慢查询？原因是什么？可以怎么优化？"><a href="#什么是慢查询？原因是什么？可以怎么优化？" class="headerlink" title="什么是慢查询？原因是什么？可以怎么优化？"></a>什么是慢查询？原因是什么？可以怎么优化？</h4><p>数据库查询的执行时间超过指定的超时时间时，就被称为慢查询。</p>
+<p>原因：</p>
+<ul>
+<li>查询语句比较复杂：查询涉及多个表，包含复杂的连接和子查询，可能导致执行时间较长。</li>
+<li>查询数据量大：当查询的数据量庞大时，即使查询本身并不复杂，也可能导致较长的执行时间。</li>
+<li>缺少索引：如果查询的表没有合适的索引，需要遍历整张表才能找到结果，查询速度较慢。</li>
+<li>数据库设计不合理：数据库表设计庞大，查询时可能需要较多时间。</li>
+<li>并发冲突：当多个查询同时访问相同的资源时，可能发生并发冲突，导致查询变慢。</li>
+<li>硬件资源不足：如果MySQL服务器上同时运行了太多的查询，会导致服务器负载过高，从而导致查询变慢</li>
+</ul>
+<p>优化：</p>
+<ol>
+<li>运行语句，找到慢查询的sql</li>
+<li>查询区分度最高的字段</li>
+<li>explain：显示mysql如何使用索引来处理select语句以及连接表，可以帮助选择更好的索引、写出更优化的查询语句</li>
+<li><code>order by limit</code>形式的sql语句，让排序的表优先查</li>
+<li>考虑建立索引原则</li>
+</ol>
+<h4 id="MySQL-有哪些锁"><a href="#MySQL-有哪些锁" class="headerlink" title="MySQL 有哪些锁"></a>MySQL 有哪些锁</h4><ol>
+<li><p><strong>全局锁：</strong></p>
+<ul>
+<li><p>全局锁是对整个数据库实例加锁。最典型的应用场景是进行<strong>全库的逻辑备份</strong>。</p>
+</li>
+<li><p>通过执行 <code>FLUSH TABLES WITH READ LOCK</code> (FTWRL) 命令，可以使整个数据库处于<strong>只读状态</strong>，阻止所有对数据的修改操作（包括 INSERT, DELETE, UPDATE 以及大部分 DDL 语句）。这样可以确保备份期间数据的<strong>一致性</strong>。</p>
+</li>
+<li><p>释放全局锁可以使用 <code>UNLOCK TABLES</code> 命令或客户端断开连接。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>表级锁：</strong> 直接锁住整张表。</p>
+<ul>
+<li><p><strong>表锁 (Table Lock):</strong><br>  ① 是最基本的表级锁，可以通过 <code>LOCK TABLES</code> 命令<strong>显式地</strong>对表加锁，例如 <code>LOCK TABLES table_name READ</code> (表读锁) 或 <code>LOCK TABLES table_name WRITE</code> (表写锁)。<br>  ② 表锁<strong>开销最小</strong>，但会严重<strong>降低并发度</strong>，因为会阻塞对该表的其他所有读写操作。MyISAM 存储引擎默认使用表锁。</p>
+</li>
+<li><p><strong>元数据锁 (Metadata Lock &#x2F; MDL):</strong><br>  ① MDL 是在访问数据库对象（如表、视图、存储过程等）时<strong>自动添加</strong>的锁。<br>  ② 它的主要作用是保证在执行 DDL 操作时，不会与正在进行的 DML 操作发生冲突，反之亦然。例如，当一个事务正在读取表数据时，如果另一个会话尝试修改表结构，就会被 MDL 阻塞，直到读事务完成。</p>
+</li>
+<li><p><strong>意向锁 (Intention Lock):</strong><br>  ① 意向锁是 InnoDB 存储引擎<strong>自动添加的表级锁</strong>。<br>  ② 它用于表示一个事务<strong>即将</strong>对表中的行加<strong>共享锁（IS Lock）</strong> 或 <strong>排他锁（IX Lock）</strong> 。<br>  ③ 意向锁的存在是为了提高行级锁和表级锁的兼容性判断效率。当一个事务尝试加表级共享锁或排他锁时，<strong>只需要检查表上是否存在意向锁</strong>，而无需遍历所有行检查是否存在行级锁。</p>
+</li>
+<li><p><strong>AUTO-INC 锁 (自增锁):</strong><br>  ① AUTO-INC 锁是一种特殊的表级锁，在向<strong>包含自增列</strong>的表中插入数据时使用。<br>  ② 它用于保证在<strong>并发插入</strong>的情况下，自增值能够<strong>唯一且连续</strong>地生成。在插入完成后，自增锁会立即释放。<br>  ③ 在不同的 <code>innodb_autoinc_lock_mode</code> 配置下，自增锁的行为会有所不同，以平衡并发度和自增值的连续性。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>行级锁：</strong> 只锁住表中的某一行或某些行。行级锁开销较大，但能显著提高并发度。行级锁主要由 InnoDB 存储引擎实现。</p>
+<ul>
+<li><p><strong>记录锁 (Record Lock):</strong><br>  ① 记录锁<strong>也称为行锁</strong>，它锁住的是索引记录。<br>  ② 当一个事务对某条记录进行<strong>修改或删除</strong>时，会加<strong>排他记录锁</strong>；当一个事务对某条记录进行<strong>读取</strong>（在特定隔离级别下）时，会加<strong>共享记录锁</strong>。</p>
+</li>
+<li><p><strong>间隙锁 (Gap Lock):</strong><br>  ① 间隙锁是 InnoDB 在可重复读 (REPEATABLE READ) 隔离级别下为了防止<strong>幻读</strong>而引入的一种锁。<br>  ② 它锁住的是<strong>索引记录之间的间隙，而不是记录本身</strong>。间隙锁之间是兼容的，但会阻塞其他事务在被锁的间隙中插入记录。</p>
+</li>
+<li><p><strong>临界锁 (Next-Key Lock):</strong><br>  ① 临界锁是 <strong>InnoDB 默认的行锁类型</strong>，它是<strong>记录锁和间隙锁的组合</strong>，锁住的是<strong>索引记录以及该记录之前的间隙</strong>。<br>  ② 临界锁在可重复读隔离级别下使用，既能防止幻读，也能保证索引记录的唯一性。</p>
+</li>
+<li><p><strong>插入意向锁 (Insert Intention Lock):</strong><br>  ① 插入意向锁是一种<strong>特殊的间隙锁</strong>，它在事务执行 INSERT 操作时产生。<br>  ② 当多个事务在同一个间隙中插入记录时，如果它们插入的位置不冲突，它们可以同时持有插入意向锁，而无需互相等待。<br>  ③ 插入意向锁表示了事务在某个间隙中插入记录的<strong>意图</strong>，但不会阻塞其他事务在该间隙中插入记录（除非有冲突的间隙锁）。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="MySQL和Redis的区别？"><a href="#MySQL和Redis的区别？" class="headerlink" title="MySQL和Redis的区别？"></a>MySQL和Redis的区别？</h4><ul>
+<li>Redis基于键值对，支持多种数据结构；而MySQL是一种关系型数据库，使用表来组织数据。</li>
+<li>Redis将数据存在内存中，通过持久化机制将数据写入磁盘，MySQL通常将数据存储在磁盘上。</li>
+<li>Redis不使用SQL，而是使用自己的命令集，MySQL使用SQL来进行数据查询和操作。</li>
+<li>Redis以高性能和低延迟为目标，适用于读多写少的应用场景，MySQL 适用于需要支持复杂查询、事务处理、拥有大规模数据集的场景。</li>
+</ul>
+<p>Redis 更适合处理高速、高并发的数据访问，以及需要复杂数据结构和功能的场景，在实际应用中，很多系统会同时使用 MySQL 和 Redis。</p>
  
       <!-- reward -->
       
@@ -185,12 +308,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/02/23/%E5%A4%A7%E4%BC%97%E4%B8%8E%E5%B0%8F%E4%BC%97%E7%9A%84%E9%80%89%E6%8B%A9/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/06/01/MySQL%E7%AF%87/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%9D%E8%80%83/" rel="tag">思考</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
 
     </footer>
   </div>
@@ -198,19 +321,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2025/03/16/Makefile%E6%95%99%E7%A8%8B/" class="article-nav-link">
+      <a href="/2025/06/01/C++%E7%AF%87/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            Makefile教程
+            C++篇
           
         </div>
       </a>
     
     
-      <a href="/2024/12/09/%E6%A0%A1%E9%AA%8C%E5%92%8C%E4%B8%8E%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8F%8D%E7%A0%81%E6%B1%82%E5%92%8C/" class="article-nav-link">
+      <a href="/2025/06/01/GDB%E7%AC%94%E8%AE%B0/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">校验和与二进制反码求和</div>
+        <div class="article-nav-title">GDB笔记</div>
       </a>
     
   </nav>

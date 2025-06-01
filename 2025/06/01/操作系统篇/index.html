@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>操作系统篇 |  谢文灿</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-操作系统篇"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  操作系统篇
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:09:08.000Z" itemprop="datePublished">2025-06-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">4.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">14 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="进程和线程之间有什么区别"><a href="#进程和线程之间有什么区别" class="headerlink" title="进程和线程之间有什么区别"></a>进程和线程之间有什么区别</h4><p><strong>进程是资源分配和调度的基本单位。****线程是程序执行的最小单位</strong>，线程是进程的子任务，是进程内的执行单元。 一个进程至少有一个线程，一个进程可以运行多个线程，这些线程共享同一块内存。</p>
+<p>资源开销：</p>
+<ul>
+<li>进程：由于每个进程都有独立的内存空间，创建和销毁进程的开销较大。进程间切换需要保存和恢复整个进程的状态，因此上下文切换的开销较高。</li>
+<li>线程：线程共享相同的内存空间，创建和销毁线程的开销较小。线程间切换只需要保存和恢复少量的线程上下文，因此上下文切换的开销较小。</li>
+</ul>
+<p>通信与同步：</p>
+<ul>
+<li>进程：由于进程间相互隔离，进程之间的通信需要使用一些特殊机制，如管道、消息队列、共享内存等。</li>
+<li>线程：由于线程共享相同的内存空间，它们之间可以直接访问共享数据，线程间通信更加方便。</li>
+</ul>
+<p>安全性：</p>
+<ul>
+<li>进程：由于进程间相互隔离，一个进程的崩溃不会直接影响其他进程的稳定性。</li>
+<li>线程：由于线程共享相同的内存空间，一个线程的错误可能会影响整个进程的稳定性。</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="并行和并发有什么区别"><a href="#并行和并发有什么区别" class="headerlink" title="并行和并发有什么区别"></a>并行和并发有什么区别</h4><p>参考答案</p>
+<blockquote>
+<ul>
+<li>并行是在同一时刻执行多个任务。</li>
+<li>并发是在相同的时间段内执行多个任务，任务可能交替执行，通过调度实现。</li>
+</ul>
+</blockquote>
+<p>并行是指在同一时刻执行多个任务，这些任务可以同时进行，每个任务都在不同的处理单元（如多个CPU核心）上执行。在并行系统中，多个处理单元可以同时处理独立的子任务，从而加速整体任务的完成。</p>
+<p>并发是指在相同的时间段内执行多个任务，这些任务可能不是同时发生的，而是交替执行，通过时间片轮转或者事件驱动的方式。并发通常与任务之间的交替执行和任务调度有关。</p>
+<h4 id="解释一下用户态和核心态，什么场景下，会发生内核态和用户态的切换？"><a href="#解释一下用户态和核心态，什么场景下，会发生内核态和用户态的切换？" class="headerlink" title="解释一下用户态和核心态，什么场景下，会发生内核态和用户态的切换？"></a>解释一下用户态和核心态，什么场景下，会发生内核态和用户态的切换？</h4><ol>
+<li>用户态和内核态的区别</li>
+</ol>
+<p>用户态和内核态是操作系统为了保护系统资源和实现权限控制而设计的两种不同的CPU运行级别，可以<strong>控制进程或程序对计算机硬件资源的访问权限和操作范围。</strong></p>
+<ul>
+<li>用户态：在用户态下，进程或程序只能访问受限的资源和执行受限的指令集，不能直接访问操作系统的核心部分，也不能直接访问硬件资源。</li>
+<li>核心态：核心态是操作系统的特权级别，允许进程或程序执行特权指令和访问操作系统的核心部分。在核心态下，进程可以直接访问硬件资源，执行系统调用，管理内存、文件系统等操作。</li>
+</ul>
+<ol start="2">
+<li>在什么场景下，会发生内核态和用户态的切换</li>
+</ol>
+<ul>
+<li>系统调用：当用户程序需要请求操作系统提供的服务时，会通过系统调用进入内核态。</li>
+<li>异常：当程序执行过程中出现错误或异常情况时，CPU会自动切换到内核态，以便操作系统能够处理这些异常。</li>
+<li>中断：外部设备（如键盘、鼠标、磁盘等）产生的中断信号会使CPU从用户态切换到内核态。操作系统会处理这些中断，执行相应的中断处理程序，然后再将CPU切换回用户态。</li>
+</ul>
+<h4 id="进程调度算法你了解多少"><a href="#进程调度算法你了解多少" class="headerlink" title="进程调度算法你了解多少"></a>进程调度算法你了解多少</h4><ul>
+<li>先来先服务：按照请求的顺序进行调度。 这种调度方式简单，但是能导致较长作业阻塞较短作业。</li>
+<li>最短作业优先：非抢占式的调度算法，按估计运行时间最短的顺序进行调度。 但是如果一直有短作业到来，那么长作业永远得不到调度，造成长作业“饥饿”现象。</li>
+<li>最短剩余时间优先：基于最短作业优先改进，按剩余运行时间的顺序进行调度。当一个新的作业到达时，其整个运行时间与当前进程的剩余时间作比较。如果新的进程需要的时间更少，则挂起当前进程，运行新的进程。否则新的进程等待。</li>
+<li>优先级调度：为每个进程分配一个优先级，按优先级进行调度。为了防止低优先级的进程永远等不到调度，可以随着时间的推移增加等待进程的优先级。</li>
+<li>时间片轮转：为每个进程分配一个时间片，进程轮流执行，时间片用完后切换到下一个进程。</li>
+<li>多级队列：时间片轮转调度算法和优先级调度算法的结合。 将进程分为不同的优先级队列，每个队列有自己的调度算法。</li>
+</ul>
+<h4 id="进程间有哪些通信方式"><a href="#进程间有哪些通信方式" class="headerlink" title="进程间有哪些通信方式"></a>进程间有哪些通信方式</h4><p>参考答案</p>
+<ol>
+<li>管道：是一种半双工的通信方式，数据只能单向流动而且只能在具有父子进程关系的进程间使用。</li>
+<li>命名管道： 类似管道，也是半双工的通信方式，但是它允许在不相关的进程间通信。</li>
+<li>消息队列：允许进程发送和接收消息，而消息队列是消息的链表，可以设置消息优先级。</li>
+<li>信号：用于发送通知到进程，告知其发生了某种事件或条件。</li>
+<li>信号量：是一个计数器，可以用来控制多个进程对共享资源的访问，常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此主要作为进程间以及同一进程内不同线程之间的同步手段。</li>
+<li>共享内存：就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的进程通信方式，</li>
+<li><code>Socket</code>套接字：是支持TCP&#x2F;IP 的网络通信的基本操作单元，主要用于在客户端和服务器之间通过网络进行通信。</li>
+</ol>
+<h4 id="解释一下进程同步和互斥，以及如何实现进程同步和互斥"><a href="#解释一下进程同步和互斥，以及如何实现进程同步和互斥" class="headerlink" title="解释一下进程同步和互斥，以及如何实现进程同步和互斥"></a>解释一下进程同步和互斥，以及如何实现进程同步和互斥</h4><p>进程同步是指<strong>多个并发执行的进程之间协调和管理它们的执行顺序，以确保它们按照一定的顺序或时间间隔执行。</strong></p>
+<p><strong>互斥指的是在某一时刻只允许一个进程访问某个共享资源。当一个进程正在使用共享资源时，其他进程不能同时访问该资源。</strong></p>
+<p>解决进程同步和互斥的问题有很多种方法，其中一种常见的方法是使用<strong>信号量和 PV 操作</strong>。信号量是一种特殊的变量，它表示系统中某种资源的数量或者状态。PV 操作是一种对信号量进行增加或者减少的操作，它们可以用来控制进程之间的同步或者互斥。</p>
+<ul>
+<li><strong>P操作</strong>：相当于“检查”信号量，如果资源可用，就减少计数，然后使用资源。</li>
+<li><strong>V操作</strong>：相当于“归还”资源，增加信号量的计数，并可能唤醒等待的进程。</li>
+</ul>
+<p>除此之外，下面的方法也可以解决进程同步和互斥问题：</p>
+<ul>
+<li><strong>临界区</strong>：将可能引发互斥问题的代码段称为临界区，里面包含了需要互斥访问的资源。进入这个区域前需要先获取锁，退出临界区后释放该锁。这确保同一时间只有一个进程可以进入临界区。</li>
+<li><strong>互斥锁（Mutex）</strong>：互斥锁是一种同步机制，用于实现互斥。每个共享资源都关联一个互斥锁，进程在访问该资源前需要先获取互斥锁，使用完后释放锁。只有获得锁的进程才能访问共享资源。</li>
+<li><strong>条件变量</strong>：条件变量用于在进程之间传递信息，以便它们在特定条件下等待或唤醒。通常与互斥锁一起使用，以确保等待和唤醒的操作在正确的时机执行。</li>
+</ul>
+<h4 id="什么是死锁，如何避免死锁？"><a href="#什么是死锁，如何避免死锁？" class="headerlink" title="什么是死锁，如何避免死锁？"></a>什么是死锁，如何避免死锁？</h4><p>死锁是系统中两个或多个进程在执行过程中，因争夺资源而造成的一种僵局。当每个进程都持有一定的资源并等待其他进程释放它们所需的资源时，如果这些资源都被其他进程占有且不释放，就导致了死锁。</p>
+<p>死锁只有同时满足以下四个条件才会发生：</p>
+<ul>
+<li>互斥条件：一个进程占用了某个资源时，其他进程无法同时占用该资源。</li>
+<li>请求保持条件：一个进程因为请求资源而阻塞的时候，不会释放自己的资源。</li>
+<li>不可剥夺条件：资源不能被强制性地从一个进程中剥夺，只能由持有者自愿释放。</li>
+<li>循环等待条件：多个进程之间形成一个循环等待资源的链，每个进程都在等待下一个进程所占有的资源。</li>
+</ul>
+<p>避免死锁：<strong>通过破坏死锁的四个必要条件之一来预防死锁。比如破坏循环等待条件，让所有进程按照相同的顺序请求资源。</strong> 检测死锁：通过检测系统中的资源分配情况来判断是否存在死锁。例如，可以使用资源分配图或银行家算法进行检测。 解除死锁：一旦检测到死锁存在，可以采取一些措施来解除死锁。例如，可以通过抢占资源、终止某些进程或进行资源回收等方式来解除死锁。</p>
+<h4 id="介绍一下几种典型的锁"><a href="#介绍一下几种典型的锁" class="headerlink" title="介绍一下几种典型的锁"></a>介绍一下几种典型的锁</h4><ul>
+<li><strong>互斥锁</strong>：互斥锁是一种最常见的锁类型，用于实现互斥访问共享资源。在任何时刻，只有一个线程可以持有互斥锁，其他线程必须等待直到锁被释放。这确保了同一时间只有一个线程能够访问被保护的资源。</li>
+<li>自旋锁：自旋锁是一种基于忙等待的锁，即线程在尝试获取锁时会不断轮询，直到锁被释放。</li>
+</ul>
+<p>其他的锁都是基于这两个锁的</p>
+<ul>
+<li>读写锁：允许多个线程同时读共享资源，只允许一个线程进行写操作。分为读（共享）和写（排他）两种状态。</li>
+<li>悲观锁：认为多线程同时修改共享资源的概率比较高，所以访问共享资源时候要上锁</li>
+<li>乐观锁：先不管，修改了共享资源再说，如果出现同时修改的情况，再放弃本次操作。</li>
+</ul>
+<h4 id="讲一讲你理解的虚拟内存"><a href="#讲一讲你理解的虚拟内存" class="headerlink" title="讲一讲你理解的虚拟内存"></a>讲一讲你理解的虚拟内存</h4><p>虚拟内存是指在每一个进程创建加载的过程中，会分配一个连续虚拟地址空间，<strong>它不是真实存在的，而是通过映射与实际物理地址空间</strong>对应，这样就可以使每个进程看起来都有自己独立的连续地址空间，并允许程序访问比物理内存<code>RAM</code>更大的地址空间, 每个程序都可以认为它拥有足够的内存来运行。</p>
+<p>需要虚拟内存的原因：</p>
+<ul>
+<li>内存扩展： 虚拟内存使得每个程序都可以使用比实际可用内存更多的内存，从而允许运行更大的程序或处理更多的数据。</li>
+<li>内存隔离：虚拟内存还提供了进程之间的内存隔离。每个进程都有自己的虚拟地址空间，因此一个进程无法直接访问另一个进程的内存。</li>
+<li>物理内存管理：虚拟内存允许操作系统动态地将数据和程序的部分加载到物理内存中，以满足当前正在运行的进程的需求。当物理内存不足时，操作系统可以将不常用的数据或程序暂时移到硬盘上，从而释放内存，以便其他进程使用。</li>
+<li>页面交换：当物理内存不足时，操作系统可以将一部分数据从物理内存写入到硬盘的虚拟内存中，这个过程被称为页面交换。当需要时，数据可以再次从虚拟内存中加载到物理内存中。这样可以保证系统可以继续运行，尽管物理内存有限。</li>
+<li>内存映射文件：虚拟内存还可以用于将文件映射到内存中，这使得文件的读取和写入可以像访问内存一样高效。</li>
+</ul>
+<h4 id="你知道的线程同步的方式有哪些？"><a href="#你知道的线程同步的方式有哪些？" class="headerlink" title="你知道的线程同步的方式有哪些？"></a>你知道的线程同步的方式有哪些？</h4><p>线程同步机制是指在多线程编程中，为了保证线程之间的互不干扰，而采用的一种机制。常见的线程同步机制有以下几种：</p>
+<ol>
+<li>互斥锁：互斥锁是最常见的线程同步机制。它允许只有一个线程同时访问被保护的临界区（共享资源）</li>
+<li>条件变量：条件变量用于线程间通信，允许一个线程等待某个条件满足，而其他线程可以发出信号通知等待线程。通常与互斥锁一起使用。</li>
+<li>读写锁： 读写锁允许多个线程同时读取共享资源，但只允许一个线程写入资源。</li>
+<li>信号量：用于控制多个线程对共享资源进行访问的工具。</li>
+</ol>
+<h4 id="有哪些页面置换算法"><a href="#有哪些页面置换算法" class="headerlink" title="有哪些页面置换算法"></a>有哪些页面置换算法</h4><p>常见页面置换算法有最佳置换算法（OPT）、先进先出（FIFO）、最近最久未使用算法（LRU）、时钟算法（Clock） 等。</p>
+<ol>
+<li>最近最久未使用算法<code>LRU</code> ：LRU算法<strong>基于页面的使用历史，通过选择最长时间未被使用的页面进行置换。</strong></li>
+<li>先进先出<code>FIFO</code>算法：也就是<strong>最先进入内存的页面最先被置换出去</strong>。</li>
+<li>最不经常使用<code>LFU</code> ：淘汰访问次数最少的页面，考虑页面的访问频率。</li>
+<li>时钟算法<code>CLOCK</code>：Clock算法的核心思想是通过使用一个指针(称为时钟指针)在环形链表上遍历，检查页面是否被访问过, 当需要进行页面置换时，Clock算法从时钟指针的位置开始遍历环形链表。 如果当前页面的访问位为0，表示该页面最久未被访问，可以选择进行置换。将访问位设置为1，继续遍历下一个页面。 如果当前页面的访问位为1，表示该页面最近被访问过，它仍然处于活跃状态。将访问位设置为0，并继续遍历下一个页面如果遍历过程中找到一个访问位为0的页面，那么选择该页面进行置换。</li>
+<li>最佳置换算法: 该<strong>算法根据未来的页面访问情况，选择最长时间内不会被访问到的页面进行置换</strong>。那么就有一个问题了，未来要访问什么页面，操作系统怎么知道的呢?操作系统当然不会知道，所以这种算法只是一种理想情况下的置换算法，通常是无法实现的。</li>
+</ol>
+<h4 id="说一下-select、poll、epoll"><a href="#说一下-select、poll、epoll" class="headerlink" title="说一下 select、poll、epoll"></a>说一下 select、poll、epoll</h4><p>I&#x2F;O多路复用通常通过select、poll、epoll等系统调用来实现。</p>
+<ul>
+<li><strong>select：</strong> select是一个最古老的I&#x2F;O多路复用机制，它可以监视多个文件描述符的可读、可写和错误状态。然而，但是它的效率可能随着监视的文件描述符数量的增加而降低。</li>
+<li><strong>poll：</strong> poll是select的一种改进，它使用<strong>轮询方式</strong>来检查多个文件描述符的状态，避免了select中文件描述符数量有限的问题。但对于大量的文件描述符，poll的性能也可能变得不足够高效。</li>
+<li><strong>epoll：</strong> epoll是Linux特有的I&#x2F;O多路复用机制，相较于select和poll，它在处理大量文件描述符时更加高效。epoll使用事件通知的方式，只有在文件描述符就绪时才会通知应用程序，而不需要应用程序轮询。</li>
+</ul>
+<p><strong>总结</strong>：<code>select</code>是最早的 <code>I/O</code> 多路复用技术，但受到文件描述符数量和效率方面的限制。<code>poll</code>克服了文件描述符数量的限制，但仍然存在一定的效率问题。<code>epoll</code>是一种高效的I&#x2F;O多路复用技术，尤其适用于高并发场景，但它仅在 <code>Linux</code> 平台上可用。一般来说，<code>epoll</code> 的效率是要比 <code>select</code> 和 <code>poll</code> 高的，但是对于活动连接较多的时候，由于回调函数触发的很频繁，其效率不一定比 <code>select</code> 和 <code>poll</code> 高。所以 <code>epoll</code> 在连接数量很多，但活动连接较小的情况性能体现的比较明显。</p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/06/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2025/06/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AF%87/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">计算机网络篇</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo.yelo.homes/"
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2025
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="谢文灿"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://yelo056883.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="86"
+        src="//music.163.com/outchain/player?type=2&id=864711417&auto=1&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>
