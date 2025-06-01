@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>八股文心得体会 |  谢文灿</title>
+      <title>GDB笔记 |  谢文灿</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-八股文心得体会"
+  id="post-GDB笔记"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  八股文心得体会
+  GDB笔记
 </h1>
  
 
@@ -72,8 +72,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2025/05/30/%E5%85%AB%E8%82%A1%E6%96%87%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/" class="article-date">
-  <time datetime="2025-05-30T02:59:01.000Z" itemprop="datePublished">2025-05-30</time>
+      <a href="/2025/06/01/GDB%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2025-06-01T14:04:36.000Z" itemprop="datePublished">2025-06-01</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">506</span>
+            <span class="post-count">859</span>
         </span>
     </span>
 
@@ -93,26 +93,332 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <p>为期40天的八股文训练营，让我收获颇丰。记得第一次面试的时候，面试官问的基本都是八股文上的题目，我虽然有着计算机网络、数据库、操作系统、C++等内容的知识储备，但是在面试的压力下，加上知识不成体系，回答的模棱两可、支支吾吾。而经过长达40天的训练，我对面试开始得心应手起来。我认为训练营的亮点如下：</p>
+  <p>最近早手撕一个内存池，结果程序无法通过边界测试，找了许久也没找到问题，就学习了GDB进行调试，突然发现我之前过的是什么苦日子，早用上GDB我之前蓝桥杯不乱杀。特此记录一下。</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><ul>
+<li>添加<code>-g</code>，生成调试文件</li>
+<li>删除<code>-O1</code>&#x2F;<code>-O2</code>&#x2F;<code>-O3</code>，关闭编译器优化</li>
+</ul>
+<h3 id="一、程序启动与加载"><a href="#一、程序启动与加载" class="headerlink" title="一、程序启动与加载"></a>一、程序启动与加载</h3><table>
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>简写</strong></th>
+<th><strong>用法</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>gdb &lt;可执行文件&gt;</code></td>
+<td>-</td>
+<td>加载调试程序</td>
+<td><code>gdb a.out</code></td>
+</tr>
+<tr>
+<td><code>run</code></td>
+<td><code>r</code></td>
+<td>启动程序（可带参数）</td>
+<td><code>run arg1 arg2</code></td>
+</tr>
+<tr>
+<td><code>set args</code></td>
+<td>-</td>
+<td>设置程序启动参数</td>
+<td><code>set args -b -x</code></td>
+</tr>
+<tr>
+<td><code>attach &lt;pid&gt;</code></td>
+<td>-</td>
+<td>附加到正在运行的进程</td>
+<td><code>attach 1234</code></td>
+</tr>
+<tr>
+<td><code>file &lt;可执行文件&gt;</code></td>
+<td>-</td>
+<td>在GDB内加载程序</td>
+<td><code>file a.out</code></td>
+</tr>
+</tbody></table>
+<h3 id="二、断点管理"><a href="#二、断点管理" class="headerlink" title="二、断点管理"></a>二、断点管理</h3><table>
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>简写</strong></th>
+<th><strong>用法</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>break &lt;行号/函数名&gt;</code></td>
+<td><code>b</code></td>
+<td>设置断点</td>
+<td><code>b main</code> 或 <code>b 101</code></td>
+</tr>
+<tr>
+<td><code>break &lt;文件:行号&gt;</code></td>
+<td><code>b</code></td>
+<td>指定文件断点</td>
+<td><code>b test.c:20</code></td>
+</tr>
+<tr>
+<td><code>break *&lt;内存地址&gt;</code></td>
+<td><code>b</code></td>
+<td>内存地址断点</td>
+<td><code>b *0x400448</code></td>
+</tr>
+<tr>
+<td><code>break ... if &lt;条件&gt;</code></td>
+<td><code>b</code></td>
+<td>条件断点</td>
+<td><code>b 30 if i==5</code></td>
+</tr>
+<tr>
+<td><code>info breakpoints</code></td>
+<td><code>i b</code></td>
+<td>查看所有断点</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>delete &lt;断点编号&gt;</code></td>
+<td><code>d</code></td>
+<td>删除断点</td>
+<td><code>delete 2</code></td>
+</tr>
+<tr>
+<td><code>disable/enable &lt;断点编号&gt;</code></td>
+<td>-</td>
+<td>禁用&#x2F;启用断点</td>
+<td><code>disable 1</code></td>
+</tr>
+<tr>
+<td><code>tbreak</code></td>
+<td><code>tb</code></td>
+<td>设置临时断点（命中后自动删除）</td>
+<td><code>tbreak foo</code></td>
+</tr>
+<tr>
+<td><code>watch &lt;变量&gt;</code></td>
+<td>-</td>
+<td>监视变量变化</td>
+<td><code>watch x</code></td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<h3 id="三、程序执行控制"><a href="#三、程序执行控制" class="headerlink" title="三、程序执行控制"></a>三、程序执行控制</h3><table>
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>简写</strong></th>
+<th><strong>用法</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>continue</code></td>
+<td><code>c</code></td>
+<td>继续运行至下一个断点</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>step</code></td>
+<td><code>s</code></td>
+<td>单步进入（会跳入函数内部）</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>next</code></td>
+<td><code>n</code></td>
+<td>单步跳过（不进入函数）</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>finish</code></td>
+<td><code>fin</code></td>
+<td>执行完当前函数并暂停</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>until</code></td>
+<td><code>u</code></td>
+<td>运行至当前循环外或指定行</td>
+<td><code>until 50</code></td>
+</tr>
+<tr>
+<td><code>return</code></td>
+<td>-</td>
+<td>强制从当前函数返回</td>
+<td><code>return 0</code>（返回值）</td>
+</tr>
+<tr>
+<td><code>kill</code></td>
+<td>-</td>
+<td>终止正在调试的程序</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="四、数据查看与修改"><a href="#四、数据查看与修改" class="headerlink" title="四、数据查看与修改"></a>四、数据查看与修改</h3><table>
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>简写</strong></th>
+<th><strong>用法</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>print &lt;表达式&gt;</code></td>
+<td><code>p</code></td>
+<td>打印变量&#x2F;表达式值</td>
+<td><code>p x</code> 或 <code>p *ptr@10</code>（数组）</td>
+</tr>
+<tr>
+<td><code>display &lt;变量&gt;</code></td>
+<td>-</td>
+<td>每次暂停自动显示变量值</td>
+<td><code>display i</code></td>
+</tr>
+<tr>
+<td><code>info locals</code></td>
+<td><code>i loc</code></td>
+<td>查看当前栈帧局部变量</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>info args</code></td>
+<td>-</td>
+<td>查看函数参数</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>x/&lt;格式&gt; &lt;地址&gt;</code></td>
+<td>-</td>
+<td>检查内存内容</td>
+<td><code>x/10xw 0x400000</code>（16进制）</td>
+</tr>
+<tr>
+<td><code>set var &lt;变量&gt;=&lt;值&gt;</code></td>
+<td>-</td>
+<td>修改变量值</td>
+<td><code>set var x=10</code></td>
+</tr>
+<tr>
+<td><code>whatis &lt;变量&gt;</code></td>
+<td>-</td>
+<td>查看变量类型</td>
+<td><code>whatis ptr</code></td>
+</tr>
+<tr>
+<td><code>ptype &lt;类型&gt;</code></td>
+<td>-</td>
+<td>显示类型详细信息</td>
+<td><code>ptype struct Node</code></td>
+</tr>
+</tbody></table>
+<h3 id="五、调用栈与线程"><a href="#五、调用栈与线程" class="headerlink" title="五、调用栈与线程"></a>五、调用栈与线程</h3><table>
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>简写</strong></th>
+<th><strong>用法</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>backtrace</code></td>
+<td><code>bt</code></td>
+<td>查看调用栈（函数调用链）</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>frame &lt;编号&gt;</code></td>
+<td><code>f</code></td>
+<td>切换栈帧</td>
+<td><code>frame 2</code></td>
+</tr>
+<tr>
+<td><code>info threads</code></td>
+<td><code>i th</code></td>
+<td>查看所有线程</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>thread &lt;线程ID&gt;</code></td>
+<td>-</td>
+<td>切换调试线程</td>
+<td><code>thread 3</code></td>
+</tr>
+<tr>
+<td><code>break &lt;位置&gt; thread &lt;ID&gt;</code></td>
+<td><code>b</code></td>
+<td>为特定线程设断点</td>
+<td><code>b main thread 1</code></td>
+</tr>
+</tbody></table>
+<h3 id="六、其他"><a href="#六、其他" class="headerlink" title="六、其他"></a>六、其他</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>简写</th>
+<th>用法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>shell &lt;shell命令&gt;</code></td>
+<td>-</td>
+<td>使用shell命令</td>
+<td><code>shell ls</code></td>
+</tr>
+<tr>
+<td><code>set logging on</code></td>
+<td>-</td>
+<td>打开日志模式，记录输出</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h3 id="七、高级调试技巧"><a href="#七、高级调试技巧" class="headerlink" title="七、高级调试技巧"></a>七、高级调试技巧</h3><ol>
+<li><p><strong>内存检查</strong></p>
 <ul>
-<li>训练营的随时补签、周末休息的打卡机制，让意志稍微不那么坚定的同学也能够检查下来。</li>
-<li>训练营打卡要求的时口头回答，而非文字，更加贴合面试的场景，能够逐步改善我们的语言习惯，在面试的过程不在支支吾吾。我就在训练营中，逐步改掉了额、嗯等语气词，面试的回答也更加流畅自然。</li>
-<li>训练营下提供了可供参考的他人的优秀回答录音，这样可以让我们想优秀的人不断学习，修正答案，获得自己的答案。</li>
-<li>训练营鼓励答案要有自己的理解和补充，形成适合自己的答案，而非死记硬背，让我们在面试的时候能够更加流畅的回答的同时，引导面试官问题方向。</li>
-<li>训练营提供问题的详细资料，这让我们能够从更深、更细、更底层、更系统的原理解析、应用，理解问题背后形成的原因和机理，让我们不是死记硬背，而是理解后经过整理的自然阐发<br>最后，非常感谢代码随想录，虽然还没有让我成功找到实习，但是在我不知所措时给出了路径和方法。我相信，亡羊补牢，为时未晚。虽然我准备和出发的时间比较晚，但我相信我终究上岸。</li>
+<li><code>watch -l *(int*)0x1234</code>：监视内存地址变化</li>
+<li><code>x/20b array</code>：以字节形式查看数组内存（20个元素）</li>
+</ul>
+</li>
+<li><p><strong>多线程死锁调试</strong></p>
+<ul>
+<li><code>info threads</code> 查看线程状态，结合 <code>bt</code> 分析阻塞位置</li>
+</ul>
+</li>
+<li><p><strong>动态库调试</strong></p>
+<ul>
+<li>编译时添加 <code>-g</code>，GDB 自动加载符号表</li>
+</ul>
+</li>
+<li><p><strong>信号处理</strong></p>
+<ul>
+<li><code>handle SIGSEGV stop print</code>：捕获段错误信号并暂停</li>
+</ul>
+</li>
+<li><p><strong>调试运行过程中的程序</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcc test.c -g   //编译</span><br><span class="line">./test.out &amp;    //后台运行</span><br><span class="line">gdb -p 进程号</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>参考文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://sourceware.org/gdb/documentation/">gdb官方文档</a></li>
 </ul>
  
       <!-- reward -->
@@ -184,12 +490,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/05/30/%E5%85%AB%E8%82%A1%E6%96%87%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/06/01/GDB%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/" rel="tag">八股文</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gdb/" rel="tag">gdb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
 
     </footer>
   </div>
@@ -197,19 +503,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2025/06/01/GDB%E7%AC%94%E8%AE%B0/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            GDB笔记
-          
-        </div>
-      </a>
     
-    
-      <a href="/2025/05/23/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5%E6%95%B4%E7%90%86/" class="article-nav-link">
+      <a href="/2025/05/30/%E5%85%AB%E8%82%A1%E6%96%87%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">资源链接整理</div>
+        <div class="article-nav-title">八股文心得体会</div>
       </a>
     
   </nav>
