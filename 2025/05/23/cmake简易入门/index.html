@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>cmake简易入门 |  谢文灿</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-cmake简易入门"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  cmake简易入门
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2025-05-23T13:57:04.000Z" itemprop="datePublished">2025-05-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">986</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">4 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h1><ol>
+<li><strong>创建 <code>CMakeLists.txt</code> 文件</strong>：定义项目、目标和依赖。</li>
+<li><strong>创建构建目录</strong>：保持源代码目录整洁。</li>
+<li><strong>配置项目</strong>：使用 CMake 生成构建系统文件。</li>
+<li><strong>编译项目</strong>：使用构建系统文件编译项目。</li>
+<li><strong>运行可执行文件</strong>：执行生成的程序。</li>
+<li><strong>清理构建文件</strong>：删除中间文件和目标文件。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">配置CMakeLists.txt后</span><br><span class="line">mkdir build 创建目录</span><br><span class="line">cd build</span><br><span class="line">cmake ..  # 配置</span><br><span class="line">make      # 编译</span><br><span class="line">./MyExcutable  # 运行</span><br><span class="line">make clean   # 清理</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
+<li><p><code>cmake_minimum_required(VERSION &lt;num&gt;)</code>：设置最低版本</p>
+</li>
+<li><p><code>project(&lt;name&gt; [version])</code>：设置项目名和版本</p>
+</li>
+<li><p><code>add_executable(&lt;target&gt; [dependence])</code>：添加项目可执行文件和依赖</p>
+</li>
+<li><p><code>set(&lt;var&gt; &lt;val&gt;)</code>：设置变量</p>
+</li>
+<li><p><code>$&#123;var&#125;</code>：变量使用</p>
+</li>
+<li><p><code>configure_file(&lt;ifile&gt; &lt;ofile&gt; [copy_only] [escape_quotes] [@only])</code>：复制一个文件到目标位置，并对文件内容进行变量替换</p>
+<ul>
+<li><code>ifile</code>：指定输入文件的路径。</li>
+<li><code>ofile</code>：指定输出文件的路径</li>
+<li><code>COPY_ONLY</code>：如果指定这个选项，CMake将不会对文件内容进行变量替换，只是简单地复制文件。</li>
+<li><code>ESCAPE_QUOTES</code>：如果指定这个选项，CMake将对输出文件中的双引号进行转义。</li>
+<li><code>@ONLY</code>：如果指定这个选项，CMake将只替换<code>@</code>符号包围的变量。这在某些情况下可以提高性能。</li>
+</ul>
+  <span id="more"></span></li>
+</ul>
+<h3 id="添加库"><a href="#添加库" class="headerlink" title="添加库"></a>添加库</h3><ul>
+<li><p><code>find_package(&lt;name&gt; [version] REQUIRED [PATH [path]])</code></p>
+</li>
+<li><p><code>add_library(&lt;name&gt; [type] [exclude] [sources])</code>:创建库或者接口目标</p>
+<ul>
+<li><code>type</code>:<ul>
+<li><code>STATIC</code>：创建静态库（<code>.a</code>&#x2F;<code>.lib</code>）</li>
+<li><code>SHARED</code>：创建动态库（<code>.so</code>&#x2F;<code>.dll</code>）</li>
+<li><code>MODULE</code>：插件库（不被<code>target_link_libraries</code>链接）</li>
+<li><code>INTERFACE</code>：无编译输出的接口库</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>exclude</code>：不从默认构建中包含此目标</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(<span class="keyword">math</span> STATIC src/<span class="keyword">math</span>.cpp)  <span class="comment"># 静态库</span></span><br><span class="line"><span class="keyword">add_library</span>(core SHARED src/core.cpp)  <span class="comment"># 动态库</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>add_subdirectory(source_dir [binary_dir] [exclude])</code>:添加子目录的cmake项目</p>
+<ul>
+<li><code>source_dir</code>：包含<code>CMakeLists.txt</code>的子目录</li>
+<li><code>binary_dir</code>：指定构建输出目录（默认同源目录）</li>
+</ul>
+</li>
+<li><p><code>target_include_directories(&lt;target&gt; [type] [dir] )</code>:为目标添加头文件搜索路径</p>
+<ul>
+<li><code>type</code>:<ul>
+<li><code>PUBLIC</code>：目标本身和依赖者都使用</li>
+<li><code>PRIVATE</code>：仅目标本身使用</li>
+<li><code>INTERFACE</code>：仅依赖者使用</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>dir</code>：文件目录</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_include_directories</span>(<span class="keyword">math</span></span><br><span class="line">  PUBLIC <span class="keyword">include</span>   <span class="comment"># 使用者需要此路径</span></span><br><span class="line">  PRIVATE src      <span class="comment"># 仅内部实现需要</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>target_link_libraries(&lt;target&gt; [type] [lib])</code><ul>
+<li><code>PUBLIC</code>：当前目标和使用者都需要</li>
+<li><code>PRIVATE</code>：仅当前目标需要</li>
+<li><code>INTERFACE</code>：仅使用者需要</li>
+<li><code>lib</code>：库目标名，即<code>add_library</code>的<code>name</code></li>
+</ul>
+</li>
+<li><code>PROJECT_SOURCE_DIR</code>：默认参数，项目根目录</li>
+</ul>
+<h3 id="添加选项"><a href="#添加选项" class="headerlink" title="添加选项"></a>添加选项</h3><ul>
+<li><p><code>if</code> 条件语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if(expression)</span><br><span class="line">  # Commands</span><br><span class="line">elseif(expression)</span><br><span class="line">  # Commands</span><br><span class="line">else()</span><br><span class="line">  # Commands</span><br><span class="line">endif()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>option(&lt;var&gt; &quot;help&quot; [init])</code>：创建用户可配置的布尔选项</p>
+<ul>
+<li><code>var</code>：变量名</li>
+<li><code>init</code>：默认值</li>
+</ul>
+</li>
+<li><p><code>target_compile_definitions(&lt;target&gt; [type] [def])</code>：添加预处理器宏定义</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_compile_definitions</span>(<span class="keyword">math</span></span><br><span class="line">  PUBLIC USE_SSE3           <span class="comment"># 传递给所有使用者</span></span><br><span class="line">  PRIVATE DEBUG=<span class="number">1</span>           <span class="comment"># 仅内部调试使用</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="为库添加使用要求"><a href="#为库添加使用要求" class="headerlink" title="为库添加使用要求"></a>为库添加使用要求</h3><ul>
+<li><p><code>target_compile_options(&lt;target&gt; [type] [opt])</code>：指定编译器选项</p>
+</li>
+<li><p><code>target_link_options(&lt;target&gt; [type] [opt])</code>：指定链接器选项</p>
+</li>
+<li><p><code>target_precompile_headers(&lt;name&gt; [type] [header])</code>：用于为目标指定预编译头文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add_executable(my_executable main.cpp utils.cpp)</span><br><span class="line">target_precompile_headers(my_executable PRIVATE &lt;vector&gt; &lt;iostream&gt;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>target_sources(&lt;target&gt; [type] [source])</code>：为目标添加源文件</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(my_executable main.cpp utils.cpp)</span><br><span class="line"><span class="keyword">target_sources</span>(my_executable PRIVATE additional.cpp)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="使用接口库设置-C-标准"><a href="#使用接口库设置-C-标准" class="headerlink" title="使用接口库设置 C++ 标准"></a>使用接口库设置 C++ 标准</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过接口设置</span></span><br><span class="line"><span class="keyword">add_library</span>(cpp_standard INTERFACE)</span><br><span class="line"><span class="keyword">target_compile_features</span>(cpp_standard INTERFACE cxx_std_17)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">math</span> PUBLIC cpp_standard)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过变量设置</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)  </span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">ON</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加生成器表达式"><a href="#添加生成器表达式" class="headerlink" title="添加生成器表达式"></a>添加生成器表达式</h3><p>cmake-generator-expressions(7)</p>
+<h3 id="安装规则"><a href="#安装规则" class="headerlink" title="安装规则"></a>安装规则</h3><ul>
+<li><code>install(TARGETS &lt;targets&gt; &lt;var&gt;  )</code>：<ul>
+<li><code>val</code>:<ul>
+<li><code>RUNTIME</code>：可执行文件（Windows为<code>.exe</code>）</li>
+<li><code>ARCHIVE</code>：静态库（<code>.a</code>&#x2F;<code>.lib</code>）</li>
+<li><code>LIBRARY</code>：共享库（<code>.so</code>&#x2F;<code>.dll</code>）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">install</span>(TARGETS <span class="keyword">math</span></span><br><span class="line">  ARCHIVE DESTINATION lib    <span class="comment"># 静态库安装到lib</span></span><br><span class="line">  LIBRARY DESTINATION lib    <span class="comment"># 动态库安装到lib</span></span><br><span class="line">  RUNTIME DESTINATION bin    <span class="comment"># 可执行文件安装到bin</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="测试支持"><a href="#测试支持" class="headerlink" title="测试支持"></a>测试支持</h3><ul>
+<li><p><code>enable_testing()</code>：启用当前目录及子目录的测试功能</p>
+</li>
+<li><p><code>add_test(NAME &lt;name&gt; COMMAN &lt;command&gt; [args])</code>：定义测试用例</p>
+</li>
+<li><p><code>function()</code>：定义函数</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义一个函数，用于打印消息</span></span><br><span class="line"><span class="keyword">function</span>(print_message)</span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;Hello, $&#123;ARGV0&#125;!&quot;</span>)</span><br><span class="line"><span class="keyword">endfunction</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用函数</span></span><br><span class="line">print_message(<span class="string">&quot;World&quot;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>set_tests_properties([test] PROPERTIES [prop val])</code></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set_tests_properties</span>(math_test </span><br><span class="line">  PROPERTIES </span><br><span class="line">  TIMEOUT <span class="number">60</span>          <span class="comment"># 超时60秒</span></span><br><span class="line">  LABELS <span class="string">&quot;quick&quot;</span>      <span class="comment"># 测试分类标签</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h3><p><a target="_blank" rel="noopener" href="https://cmake.com.cn/cmake/help/latest/guide/tutorial/index.html">CMake官方教程</a><br><a target="_blank" rel="noopener" href="https://www.runoob.com/cmake/cmake-exercises.html">实战练习</a></p>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            通信协议笔记
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2025/04/09/jupyter-notebook%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">jupyter notebook简易入门</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo.yelo.homes/"
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2025
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="谢文灿"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://yelo056883.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="86"
+        src="//music.163.com/outchain/player?type=2&id=864711417&auto=1&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>

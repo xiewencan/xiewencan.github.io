@@ -85,7 +85,7 @@
   <script>
     try {
       var typed = new Typed("#subtitle", {
-        strings: ['怕什么真理无穷，进一寸有一寸的欢喜', '此后如竟没有炬火，我便是唯一的光', '想要的都拥有，得不到的都释怀'],
+        strings: ['怕什么真理无穷，进一寸有一寸的欢喜', '一川烟草，满城飞絮，梅子黄时雨', '想要的都拥有，得不到的都释怀'],
         startDelay: 0,
         typeSpeed: 200,
         loop: true,
@@ -149,7 +149,7 @@
     
     
     <article
-  id="post-校验和与二进制反码求和"
+  id="post-Easy-Memory-Pool"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -160,8 +160,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2024/12/09/%E6%A0%A1%E9%AA%8C%E5%92%8C%E4%B8%8E%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8F%8D%E7%A0%81%E6%B1%82%E5%92%8C/"
-    >校验和与二进制反码求和</a> 
+  <a class="article-title" href="/2025/06/02/Easy-Memory-Pool/"
+    >Easy-Memory-Pool</a> 
 </h2>
  
 
@@ -169,8 +169,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/12/09/%E6%A0%A1%E9%AA%8C%E5%92%8C%E4%B8%8E%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8F%8D%E7%A0%81%E6%B1%82%E5%92%8C/" class="article-date">
-  <time datetime="2024-12-09T11:49:09.000Z" itemprop="datePublished">2024-12-09</time>
+      <a href="/2025/06/02/Easy-Memory-Pool/" class="article-date">
+  <time datetime="2025-06-02T03:37:56.000Z" itemprop="datePublished">2025-06-02</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
@@ -180,470 +180,81 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <p>在复习计算机网络时候，看到了UDP校验，发现知识漏洞：二进制反码求和要回卷，特此记录<br>二进制反码求和有两种方式：</p>
+  <h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><p>内存池的架构如图所示，由ThreadCache,CentralCache,PageCache三层组成。</p>
+<p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202505291824391.png" alt="ponilsan.tw3.png|500"></p> 
+      <a class="article-more-link" href="/2025/06/02/Easy-Memory-Pool/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%B1%A0/" rel="tag">内存池</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag">项目</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-操作系统篇"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/06/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/"
+    >操作系统篇</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:09:08.000Z" itemprop="datePublished">2025-06-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="进程和线程之间有什么区别"><a href="#进程和线程之间有什么区别" class="headerlink" title="进程和线程之间有什么区别"></a>进程和线程之间有什么区别</h4><p><strong>进程是资源分配和调度的基本单位。****线程是程序执行的最小单位</strong>，线程是进程的子任务，是进程内的执行单元。 一个进程至少有一个线程，一个进程可以运行多个线程，这些线程共享同一块内存。</p>
+<p>资源开销：</p>
 <ul>
-<li>先求反码再求和</li>
-<li>先求和再求反码 + 回卷<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202412091938226.png" alt="反码求和.png"><br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202412091938932.png" alt="为什么要回卷.png"><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_48803456/article/details/129024911">图片来源博客链接</a></li>
+<li>进程：由于每个进程都有独立的内存空间，创建和销毁进程的开销较大。进程间切换需要保存和恢复整个进程的状态，因此上下文切换的开销较高。</li>
+<li>线程：线程共享相同的内存空间，创建和销毁线程的开销较小。线程间切换只需要保存和恢复少量的线程上下文，因此上下文切换的开销较小。</li>
 </ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/" rel="tag">大学课程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag">知识点</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-山水——游山篇"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/11/28/%E5%B1%B1%E6%B0%B4%E2%80%94%E2%80%94%E6%B8%B8%E5%B1%B1%E7%AF%87/"
-    >山水——游山篇</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/11/28/%E5%B1%B1%E6%B0%B4%E2%80%94%E2%80%94%E6%B8%B8%E5%B1%B1%E7%AF%87/" class="article-date">
-  <time datetime="2024-11-28T08:04:31.000Z" itemprop="datePublished">2024-11-28</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>前几天我无意间看到钱文忠的酒事会，谈到了中国人有关于山水的看法。我回想起我这10年的经历，浅谈一下我的看法。</p>
-<p>游山玩水，我们骨子里或多或少都有些期待，他寄托了我们摆脱工作、生活上各种繁杂琐碎的各种想象。现在文旅开始爆火，各大名山望川的人是络绎不绝。我玩水较少，但游山频繁。但每每游山多是乘兴而去，流连忘返，败兴而归。缘由以后有时间再专门讲述一番。每次游山归来，我禁不住问自己，我为什么这么喜欢去山里。</p>
-<h4 id="第一次理解：-纵使晴明无雨色，入云深处亦沾衣"><a href="#第一次理解：-纵使晴明无雨色，入云深处亦沾衣" class="headerlink" title="第一次理解： 纵使晴明无雨色，入云深处亦沾衣"></a>第一次理解： 纵使晴明无雨色，入云深处亦沾衣</h4><p>山中多云雾，凉爽宜人，又时有风。我很是喜欢沉浸在这种环境中，经常像效仿古人，建一小亭，叫上三五好友，带点酒，畅谈一下人生宇宙。累了便躺下，可以望着青树翠蔓、云深见寺发呆，任凭思绪四处飘悠。也可以闭上双眼，享受着清风的微抚，聆听山鸟鸣啼、流水潺潺。此行我们不为登山，只为享受这难得的良辰美景。</p>
-<h4 id="第二次理解：会当凌绝顶，一览众山小"><a href="#第二次理解：会当凌绝顶，一览众山小" class="headerlink" title="第二次理解：会当凌绝顶，一览众山小"></a>第二次理解：会当凌绝顶，一览众山小</h4><p>高处的风景很是壮观，可以俯看群山，可以极目远眺，往往此时我们壮怀激烈，心境开阔，有达成目标、苦尽甘来的舒畅、有一马平川的豪情、甚至有征服世界的雄心。除此之外，山顶的云海、日出、日落、雾凇，都是难得的美景。这时的我，此番来，只为登顶，去享受登顶带来的征服快感，去寻找、挑战和突破身体的极限，去体验山顶的那份开阔壮观。</p>
-<h4 id="第三次理解：可以是一个人的孤独，也可以是一群人的互助"><a href="#第三次理解：可以是一个人的孤独，也可以是一群人的互助" class="headerlink" title="第三次理解：可以是一个人的孤独，也可以是一群人的互助"></a>第三次理解：可以是一个人的孤独，也可以是一群人的互助</h4><p>后来我爬山迷上了野路。主要是一些上开发过度，路上全是观光车，每一两分钟过一辆，搞得路上乌烟瘴气。这时候，我发现了野路。循着野路，有一种探索前人足迹的感觉，但路上的人很少，空气比公路上好太多。记得有一次，我沿着一条野路走，走了大概一个多小时，中途没有碰到一个人，手机信号时断时续，发个消息很难，定位更是不准。在这一个多小时中，我也曾担心受怕过，害怕迷失在这深山之中，也曾大声放歌，享受这种短暂的与世隔绝。在这种兴奋与害怕交杂中，慢慢的完成一次自我的升华，或者是解脱。一个人走，总是格外的快，休息的时候，很喜欢胡思乱想，来一个人面对自己。直到前面逐渐开阔，人声逐渐喧哗，我走出了野路，既是欣喜，也有失落。路总是有尽头的。</p>
-<p>当然，野路也不总是一个人走。有的时候，特别是在相对危险的地方，也会有一群人堵在那里，你会看到有人手脚并用、止不住下滑，她无法站立，如果没有人帮助，她可能会滑倒山底，滑向那危险的深渊。不过，这个时候人们会挺身而出，互帮互助。在我们的帮助下，最后还是帮她度过了难关。我也有时被这种氛围感染，不在那么内向，在互助之中完善自己。一群人走得远。</p>
-<h4 id="第四次理解：归来，也无风雨也无晴"><a href="#第四次理解：归来，也无风雨也无晴" class="headerlink" title="第四次理解：归来，也无风雨也无晴"></a>第四次理解：归来，也无风雨也无晴</h4><p>现在，我依旧爬山，不过只是为了能够抽出时间来享受这自然，这清风流水，这日出日落，这鸟鸣山幽。用一个睡不着的午觉，什么都不干，摆脱永远处理不完的琐事，安顿自己漂着的内心，学会和享受闲。以后上山，不为登顶，只为闲。</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B1%B1%E6%B0%B4/" rel="tag">山水</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%9D%E8%80%83%EF%BC%8C%E6%B8%B8%E8%AE%B0/" rel="tag">思考，游记</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-登终南山"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/11/25/%E7%99%BB%E7%BB%88%E5%8D%97%E5%B1%B1/"
-    >登终南山</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/11/25/%E7%99%BB%E7%BB%88%E5%8D%97%E5%B1%B1/" class="article-date">
-  <time datetime="2024-11-25T12:18:26.000Z" itemprop="datePublished">2024-11-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202411252023793.jpg" alt="img"></p>
-<center>上联：看云看雾看日出，各有胜地
-
-<center>下联：寻诗寻隐寻野径，独爱终南
-
-<center>横批：妙趣横生
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B8%B8%E8%AE%B0/" rel="tag">游记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%99%BB%E5%B1%B1/" rel="tag">登山</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-乡间小别"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/11/25/%E4%B9%A1%E9%97%B4%E5%B0%8F%E5%88%AB/"
-    >乡间小别</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/11/25/%E4%B9%A1%E9%97%B4%E5%B0%8F%E5%88%AB/" class="article-date">
-  <time datetime="2024-11-25T11:35:03.000Z" itemprop="datePublished">2024-11-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <center>乡间小别<center>
-<center>花犯<center>
-
-<center>青山两岸炊烟晕，客念千层愁绪洒。<center>
-
-<center>水黛衣单雨欲来，澜白橹断风初起。<center>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">注释：</span><br><span class="line">	此诗以离乡返校之际，与家友亲朋送别于湘江为背景。“晕”与“洒”为水墨画技法，前两句乐景衬哀情，</span><br><span class="line">两岸的人家已升起袅袅炊烟，而我为了赶车不得不提前出发，与亲朋告别，半年后在可再见。后两句为虚实结</span><br><span class="line">合，由实景写向想象的虚景。前一句写实，江面成暗青色，是因为天逐渐阴沉，不久将要下雨，而我此时衣服</span><br><span class="line">正单。后一句虚实结合，波澜起伏，白浪翻滚，是因为起风了，此刻我的桨已断，我怎么安全地在水面航行。</span><br><span class="line">“黛”与“白”色彩对比强烈，“雨欲来”和“风初起”化自何松的《相送》，既暗示前途未谱，又充满哲理。</span><br></pre></td></tr></table></figure>
-
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%97%E6%AD%8C/" rel="tag">诗歌</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-正则表达式笔记"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/09/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/"
-    >正则表达式笔记</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/09/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time datetime="2024-09-26T08:48:46.000Z" itemprop="datePublished">2024-09-26</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ul>
-<li>精准匹配：<ul>
-<li><code>\d</code>：数字</li>
-<li><code>\w</code>：字符</li>
-<li><code>\s</code> ：任何空白字符，包括空格、制表符、换行符等</li>
+<p>通信与同步：</p>
+<ul>
+<li>进程：由于进程间相互隔离，进程之间的通信需要使用一些特殊机制，如管道、消息队列、共享内存等。</li>
+<li>线程：由于线程共享相同的内存空间，它们之间可以直接访问共享数据，线程间通信更加方便。</li>
 </ul>
-</li>
-<li>模糊匹配：<ul>
-<li><code>.</code>：单个任意字符</li>
-</ul>
-</li>
-<li>可变匹配：<ul>
-<li><code>*</code>：任意个字符</li>
-<li><code>+</code>：至少一个字符</li>
-<li><code>?</code>：0或1个字符</li>
-<li><code>&#123;&#125;</code>：<code>&#123;n&#125;</code>表示n个字符，用<code>&#123;n,m&#125;</code>表示n-m个字符</li>
-</ul>
-</li>
-</ul>
-<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><ul>
-<li><code>[]</code>：方括号中的符号需要转义，多个条件可以直接连接，或<ul>
-<li><code>0-9</code></li>
-<li><code>a-z</code></li>
-<li><code>A-Z</code></li>
-<li><code>\_</code></li>
-</ul>
-</li>
-<li><code>|</code>：表示或，<code>A|B</code>可以匹配A或B</li>
-<li><code>^</code>：表示行的开头，<code>^\d</code>表示必须以数字开头</li>
-<li><code>$</code>：表示行的结束，<code>\d$</code>表示必须以数字结束</li>
-</ul>
-<h2 id="re模块"><a href="#re模块" class="headerlink" title="re模块"></a>re模块</h2><h4 id="切分"><a href="#切分" class="headerlink" title="切分"></a>切分</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">re.split(正则表达式,字符串)</span><br><span class="line"></span><br><span class="line"># 举例，以多个空格或者逗号分割 </span><br><span class="line">&gt;&gt;&gt; re.split(r&#x27;[\s\,]+&#x27;, &#x27;a,b, c  d&#x27;)</span><br><span class="line">[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">re.match(表达式,字符串)</span><br><span class="line">分组用括号，括号内多个条件或时用|连接</span><br><span class="line"># 举例 时间分割</span><br><span class="line">&gt;&gt;&gt; t = &#x27;19:05:30&#x27;</span><br><span class="line">&gt;&gt;&gt; m = re.match(r&#x27;^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$&#x27;, t)</span><br><span class="line">&gt;&gt;&gt; m.groups()</span><br><span class="line">(&#x27;19&#x27;, &#x27;05&#x27;, &#x27;30&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h4><ul>
-<li>正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符</li>
-<li>在匹配符后面加上<code>?</code>号，为非贪婪匹配</li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-自由人，既是天使也是恶魔"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/09/26/%E8%87%AA%E7%94%B1%E4%BA%BA%EF%BC%8C%E6%97%A2%E6%98%AF%E5%A4%A9%E4%BD%BF%E4%B9%9F%E6%98%AF%E6%81%B6%E9%AD%94/"
-    >自由人，既是天使也是恶魔</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/09/26/%E8%87%AA%E7%94%B1%E4%BA%BA%EF%BC%8C%E6%97%A2%E6%98%AF%E5%A4%A9%E4%BD%BF%E4%B9%9F%E6%98%AF%E6%81%B6%E9%AD%94/" class="article-date">
-  <time datetime="2024-09-26T05:02:11.000Z" itemprop="datePublished">2024-09-26</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <div style="text-align: center;"><h2>自由人，既是天使也是恶魔</h2></div>
-
-<div style="text-align: right;">——读《月亮与六便士》和《刀锋》后感</div>
-
-<p>​		自由，其含义为“从束缚中解放”。而现代社会的发展，虽然让人们在物质方面得到了优渥的享受，但也带来了功利主义、实用主义和从众心理的束缚，人们陷入物质生活与精神生活发展不平等的困境。毛姆以其敏锐的洞察和犀利的文笔，在《月亮与六便士》和《刀锋》中，展现了对人性的思考，对自由的呐喊。</p>
-<p>​		两本书的主人公思特里克兰德和拉里，都特立独行，不为世俗他人的眼光所约束，不被社会制定的道德和秩序所掣肘，对优渥的物质生活视若敝屣，甘于贫苦的生活，仅仅只需要满足生存的最低限度，却对内心的追求奋不顾身，都是追寻人生意义路上不屈的斗士，是真正意义上的自由人。</p>
-<p>​		《月亮与六便士》的主人公思特里克兰德，不惑之年抛家弃子，自比溺水之人，通过画画来挣扎，来摆脱意志的奴役，来追求那模糊的精神理念。他生前窘迫不堪，六个月之久每天只靠一顿面包、一瓶牛奶过活，但又极端冷漠、自私，对给予帮助和救助的人恶语相向，极尽侮辱嘲讽之能事，将人们的善意和女人当作工具，来帮助自己实现追求。他生后却又因其天才和独树一帜的画作名声大振。他是自由人，但我认为，他在追求自由的途中，灵魂早已被原始的、肉欲的恶魔所替代。在他的身上，我见到了，那人性最深处、最幽暗、蒙昧的、血腥的远古时代诞生的恶意。他虽然伟大，但也渺小、卑微。</p> 
-      <a class="article-more-link" href="/2024/09/26/%E8%87%AA%E7%94%B1%E4%BA%BA%EF%BC%8C%E6%97%A2%E6%98%AF%E5%A4%A9%E4%BD%BF%E4%B9%9F%E6%98%AF%E6%81%B6%E9%AD%94/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-Vim常用命令"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/09/16/Vim%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"
-    >Vim常用命令</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/09/16/Vim%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2024-09-16T03:01:09.000Z" itemprop="datePublished">2024-09-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h4 id="符号含义"><a href="#符号含义" class="headerlink" title="符号含义"></a>符号含义</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ # 行尾，或者最后一行的行尾</span><br><span class="line">% # 整个文件</span><br><span class="line">H # 屏幕第一行</span><br><span class="line">M # 屏幕中间</span><br><span class="line">L # 屏幕最后一行</span><br><span class="line">G # 最后一行</span><br></pre></td></tr></table></figure>
-<h4 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 上下左右移动n</span><br><span class="line">n + h/j/k/l</span><br><span class="line"></span><br><span class="line"># 上下翻一页</span><br><span class="line">Ctrl + b/f</span><br><span class="line"></span><br><span class="line"># 上下翻半页</span><br><span class="line">Ctrl + u/d</span><br><span class="line"></span><br><span class="line"># 右移n个字符</span><br><span class="line">n + &lt;space&gt;</span><br><span class="line"></span><br><span class="line"># 下移n行</span><br><span class="line">n + &lt;Enter&gt;</span><br><span class="line"></span><br><span class="line"># 移动到第一行</span><br><span class="line">gg</span><br><span class="line"></span><br><span class="line"># 设置/取消行号</span><br><span class="line">:set nu</span><br><span class="line">:set nonu</span><br></pre></td></tr></table></figure> 
-      <a class="article-more-link" href="/2024/09/16/Vim%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
-
-    </footer>
-  </div>
-
-    
- 
-   
-  
-</article>
-
-    
-    <article
-  id="post-服务器配置selenium"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/"
-    >服务器配置selenium</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/" class="article-date">
-  <time datetime="2024-08-21T12:50:39.000Z" itemprop="datePublished">2024-08-21</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h4 id="安装chrome浏览器"><a href="#安装chrome浏览器" class="headerlink" title="安装chrome浏览器"></a>安装chrome浏览器</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 下载安装包</span><br><span class="line">$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"># 安装chrome</span><br><span class="line">$ sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br><span class="line"></span><br><span class="line"># 检查版本</span><br><span class="line">$ google-chrome --version</span><br></pre></td></tr></table></figure>
-<h4 id="安装chromedriver"><a href="#安装chromedriver" class="headerlink" title="安装chromedriver"></a>安装chromedriver</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># chromedriver地址</span><br><span class="line">https://registry.npmmirror.com/binary.html?path=chrome-for-testing</span><br><span class="line"></span><br><span class="line"># 下载驱动</span><br><span class="line">wget https://storage.googleapis.com/chrome-for-testing-public/123.0.6312.86/linux64/chrome-linux64.zip</span><br><span class="line"></span><br><span class="line"># 解压</span><br><span class="line">$ unzip chromedriver-linux64.zip</span><br><span class="line"></span><br><span class="line"># 移动位置（也可以不移，添加到环境变量或者程序中指定位置）</span><br><span class="line">cd chromedriver-linux64</span><br><span class="line">mv chromedriver /usr/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="无头模式网页加载不出-过慢"><a href="#无头模式网页加载不出-过慢" class="headerlink" title="无头模式网页加载不出&#x2F;过慢"></a>无头模式网页加载不出&#x2F;过慢</h4><ul>
-<li>更新selenium库<br>使用conda安装的selenium库版本比较老，使用pip安装和更新</li>
+<p>安全性：</p>
+<ul>
+<li>进程：由于进程间相互隔离，一个进程的崩溃不会直接影响其他进程的稳定性。</li>
+<li>线程：由于线程共享相同的内存空间，一个线程的错误可能会影响整个进程的稳定性。</li>
 </ul> 
-      <a class="article-more-link" href="/2024/08/21/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AEselenium/"
+      <a class="article-more-link" href="/2025/06/01/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AF%87/"
         >阅读更多...</a
       >
        
@@ -656,20 +267,19 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag">自动化</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a></li></ul>
 
     </footer>
   </div>
 
-    
- 
+   
    
   
 </article>
 
     
     <article
-  id="post-docker快速入门"
+  id="post-计算机网络篇"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -680,8 +290,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"
-    >docker快速入门</a> 
+  <a class="article-title" href="/2025/06/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AF%87/"
+    >计算机网络篇</a> 
 </h2>
  
 
@@ -689,8 +299,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" class="article-date">
-  <time datetime="2024-08-21T12:48:22.000Z" itemprop="datePublished">2024-08-21</time>
+      <a href="/2025/06/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:08:50.000Z" itemprop="datePublished">2025-06-01</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
@@ -700,22 +310,24 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="Docker安装Mysql"><a href="#Docker安装Mysql" class="headerlink" title="Docker安装Mysql"></a>Docker安装Mysql</h2><ul>
-<li><p>Docker基础命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 启动</span><br><span class="line">$ sudo systemctl start docker</span><br><span class="line">$ service docker start</span><br><span class="line"></span><br><span class="line"># 停止</span><br><span class="line">$ systemctl stop docker</span><br><span class="line"></span><br><span class="line"># 重启</span><br><span class="line">$ systemctl restart docker</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询mysql</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker search mysql</span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>拉取mysql镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 默认最新</span><br><span class="line">$ docker pull mysql</span><br><span class="line"># 指定版本</span><br><span class="line">$ sudo docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker images</span><br></pre></td></tr></table></figure></li>
+  <h4 id="介绍一下TCP-IP模型和OSI模型的区别"><a href="#介绍一下TCP-IP模型和OSI模型的区别" class="headerlink" title="介绍一下TCP&#x2F;IP模型和OSI模型的区别"></a>介绍一下TCP&#x2F;IP模型和OSI模型的区别</h4><p>OSI模型， 是国际标准化组织（ISO）制定的一个用于计算机或通信系统间互联的标准体系，将计算机网络通信划分为七个不同的层级，分别是物理层、数据链路层、网络层、传输层、会话层、表示层和应用层。</p>
+<ul>
+<li>物理层（Physical Layer）：负责传输原始的比特流，定义了物理介质的电气、机械、过程和功能特性。</li>
+<li>数据链路层（Data Link Layer）：负责将物理层的比特流封装成帧，提供错误检测和纠正功能。</li>
+<li>网络层（Network Layer）：负责路由选择和数据包的转发，主要协议是IP（Internet Protocol）。</li>
+<li>传输层（Transport Layer）：负责端到端的可靠传输，主要协议是TCP（Transmission Control Protocol）和UDP（User Datagram Protocol）。</li>
+<li>会话层（Session Layer）：负责建立、管理和终止会话。</li>
+<li>表示层（Presentation Layer）：负责数据的表示、加密和压缩。</li>
+<li>应用层（Application Layer）：负责提供应用程序之间的通信，如HTTP、FTP、SMTP等。</li>
 </ul>
-<h2 id="Docker使用Mysql"><a href="#Docker使用Mysql" class="headerlink" title="Docker使用Mysql"></a>Docker使用Mysql</h2> 
-      <a class="article-more-link" href="/2024/08/21/docker%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"
+<p>虽然OSI模型在理论上更全面，但在实际网络通信中，TCP&#x2F;IP模型更为实用。 TCP&#x2F;IP模型分为四个层级，每个层级负责特定的网络功能。</p>
+<ol>
+<li>应用层：该层与OSI模型的应用层和表示层以及会话层类似，提供直接与用户应用程序交互的接口。它为网络上的各种应用程序提供服务，如电子邮件（SMTP）、网页浏览（HTTP）、文件传输（FTP）等。</li>
+<li>传输层：该层对应OSI模型的传输层。它负责端到端的数据传输，提供可靠的、无连接的数据传输服务。主要的传输层协议有TCP和UDP。TCP提供可靠的数据传输，确保数据的正确性和完整性；而UDP则是无连接的，适用于不要求可靠性的传输，如实时音频和视频流。</li>
+<li>网络层：该层对应OSI模型的网络层。主要协议是IP，它负责数据包的路由和转发，选择最佳路径将数据从源主机传输到目标主机。IP协议使用IP地址来标识主机和网络，并进行逻辑地址寻址。</li>
+<li>网络接口层：该层对应OSI模型的数据链路层和物理层。它包含硬件地址（MAC地址）的管理，负责物理传输媒介的传输，并提供错误检测和纠正的功能。</li>
+</ol> 
+      <a class="article-more-link" href="/2025/06/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%AF%87/"
         >阅读更多...</a
       >
        
@@ -728,20 +340,19 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E5%AD%A6%E4%B9%A0%E3%80%81%E6%95%99%E7%A8%8B/" rel="tag">工具学习、教程</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">计算机网络</a></li></ul>
 
     </footer>
   </div>
 
-    
- 
+   
    
   
 </article>
 
     
     <article
-  id="post-linux发送邮件"
+  id="post-Redis篇"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -752,8 +363,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2024/08/17/linux%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/"
-    >linux发送邮件</a> 
+  <a class="article-title" href="/2025/06/01/Redis%E7%AF%87/"
+    >Redis篇</a> 
 </h2>
  
 
@@ -761,8 +372,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/08/17/linux%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" class="article-date">
-  <time datetime="2024-08-17T12:54:31.000Z" itemprop="datePublished">2024-08-17</time>
+      <a href="/2025/06/01/Redis%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:08:34.000Z" itemprop="datePublished">2025-06-01</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
@@ -772,24 +383,17 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>mail</code>一般都会在服务器上安装好，如果没有预装则可以通过安装<code>mailutils</code>来使用，以ubuntu为例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install mailutils</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>首先编辑配置文件，mail配置文件地址为<code>/etc/mail.rc</code>，如果只是希望自己使用，那么可以将配置文件存在<code>~/mailrc</code>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/mail.rc</span><br></pre></td></tr></table></figure>
-
-<p>然后添加发件人配置，以<code>网易企业邮箱</code>为例，按下<code>G</code><em>（大写）</em>翻到文件最后，增加以下几行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置发送身份</span></span><br><span class="line"><span class="built_in">set</span> from=1462796248@qq.com</span><br><span class="line"><span class="comment"># 设置发送服务器</span></span><br><span class="line"><span class="built_in">set</span> smtp=smtp.qq.com</span><br><span class="line"><span class="comment"># 设置账号</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=1462796248@qq.com</span><br><span class="line"><span class="comment"># 授权码</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=bgfkarfnbfpvgaib</span><br><span class="line"><span class="built_in">set</span> smtp-auth=login</span><br><span class="line"><span class="built_in">set</span> ssl-verify=ignore</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>之后就可以用以下命令发送邮件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mail -v -s “主题” 收件人</span><br></pre></td></tr></table></figure>
-
-<p>回车后开始输入邮件内容，以<code>Ctrl</code> + <code>D</code>结束输入。</p>
-<h2 id="多账户"><a href="#多账户" class="headerlink" title="多账户"></a>多账户</h2><p>如果需要配置多个发件账户，则用以下形式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">account cn163 &#123;</span><br><span class="line"><span class="built_in">set</span> from=admin&lt;admin@wenjinyu.me&gt;</span><br><span class="line"><span class="built_in">set</span> smtp=smtps://smtp.ym.163.com:994</span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=admin@wenjinyu.me</span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=*******</span><br><span class="line"><span class="built_in">set</span> ssl-verify=ignore</span><br><span class="line"><span class="built_in">set</span> nss-config-dir=/etc/pki/nssdb/</span><br><span class="line">&#125;</span><br><span class="line">account gmail &#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此时发送邮件时可以选择特定发件账户：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mail -v -s “主题” -A cn163 收件人</span><br></pre></td></tr></table></figure> 
-      <a class="article-more-link" href="/2024/08/17/linux%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/"
+  <h4 id="Redis有什么优缺点？为什么用Redis查询会比较快"><a href="#Redis有什么优缺点？为什么用Redis查询会比较快" class="headerlink" title="Redis有什么优缺点？为什么用Redis查询会比较快"></a>Redis有什么优缺点？为什么用Redis查询会比较快</h4><p>参考答案</p>
+<p>(1) Redis有什么优缺点？</p>
+<p><code>Redis</code> 是一个基于内存的数据库，<strong>读写速度非常快，通常被用作缓存</strong>、消息队列、分布式锁和键值存储数据库。它支持多种数据结构，如字符串、哈希表、列表、集合、有序集合等， Redis 还提供了<strong>分布式</strong>特性，可以将数据分布在多个节点上，以提高可扩展性和可用性。但是<code>Redis</code> 受限于物理内存的大小，不适合存储超大量数据，并且需要大量内存，相比磁盘存储成本更高。</p>
+<p>(2）<strong>为什么Redis查询快</strong></p>
+<ul>
+<li><strong>基于内存操作</strong>： 传统的磁盘文件操作相比减少了IO，提高了操作的速度。</li>
+<li>高效的数据结构：Redis专门设计了STRING、LIST、HASH等高效的数据结构，依赖各种数据结构提升了读写的效率。</li>
+<li>单线程：单线程操作省去了上下文切换带来的开销和CPU的消耗，同时不存在资源竞争，避免了死锁现象的发生。</li>
+<li>I&#x2F;O多路复用：采用I&#x2F;O多路复用机制同时监听多个Socket，根据Socket上的事件来选择对应的事件处理器进行处理。</li>
+</ul> 
+      <a class="article-more-link" href="/2025/06/01/Redis%E7%AF%87/"
         >阅读更多...</a
       >
        
@@ -802,13 +406,535 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag">服务器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%82%AE%E7%AE%B1/" rel="tag">邮箱</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/" rel="tag">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
 
     </footer>
   </div>
 
+   
+   
+  
+</article>
+
     
+    <article
+  id="post-C++篇"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/06/01/C++%E7%AF%87/"
+    >C++篇</a> 
+</h2>
  
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/01/C++%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:08:26.000Z" itemprop="datePublished">2025-06-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="静态变量和全局变量、局部变量的区别、在内存上是怎么分布的"><a href="#静态变量和全局变量、局部变量的区别、在内存上是怎么分布的" class="headerlink" title="静态变量和全局变量、局部变量的区别、在内存上是怎么分布的"></a>静态变量和全局变量、局部变量的区别、在内存上是怎么分布的</h4><ol>
+<li>静态局部变量</li>
+</ol>
+<ul>
+<li>特点：<ul>
+<li>作用域：仅限于声明它们的函数或代码块内部。</li>
+<li>生命周期：静态局部变量在程序的整个运行期间都存在，只初始化一次（在第一次使用前）。</li>
+<li>初始化：在首次进入函数时初始化，并保持值直到程序结束。</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>当你需要一个仅在函数内部使用，但希望其值在函数调用之间保持不变的变量时。</li>
+<li>适用于需要缓存数据以提高性能的情况。</li>
+</ul>
+</li>
+<li>内存分布：静态局部变量存储在<strong>全局&#x2F;静态存储区。</strong></li>
+</ul>
+<ol>
+<li>局部变量</li>
+</ol>
+<ul>
+<li>特点：<ul>
+<li>作用域：局部变量仅在声明它们的函数或代码块内部可见。</li>
+<li>生命周期：局部变量在函数调用时创建，函数调用结束后销毁。</li>
+<li>初始化：必须在使用前显式初始化。</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>需要临时存储数据，且这些数据只在当前作用域内使用时。</li>
+<li>作为循环计数器或中间计算结果。</li>
+</ul>
+</li>
+<li>内存分布：<strong>局部变量存储在栈上</strong>，与它们所在的作用域（如函数）相关联。</li>
+</ul>
+<ol>
+<li>全局变量</li>
+</ol>
+<ul>
+<li>特点：<ul>
+<li>作用域：全局变量在整个程序中都是可见的，可以在任何函数或代码块中访问。</li>
+<li>生命周期：全局变量同样具有静态存储期，它们在程序的整个运行期间都存在。</li>
+<li>初始化：通常在程序启动时初始化。</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>当你需要在程序的多个部分共享数据时。</li>
+<li>适用于存储配置信息或程序的状态信息。</li>
+<li>需要注意全局变量可能导致代码难以测试和维护。</li>
+</ul>
+</li>
+<li>内存分布：<strong>全局变量也存储在全局&#x2F;静态存储区。</strong></li>
+</ul> 
+      <a class="article-more-link" href="/2025/06/01/C++%E7%AF%87/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-MySQL篇"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/06/01/MySQL%E7%AF%87/"
+    >MySQL篇</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/01/MySQL%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:08:11.000Z" itemprop="datePublished">2025-06-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="一条-SQL-查询语句是如何执行的"><a href="#一条-SQL-查询语句是如何执行的" class="headerlink" title="一条 SQL 查询语句是如何执行的"></a>一条 SQL 查询语句是如何执行的</h4><ol>
+<li>连接器:连接器负责跟客户端建立连接、获取权限、维持和管理连接。</li>
+<li>查询缓存: <code>MySQL</code> 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以<code>key-value</code> 对的形式，被直接缓存在内存中。</li>
+<li>分析器:你输入的是由多个字符串和空格组成的一条<code>SQL</code> 语句，<code>MySQL</code> 需要识别出里面的字符串分别是什么，代表什么。</li>
+<li>优化器:优化器是在表里面有多个索引的时候，决定使用哪个索引; 或者在一个语句有多表关联(<code>join</code> )的时候，决定各个表的连接顺序。</li>
+<li>执行器: <code>MySQL</code>通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进入了执行器阶段，开始执行语句。</li>
+</ol> 
+      <a class="article-more-link" href="/2025/06/01/MySQL%E7%AF%87/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-GDB笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/06/01/GDB%E7%AC%94%E8%AE%B0/"
+    >GDB笔记</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/01/GDB%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2025-06-01T14:04:36.000Z" itemprop="datePublished">2025-06-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>最近早手撕一个内存池，结果程序无法通过边界测试，找了许久也没找到问题，就学习了GDB进行调试，突然发现我之前过的是什么苦日子，早用上GDB我之前蓝桥杯不乱杀。特此记录一下。</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><ul>
+<li>添加<code>-g</code>，生成调试文件</li>
+<li>删除<code>-O1</code>&#x2F;<code>-O2</code>&#x2F;<code>-O3</code>，关闭编译器优化</li>
+</ul>
+<h3 id="一、程序启动与加载"><a href="#一、程序启动与加载" class="headerlink" title="一、程序启动与加载"></a>一、程序启动与加载</h3><table>
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>简写</strong></th>
+<th><strong>用法</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>gdb &lt;可执行文件&gt;</code></td>
+<td>-</td>
+<td>加载调试程序</td>
+<td><code>gdb a.out</code></td>
+</tr>
+<tr>
+<td><code>run</code></td>
+<td><code>r</code></td>
+<td>启动程序（可带参数）</td>
+<td><code>run arg1 arg2</code></td>
+</tr>
+<tr>
+<td><code>set args</code></td>
+<td>-</td>
+<td>设置程序启动参数</td>
+<td><code>set args -b -x</code></td>
+</tr>
+<tr>
+<td><code>attach &lt;pid&gt;</code></td>
+<td>-</td>
+<td>附加到正在运行的进程</td>
+<td><code>attach 1234</code></td>
+</tr>
+<tr>
+<td><code>file &lt;可执行文件&gt;</code></td>
+<td>-</td>
+<td>在GDB内加载程序</td>
+<td><code>file a.out</code></td>
+</tr>
+</tbody></table>
+<h3 id="二、断点管理"><a href="#二、断点管理" class="headerlink" title="二、断点管理"></a>二、断点管理</h3><table>
+<thead>
+<tr>
+<th><strong>命令</strong></th>
+<th><strong>简写</strong></th>
+<th><strong>用法</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>break &lt;行号/函数名&gt;</code></td>
+<td><code>b</code></td>
+<td>设置断点</td>
+<td><code>b main</code> 或 <code>b 101</code></td>
+</tr>
+<tr>
+<td><code>break &lt;文件:行号&gt;</code></td>
+<td><code>b</code></td>
+<td>指定文件断点</td>
+<td><code>b test.c:20</code></td>
+</tr>
+<tr>
+<td><code>break *&lt;内存地址&gt;</code></td>
+<td><code>b</code></td>
+<td>内存地址断点</td>
+<td><code>b *0x400448</code></td>
+</tr>
+<tr>
+<td><code>break ... if &lt;条件&gt;</code></td>
+<td><code>b</code></td>
+<td>条件断点</td>
+<td><code>b 30 if i==5</code></td>
+</tr>
+<tr>
+<td><code>info breakpoints</code></td>
+<td><code>i b</code></td>
+<td>查看所有断点</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>delete &lt;断点编号&gt;</code></td>
+<td><code>d</code></td>
+<td>删除断点</td>
+<td><code>delete 2</code></td>
+</tr>
+<tr>
+<td><code>disable/enable &lt;断点编号&gt;</code></td>
+<td>-</td>
+<td>禁用&#x2F;启用断点</td>
+<td><code>disable 1</code></td>
+</tr>
+<tr>
+<td><code>tbreak</code></td>
+<td><code>tb</code></td>
+<td>设置临时断点（命中后自动删除）</td>
+<td><code>tbreak foo</code></td>
+</tr>
+<tr>
+<td><code>watch &lt;变量&gt;</code></td>
+<td>-</td>
+<td>监视变量变化</td>
+<td><code>watch x</code></td>
+</tr>
+</tbody></table> 
+      <a class="article-more-link" href="/2025/06/01/GDB%E7%AC%94%E8%AE%B0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gdb/" rel="tag">gdb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-八股文心得体会"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/05/30/%E5%85%AB%E8%82%A1%E6%96%87%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"
+    >八股文心得体会</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/30/%E5%85%AB%E8%82%A1%E6%96%87%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/" class="article-date">
+  <time datetime="2025-05-30T02:59:01.000Z" itemprop="datePublished">2025-05-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>为期40天的八股文训练营，让我收获颇丰。记得第一次面试的时候，面试官问的基本都是八股文上的题目，我虽然有着计算机网络、数据库、操作系统、C++等内容的知识储备，但是在面试的压力下，加上知识不成体系，回答的模棱两可、支支吾吾。而经过长达40天的训练，我对面试开始得心应手起来。我认为训练营的亮点如下：</p>
+<ul>
+<li>训练营的随时补签、周末休息的打卡机制，让意志稍微不那么坚定的同学也能够检查下来。</li>
+<li>训练营打卡要求的时口头回答，而非文字，更加贴合面试的场景，能够逐步改善我们的语言习惯，在面试的过程不在支支吾吾。我就在训练营中，逐步改掉了额、嗯等语气词，面试的回答也更加流畅自然。</li>
+<li>训练营下提供了可供参考的他人的优秀回答录音，这样可以让我们想优秀的人不断学习，修正答案，获得自己的答案。</li>
+<li>训练营鼓励答案要有自己的理解和补充，形成适合自己的答案，而非死记硬背，让我们在面试的时候能够更加流畅的回答的同时，引导面试官问题方向。</li>
+<li>训练营提供问题的详细资料，这让我们能够从更深、更细、更底层、更系统的原理解析、应用，理解问题背后形成的原因和机理，让我们不是死记硬背，而是理解后经过整理的自然阐发<br>最后，非常感谢代码随想录，虽然还没有让我成功找到实习，但是在我不知所措时给出了路径和方法。我相信，亡羊补牢，为时未晚。虽然我准备和出发的时间比较晚，但我相信我终究上岸。</li>
+</ul>
+<p>在未来，我将根据我的理解，不断完善和扩充这一份笔记。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-资源链接整理"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/05/23/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5%E6%95%B4%E7%90%86/"
+    >资源链接整理</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/23/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5%E6%95%B4%E7%90%86/" class="article-date">
+  <time datetime="2025-05-23T14:25:35.000Z" itemprop="datePublished">2025-05-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%B5%84%E6%BA%90/">资源</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://www.kdocs.cn/l/cnT7kwAC7XSB">精品软件</a>：各种软件的特殊版、精简版、第三方版本<br><a target="_blank" rel="noopener" href="https://xiniushu.com/">中文技术文档大全</a>：各种技术的中文技术文档<br><a target="_blank" rel="noopener" href="https://learn-anything.xyz/">Learn Anything</a>：学习各种技术的教程（计算机科学）<br><a target="_blank" rel="noopener" href="https://www.67tool.com/">即时工具</a>：在线工具箱，包含很多日常常用的在线功能<br><a target="_blank" rel="noopener" href="https://www.yuque.com/u25693523/ao2fc1">Adobe全套设计软件</a>：全套的Adobe软件破解版<br><a target="_blank" rel="noopener" href="https://www.ruancang.net/#/sim">软仓</a>：各种设计软件破解版<br><a target="_blank" rel="noopener" href="https://302.ai/">302.AI</a>：国内外各种AI综合平台<br><a target="_blank" rel="noopener" href="https://www.juhe.cn/">聚合数据</a>：各种常用的免费API数据接口服务</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6/" rel="tag">软件</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-通信协议笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/"
+    >通信协议笔记</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2025-05-23T14:23:09.000Z" itemprop="datePublished">2025-05-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h1><h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><ul>
+<li>两根信号线通信：串行数据线SDA、串行时钟线SCL；</li>
+<li>SDA和SCL的输出引脚驱动为开漏输出，外接上拉电阻</li>
+<li>所有设备通过7位地址软件寻址，高四位由厂家设定，为设备类型，低三位由用户定义</li>
+<li>所有设备都具有自动应答功能，主机和从机区别在于主机有对SCL的发送权</li>
+<li>最大挂载数取决于总线上的最大电容值，一般为400pf</li>
+</ul>
+<h3 id="工作时序"><a href="#工作时序" class="headerlink" title="工作时序"></a>工作时序</h3><ul>
+<li>数据读取在SCL为高时发生，所以当SCL为高时，数据要保持稳定</li>
+<li>SCL为高时，SDA从高跳到低为开始信号start，从低跳到高为结束信号stop</li>
+<li>SDA传送字节数没有限制，传送完紧跟应答信号，数据高位在前<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082028795.png" alt="d3bbca378362c28829cee243a8497ef7.png"></li>
+<li>当应答信号为高电平时，为ACK信号，当应答信号为高电平时，为NACK信号</li>
+<li>主机发送从机接受时，ACK由从机发出，若为NACK，主机直接尝试STOP信号终止后续传输</li>
+<li>从机发送主机接收时，ACK有主机发出，表示还要接受数据，当接受完后，发送NACK，告知从机读取结束，释放总线，随后主机发送stop命令，将释放总线，结束读操作。</li>
+</ul> 
+      <a class="article-more-link" href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%9A%E4%BF%A1/" rel="tag">通信</a></li></ul>
+
+    </footer>
+  </div>
+
+   
    
   
 </article>
@@ -820,7 +946,7 @@
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>
@@ -906,10 +1032,6 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
-    </li>
-    
-    <li class="nav-item">
       <a class="nav-item-link" target="_blank" rel="noopener" href="https://yelo056883.lofter.com">摄影</a>
     </li>
     
@@ -918,7 +1040,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2019/about">关于我</a>
+      <a class="nav-item-link" href="/about">关于我</a>
     </li>
     
   </ul>
