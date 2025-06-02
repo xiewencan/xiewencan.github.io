@@ -149,6 +149,89 @@
     
     
     <article
+  id="post-cmake简易入门"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/"
+    >cmake简易入门</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2025-05-23T13:57:04.000Z" itemprop="datePublished">2025-05-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h1><ol>
+<li><strong>创建 <code>CMakeLists.txt</code> 文件</strong>：定义项目、目标和依赖。</li>
+<li><strong>创建构建目录</strong>：保持源代码目录整洁。</li>
+<li><strong>配置项目</strong>：使用 CMake 生成构建系统文件。</li>
+<li><strong>编译项目</strong>：使用构建系统文件编译项目。</li>
+<li><strong>运行可执行文件</strong>：执行生成的程序。</li>
+<li><strong>清理构建文件</strong>：删除中间文件和目标文件。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">配置CMakeLists.txt后</span><br><span class="line">mkdir build 创建目录</span><br><span class="line">cd build</span><br><span class="line">cmake ..  # 配置</span><br><span class="line">make      # 编译</span><br><span class="line">./MyExcutable  # 运行</span><br><span class="line">make clean   # 清理</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
+<li><p><code>cmake_minimum_required(VERSION &lt;num&gt;)</code>：设置最低版本</p>
+</li>
+<li><p><code>project(&lt;name&gt; [version])</code>：设置项目名和版本</p>
+</li>
+<li><p><code>add_executable(&lt;target&gt; [dependence])</code>：添加项目可执行文件和依赖</p>
+</li>
+<li><p><code>set(&lt;var&gt; &lt;val&gt;)</code>：设置变量</p>
+</li>
+<li><p><code>$&#123;var&#125;</code>：变量使用</p>
+</li>
+<li><p><code>configure_file(&lt;ifile&gt; &lt;ofile&gt; [copy_only] [escape_quotes] [@only])</code>：复制一个文件到目标位置，并对文件内容进行变量替换</p>
+<ul>
+<li><code>ifile</code>：指定输入文件的路径。</li>
+<li><code>ofile</code>：指定输出文件的路径</li>
+<li><code>COPY_ONLY</code>：如果指定这个选项，CMake将不会对文件内容进行变量替换，只是简单地复制文件。</li>
+<li><code>ESCAPE_QUOTES</code>：如果指定这个选项，CMake将对输出文件中的双引号进行转义。</li>
+<li><code>@ONLY</code>：如果指定这个选项，CMake将只替换<code>@</code>符号包围的变量。这在某些情况下可以提高性能。</li>
+</ul> 
+      <a class="article-more-link" href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-jupyter-notebook简易入门"
   class="article article-type-post"
   itemscope
@@ -701,64 +784,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%BB%E5%90%8E%E6%84%9F/" rel="tag">读后感</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-Vim常用命令"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/09/16/Vim%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"
-    >Vim常用命令</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/09/16/Vim%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2024-09-16T03:01:09.000Z" itemprop="datePublished">2024-09-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h4 id="符号含义"><a href="#符号含义" class="headerlink" title="符号含义"></a>符号含义</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ # 行尾，或者最后一行的行尾</span><br><span class="line">% # 整个文件</span><br><span class="line">H # 屏幕第一行</span><br><span class="line">M # 屏幕中间</span><br><span class="line">L # 屏幕最后一行</span><br><span class="line">G # 最后一行</span><br></pre></td></tr></table></figure>
-<h4 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 上下左右移动n</span><br><span class="line">n + h/j/k/l</span><br><span class="line"></span><br><span class="line"># 上下翻一页</span><br><span class="line">Ctrl + b/f</span><br><span class="line"></span><br><span class="line"># 上下翻半页</span><br><span class="line">Ctrl + u/d</span><br><span class="line"></span><br><span class="line"># 右移n个字符</span><br><span class="line">n + &lt;space&gt;</span><br><span class="line"></span><br><span class="line"># 下移n行</span><br><span class="line">n + &lt;Enter&gt;</span><br><span class="line"></span><br><span class="line"># 移动到第一行</span><br><span class="line">gg</span><br><span class="line"></span><br><span class="line"># 设置/取消行号</span><br><span class="line">:set nu</span><br><span class="line">:set nonu</span><br></pre></td></tr></table></figure> 
-      <a class="article-more-link" href="/2024/09/16/Vim%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
 
     </footer>
   </div>

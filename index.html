@@ -149,6 +149,64 @@
     
     
     <article
+  id="post-Easy-Memory-Pool"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/06/02/Easy-Memory-Pool/"
+    >Easy-Memory-Pool</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/02/Easy-Memory-Pool/" class="article-date">
+  <time datetime="2025-06-02T03:37:56.000Z" itemprop="datePublished">2025-06-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><p>内存池的架构如图所示，由ThreadCache,CentralCache,PageCache三层组成。</p>
+<p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202505291824391.png" alt="ponilsan.tw3.png|500"></p> 
+      <a class="article-more-link" href="/2025/06/02/Easy-Memory-Pool/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%86%85%E5%AD%98%E6%B1%A0/" rel="tag">内存池</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%A1%B9%E7%9B%AE/" rel="tag">项目</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-操作系统篇"
   class="article article-type-post"
   itemscope
@@ -872,89 +930,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%9A%E4%BF%A1/" rel="tag">通信</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-cmake简易入门"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/"
-    >cmake简易入门</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/" class="article-date">
-  <time datetime="2025-05-23T13:57:04.000Z" itemprop="datePublished">2025-05-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="构建步骤"><a href="#构建步骤" class="headerlink" title="构建步骤"></a>构建步骤</h1><ol>
-<li><strong>创建 <code>CMakeLists.txt</code> 文件</strong>：定义项目、目标和依赖。</li>
-<li><strong>创建构建目录</strong>：保持源代码目录整洁。</li>
-<li><strong>配置项目</strong>：使用 CMake 生成构建系统文件。</li>
-<li><strong>编译项目</strong>：使用构建系统文件编译项目。</li>
-<li><strong>运行可执行文件</strong>：执行生成的程序。</li>
-<li><strong>清理构建文件</strong>：删除中间文件和目标文件。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">配置CMakeLists.txt后</span><br><span class="line">mkdir build 创建目录</span><br><span class="line">cd build</span><br><span class="line">cmake ..  # 配置</span><br><span class="line">make      # 编译</span><br><span class="line">./MyExcutable  # 运行</span><br><span class="line">make clean   # 清理</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><ul>
-<li><p><code>cmake_minimum_required(VERSION &lt;num&gt;)</code>：设置最低版本</p>
-</li>
-<li><p><code>project(&lt;name&gt; [version])</code>：设置项目名和版本</p>
-</li>
-<li><p><code>add_executable(&lt;target&gt; [dependence])</code>：添加项目可执行文件和依赖</p>
-</li>
-<li><p><code>set(&lt;var&gt; &lt;val&gt;)</code>：设置变量</p>
-</li>
-<li><p><code>$&#123;var&#125;</code>：变量使用</p>
-</li>
-<li><p><code>configure_file(&lt;ifile&gt; &lt;ofile&gt; [copy_only] [escape_quotes] [@only])</code>：复制一个文件到目标位置，并对文件内容进行变量替换</p>
-<ul>
-<li><code>ifile</code>：指定输入文件的路径。</li>
-<li><code>ofile</code>：指定输出文件的路径</li>
-<li><code>COPY_ONLY</code>：如果指定这个选项，CMake将不会对文件内容进行变量替换，只是简单地复制文件。</li>
-<li><code>ESCAPE_QUOTES</code>：如果指定这个选项，CMake将对输出文件中的双引号进行转义。</li>
-<li><code>@ONLY</code>：如果指定这个选项，CMake将只替换<code>@</code>符号包围的变量。这在某些情况下可以提高性能。</li>
-</ul> 
-      <a class="article-more-link" href="/2025/05/23/cmake%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
 
     </footer>
   </div>
