@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>八股文底层 Day1 |  谢文灿</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-八股文底层-Day1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  八股文底层 Day1
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/07/01/%E5%85%AB%E8%82%A1%E6%96%87%E5%BA%95%E5%B1%82-Day1/" class="article-date">
+  <time datetime="2025-07-01T15:26:56.000Z" itemprop="datePublished">2025-07-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">7 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="C-对象模型"><a href="#C-对象模型" class="headerlink" title="C++对象模型"></a>C++对象模型</h3><p><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202506231202826.png" alt="12e443jd.vjg.png|300"></p>
+<table>
+<thead>
+<tr>
+<th>组件类型</th>
+<th>存储位置</th>
+<th>是否占用对象空间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>非静态数据成员</td>
+<td>对象内部</td>
+<td>✔️ 是</td>
+</tr>
+<tr>
+<td>虚函数表指针(vptr)</td>
+<td>对象头部(通常)</td>
+<td>✔️ 是</td>
+</tr>
+<tr>
+<td>普通成员函数</td>
+<td>代码段(.text)</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td>虚函数</td>
+<td>代码段(.text)</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td>虚函数表(vtable)</td>
+<td>只读数据段(.rodata)</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td>静态数据成员</td>
+<td>全局&#x2F;静态数据段</td>
+<td>❌ 否</td>
+</tr>
+<tr>
+<td>静态成员函数</td>
+<td>代码段(.text)</td>
+<td>❌ 否</td>
+</tr>
+</tbody></table>
+<h3 id="没有虚函数（平凡类型）"><a href="#没有虚函数（平凡类型）" class="headerlink" title="没有虚函数（平凡类型）"></a>没有虚函数（平凡类型）</h3><ul>
+<li>指针类型是为了在解引用的时候确认读取多少个字节</li>
+<li>结构体和类在C++的内存实现上一样的，只是在编译器层面添加类权限访问控制</li>
+<li>结构体或者类，本质上类似与数组相同，是一块连续的内存，可以进行强制类型转换。访问结构体或者类的成员的时候，相当于根据成员的类型来计算偏移量</li>
+<li>在继承的时候，根据子类继承声明的顺序，将多个父类的成员添加到子类成员之前</li>
+<li>成员函数只是在一般函数的基础上由编译器隐式的在参数列表添加this指针</li>
+</ul>
+<h3 id="有虚函数"><a href="#有虚函数" class="headerlink" title="有虚函数"></a>有虚函数</h3><ul>
+<li>在类顶部中隐式添加一个指向虚函数表的指针，会与成员变量进行内存对齐</li>
+<li>包含虚函数的对象的函数地址大小为2个void*，非虚函数前半部分表示函数地址，后半部分填充0，虚函数前半部分为函数在虚函数表的偏移量，后半部分为函数地址</li>
+</ul>
+<h3 id="继承模型"><a href="#继承模型" class="headerlink" title="继承模型"></a>继承模型</h3><h4 id="1-单继承模型"><a href="#1-单继承模型" class="headerlink" title="1. 单继承模型"></a>1. 单继承模型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Base &#123;</span><br><span class="line">    int base_data;</span><br><span class="line">    virtual void vfunc() &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Derived : public Base &#123;</span><br><span class="line">    int derived_data;</span><br><span class="line">    void vfunc() override &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>内存布局：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Derive的内存布局</span><br><span class="line">+------------------+</span><br><span class="line">| vptr (Derived)   |  // 指向Derived的vtable</span><br><span class="line">+------------------+</span><br><span class="line">| Base::base_data  |  // 基类数据成员</span><br><span class="line">+------------------+</span><br><span class="line">| Derived::derived |  // 派生类数据成员</span><br><span class="line">+------------------+</span><br><span class="line"></span><br><span class="line"># Base的内存布局</span><br><span class="line">+------------------+</span><br><span class="line">| vptr (Base)      |  // 指向Base的vtable</span><br><span class="line">+------------------+</span><br><span class="line">| Base::base_data  |  // 基类数据成员</span><br><span class="line">+------------------+</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-多继承模型"><a href="#2-多继承模型" class="headerlink" title="2. 多继承模型"></a>2. 多继承模型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Base1 &#123; virtual void f1() &#123;&#125; &#125;;</span><br><span class="line">class Base2 &#123; virtual void f2() &#123;&#125; &#125;;</span><br><span class="line">class Derived : public Base1, public Base2 &#123;</span><br><span class="line">    void f1() override &#123;&#125;</span><br><span class="line">    void f2() override &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>内存布局：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">+------------------+</span><br><span class="line">| vptr (Base1)     |  // 指向Derived的Base1 vtable</span><br><span class="line">+------------------+</span><br><span class="line">| Base1 data       |</span><br><span class="line">+------------------+</span><br><span class="line">| vptr (Base2)     |  // 指向Derived的Base2 vtable</span><br><span class="line">+------------------+</span><br><span class="line">| Base2 data       |</span><br><span class="line">+------------------+</span><br><span class="line">| Derived data     |  // 派生类特有数据</span><br><span class="line">+------------------+</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-虚继承模型（解决菱形继承）"><a href="#3-虚继承模型（解决菱形继承）" class="headerlink" title="3. 虚继承模型（解决菱形继承）"></a>3. 虚继承模型（解决菱形继承）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class A &#123; int a; &#125;;</span><br><span class="line">class B : virtual public A &#123; int b; &#125;;</span><br><span class="line">class C : virtual public A &#123; int c; &#125;;</span><br><span class="line">class D : public B, public C &#123; int d; &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>内存布局：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">+------------------+</span><br><span class="line">| vptr (B)         | </span><br><span class="line">+------------------+</span><br><span class="line">| B::b             |</span><br><span class="line">+------------------+</span><br><span class="line">| vptr (C)         |</span><br><span class="line">+------------------+</span><br><span class="line">| C::c             |</span><br><span class="line">+------------------+</span><br><span class="line">| D::d             |</span><br><span class="line">+------------------+</span><br><span class="line">| A::a             |  // 虚基类共享部分</span><br><span class="line">+------------------+</span><br></pre></td></tr></table></figure>
+
+<h3 id="虚函数的调用原理"><a href="#虚函数的调用原理" class="headerlink" title="虚函数的调用原理"></a>虚函数的调用原理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Derived d;</span><br><span class="line">Base* pb = &amp;d;</span><br><span class="line">pb-&gt;vfunc();</span><br></pre></td></tr></table></figure>
+<p>有点像类型的强制转换，由于</p>
+<h3 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h3><ol>
+<li><strong>多态使用原则</strong>：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 正确：通过指针/引用保持多态</span><br><span class="line">void func(Base1&amp; b) &#123; b.f1(); &#125;</span><br><span class="line"></span><br><span class="line">// 错误：按值传递导致切片</span><br><span class="line">void func(Base1 b) &#123; b.f1(); &#125; // 失去多态</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>安全的指针转换</strong>：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Base2* pb2 = get_object();</span><br><span class="line"></span><br><span class="line">// 推荐方式</span><br><span class="line">if (Derived* pd = dynamic_cast&lt;Derived*&gt;(pb2)) &#123;</span><br><span class="line">    // 安全使用pd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 危险方式</span><br><span class="line">Derived* pd = (Derived*)pb2; // 可能导致非法内存访问</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><strong>内存布局验证</strong>：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Derived d;</span><br><span class="line">printf(&quot;Base1 offset: %td\n&quot;, (char*)static_cast&lt;Base1*&gt;(&amp;d) - (char*)&amp;d);</span><br><span class="line">printf(&quot;Base2 offset: %td\n&quot;, (char*)static_cast&lt;Base2*&gt;(&amp;d) - (char*)&amp;d);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><strong>避免多继承陷阱</strong>：<ul>
+<li>优先使用单继承+接口继承</li>
+<li>谨慎使用虚继承</li>
+<li>使用 <code>final</code> 防止意外重写</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class SafeBase &#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void critical() final; // 禁止重写</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="虚函数机制失效"><a href="#虚函数机制失效" class="headerlink" title="虚函数机制失效"></a>虚函数机制失效</h3><h4 id="1-对象切片（Object-Slicing）"><a href="#1-对象切片（Object-Slicing）" class="headerlink" title="1. 对象切片（Object Slicing）"></a>1. 对象切片（Object Slicing）</h4><p><strong>场景</strong>：将派生类对象<strong>按值赋值</strong>给基类对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Base &#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void func() &#123; cout &lt;&lt; &quot;Base\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Derived : public Base &#123;</span><br><span class="line">public:</span><br><span class="line">    void func() override &#123; cout &lt;&lt; &quot;Derived\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    Base b = d;  // 对象切片</span><br><span class="line">    b.func();    // 输出 &quot;Base&quot; 而不是 &quot;Derived&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>失效原因</strong>：</p>
+<ul>
+<li>仅复制了基类部分的数据成员</li>
+<li>vptr被重置为基类的虚函数表</li>
+<li>派生类特有的数据和方法完全丢失</li>
+</ul>
+<h4 id="2-构造函数中的虚函数调用"><a href="#2-构造函数中的虚函数调用" class="headerlink" title="2. 构造函数中的虚函数调用"></a>2. 构造函数中的虚函数调用</h4><p><strong>场景</strong>：在构造函数中调用虚函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Base &#123;</span><br><span class="line">public:</span><br><span class="line">    Base() &#123; func(); &#125;  // 危险！</span><br><span class="line">    virtual void func() &#123; cout &lt;&lt; &quot;Base\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Derived : public Base &#123;</span><br><span class="line">public:</span><br><span class="line">    Derived() : Base() &#123;&#125;</span><br><span class="line">    void func() override &#123; cout &lt;&lt; &quot;Derived\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    Derived d;  // 输出 &quot;Base&quot; 而不是 &quot;Derived&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>失效原因</strong>：</p>
+<ul>
+<li>对象构造顺序：基类 → 成员 → 派生类</li>
+<li>基类构造期间，对象被视为基类类型</li>
+<li>vptr在基类构造期间指向基类的虚函数表</li>
+</ul>
+<h4 id="3-析构函数中的虚函数调用"><a href="#3-析构函数中的虚函数调用" class="headerlink" title="3. 析构函数中的虚函数调用"></a>3. 析构函数中的虚函数调用</h4><p><strong>场景</strong>：在析构函数中调用虚函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Base &#123;</span><br><span class="line">public:</span><br><span class="line">    virtual ~Base() &#123; func(); &#125;  // 危险！</span><br><span class="line">    virtual void func() &#123; cout &lt;&lt; &quot;Base\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Derived : public Base &#123;</span><br><span class="line">public:</span><br><span class="line">    ~Derived() &#123;&#125;</span><br><span class="line">    void func() override &#123; cout &lt;&lt; &quot;Derived\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    Derived d;  // 析构时输出 &quot;Base&quot; 而不是 &quot;Derived&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>失效原因</strong>：</p>
+<ul>
+<li>对象析构顺序：派生类 → 成员 → 基类</li>
+<li>基类析构期间，对象被视为基类类型</li>
+<li>vptr在基类析构期间指向基类的虚函数表</li>
+</ul>
+<h4 id="4-非指针-引用的直接调用"><a href="#4-非指针-引用的直接调用" class="headerlink" title="4. 非指针&#x2F;引用的直接调用"></a>4. 非指针&#x2F;引用的直接调用</h4><p><strong>场景</strong>：通过对象实例（而非指针&#x2F;引用）调用虚函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Derived d;</span><br><span class="line">d.func();  // 输出 &quot;Derived&quot; (静态绑定)</span><br><span class="line"></span><br><span class="line">Base b = d;</span><br><span class="line">b.func();  // 输出 &quot;Base&quot; (静态绑定)</span><br></pre></td></tr></table></figure>
+
+<p><strong>失效原因</strong>：</p>
+<ul>
+<li>编译器在编译期即可确定对象确切类型</li>
+<li>直接生成静态函数调用指令</li>
+<li>完全绕过虚函数表机制</li>
+</ul>
+<h4 id="5-隐藏而非重写（Hidden-vs-Overridden）"><a href="#5-隐藏而非重写（Hidden-vs-Overridden）" class="headerlink" title="5. 隐藏而非重写（Hidden vs Overridden）"></a>5. 隐藏而非重写（Hidden vs Overridden）</h4><p><strong>场景</strong>：派生类声明同名函数但未正确重写</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Base &#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void func(int) &#123; cout &lt;&lt; &quot;Base\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Derived : public Base &#123;</span><br><span class="line">public:</span><br><span class="line">    // 隐藏而非重写基类函数</span><br><span class="line">    void func() &#123; cout &lt;&lt; &quot;Derived\n&quot;; &#125; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    Base* pb = &amp;d;</span><br><span class="line">    pb-&gt;func(1);  // 输出 &quot;Base&quot; (未调用派生类实现)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>失效原因</strong>：</p>
+<ul>
+<li>函数签名不同（参数列表）</li>
+<li>未使用<code>override</code>关键字进行显式声明</li>
+<li>派生类函数隐藏了基类函数而非重写</li>
+</ul>
+<h4 id="6-虚函数表损坏"><a href="#6-虚函数表损坏" class="headerlink" title="6. 虚函数表损坏"></a>6. 虚函数表损坏</h4><p><strong>场景</strong>：内存错误导致vptr或vtable损坏</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Base &#123;</span><br><span class="line">public:</span><br><span class="line">    virtual void func() &#123; cout &lt;&lt; &quot;Base\n&quot;; &#125;</span><br><span class="line">    int data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Derived : public Base &#123;</span><br><span class="line">public:</span><br><span class="line">    void func() override &#123; cout &lt;&lt; &quot;Derived\n&quot;; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    Derived d;</span><br><span class="line">    </span><br><span class="line">    // 危险的内存越界操作</span><br><span class="line">    int* p = &amp;d.data;</span><br><span class="line">    for (int i = 0; i &lt; 100; i++) p[i] = 0;  // 覆盖vptr</span><br><span class="line">    </span><br><span class="line">    Base* pb = &amp;d;</span><br><span class="line">    pb-&gt;func();  // 未定义行为（通常崩溃）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>失效原因</strong>：</p>
+<ul>
+<li>内存越界覆盖了对象的vptr</li>
+<li>vptr指向无效内存地址</li>
+<li>访问虚函数表时导致未定义行为</li>
+</ul>
+ 
+      <!-- reward -->
+      
+      <div id="reword-out">
+        <div id="reward-btn">
+          Donate
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/07/01/%E5%85%AB%E8%82%A1%E6%96%87%E5%BA%95%E5%B1%82-Day1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/" rel="tag">八股文</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2025/07/01/%E8%99%9A%E5%87%BD%E6%95%B0%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">虚函数机制详解</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: "https://twikoo.yelo.homes/"
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023-2025
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="谢文灿"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="https://yelo056883.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+ <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/MathJax.js"></script>
+<script src="https://cdn.staticfile.org/mathjax/2.7.7/config/TeX-AMS-MML_HTMLorMML-full.js"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true,
+  };
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="86"
+        src="//music.163.com/outchain/player?type=2&id=864711417&auto=1&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>
