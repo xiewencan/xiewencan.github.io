@@ -149,6 +149,122 @@
     
     
     <article
+  id="post-虚函数机制详解"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/07/01/%E8%99%9A%E5%87%BD%E6%95%B0%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/"
+    >虚函数机制详解</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/07/01/%E8%99%9A%E5%87%BD%E6%95%B0%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" class="article-date">
+  <time datetime="2025-07-01T14:15:19.000Z" itemprop="datePublished">2025-07-01</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+   
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
+  id="post-类继承时的内存布局"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/07/01/%E7%B1%BB%E7%BB%A7%E6%89%BF%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/"
+    >类继承时的内存布局</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/07/01/%E7%B1%BB%E7%BB%A7%E6%89%BF%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/" class="article-date">
+  <time datetime="2025-07-01T13:51:23.000Z" itemprop="datePublished">2025-07-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="1-单继承（无虚函数）"><a href="#1-单继承（无虚函数）" class="headerlink" title="1. 单继承（无虚函数）"></a>1. 单继承（无虚函数）</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Base &#123;</span><br><span class="line">public:</span><br><span class="line">    int a;</span><br><span class="line">    int b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Derived : public Base &#123;</span><br><span class="line">public:</span><br><span class="line">    int c;</span><br><span class="line">    int d;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>内存布局：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Base对象 (8字节):</span><br><span class="line">┌───────────┐</span><br><span class="line">│   a (4)   │</span><br><span class="line">├───────────┤</span><br><span class="line">│   b (4)   │</span><br><span class="line">└───────────┘</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Derived对象 (16字节):</span><br><span class="line">┌───────────┐ ← 起始地址</span><br><span class="line">│ Base::a   │</span><br><span class="line">├───────────┤</span><br><span class="line">│ Base::b   │</span><br><span class="line">├───────────┤</span><br><span class="line">│ Derived::c│</span><br><span class="line">├───────────┤</span><br><span class="line">│ Derived::d│</span><br><span class="line">└───────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>特点：</strong></p>
+<ul>
+<li>派生类对象包含完整的基类子对象</li>
+<li>派生类新增成员追加在基类成员之后</li>
+<li>内存连续，无额外开销</li>
+</ul> 
+      <a class="article-more-link" href="/2025/07/01/%E7%B1%BB%E7%BB%A7%E6%89%BF%E6%97%B6%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-Easy-Memory-Pool"
   class="article article-type-post"
   itemscope
@@ -805,131 +921,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-资源链接整理"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2025/05/23/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5%E6%95%B4%E7%90%86/"
-    >资源链接整理</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2025/05/23/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5%E6%95%B4%E7%90%86/" class="article-date">
-  <time datetime="2025-05-23T14:25:35.000Z" itemprop="datePublished">2025-05-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%B5%84%E6%BA%90/">资源</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://www.kdocs.cn/l/cnT7kwAC7XSB">精品软件</a>：各种软件的特殊版、精简版、第三方版本<br><a target="_blank" rel="noopener" href="https://xiniushu.com/">中文技术文档大全</a>：各种技术的中文技术文档<br><a target="_blank" rel="noopener" href="https://learn-anything.xyz/">Learn Anything</a>：学习各种技术的教程（计算机科学）<br><a target="_blank" rel="noopener" href="https://www.67tool.com/">即时工具</a>：在线工具箱，包含很多日常常用的在线功能<br><a target="_blank" rel="noopener" href="https://www.yuque.com/u25693523/ao2fc1">Adobe全套设计软件</a>：全套的Adobe软件破解版<br><a target="_blank" rel="noopener" href="https://www.ruancang.net/#/sim">软仓</a>：各种设计软件破解版<br><a target="_blank" rel="noopener" href="https://302.ai/">302.AI</a>：国内外各种AI综合平台<br><a target="_blank" rel="noopener" href="https://www.juhe.cn/">聚合数据</a>：各种常用的免费API数据接口服务</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API/" rel="tag">API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6/" rel="tag">软件</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-通信协议笔记"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/"
-    >通信协议笔记</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time datetime="2025-05-23T14:23:09.000Z" itemprop="datePublished">2025-05-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="I2C"><a href="#I2C" class="headerlink" title="I2C"></a>I2C</h1><h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><ul>
-<li>两根信号线通信：串行数据线SDA、串行时钟线SCL；</li>
-<li>SDA和SCL的输出引脚驱动为开漏输出，外接上拉电阻</li>
-<li>所有设备通过7位地址软件寻址，高四位由厂家设定，为设备类型，低三位由用户定义</li>
-<li>所有设备都具有自动应答功能，主机和从机区别在于主机有对SCL的发送权</li>
-<li>最大挂载数取决于总线上的最大电容值，一般为400pf</li>
-</ul>
-<h3 id="工作时序"><a href="#工作时序" class="headerlink" title="工作时序"></a>工作时序</h3><ul>
-<li>数据读取在SCL为高时发生，所以当SCL为高时，数据要保持稳定</li>
-<li>SCL为高时，SDA从高跳到低为开始信号start，从低跳到高为结束信号stop</li>
-<li>SDA传送字节数没有限制，传送完紧跟应答信号，数据高位在前<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202504082028795.png" alt="d3bbca378362c28829cee243a8497ef7.png"></li>
-<li>当应答信号为高电平时，为ACK信号，当应答信号为高电平时，为NACK信号</li>
-<li>主机发送从机接受时，ACK由从机发出，若为NACK，主机直接尝试STOP信号终止后续传输</li>
-<li>从机发送主机接收时，ACK有主机发出，表示还要接受数据，当接受完后，发送NACK，告知从机读取结束，释放总线，随后主机发送stop命令，将释放总线，结束读操作。</li>
-</ul> 
-      <a class="article-more-link" href="/2025/05/23/%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%AC%94%E8%AE%B0/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%9A%E4%BF%A1/" rel="tag">通信</a></li></ul>
 
     </footer>
   </div>
