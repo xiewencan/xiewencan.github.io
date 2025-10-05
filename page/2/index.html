@@ -149,6 +149,69 @@
     
     
     <article
+  id="post-MySQL篇"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/06/01/MySQL%E7%AF%87/"
+    >MySQL篇</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/01/MySQL%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:08:11.000Z" itemprop="datePublished">2025-06-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="一条-SQL-查询语句是如何执行的"><a href="#一条-SQL-查询语句是如何执行的" class="headerlink" title="一条 SQL 查询语句是如何执行的"></a>一条 SQL 查询语句是如何执行的</h4><ol>
+<li>连接器:连接器负责跟客户端建立连接、获取权限、维持和管理连接。</li>
+<li>查询缓存: <code>MySQL</code> 拿到一个查询请求后，会先到查询缓存看看，之前是不是执行过这条语句。之前执行过的语句及其结果可能会以<code>key-value</code> 对的形式，被直接缓存在内存中。</li>
+<li>分析器:你输入的是由多个字符串和空格组成的一条<code>SQL</code> 语句，<code>MySQL</code> 需要识别出里面的字符串分别是什么，代表什么。</li>
+<li>优化器:优化器是在表里面有多个索引的时候，决定使用哪个索引; 或者在一个语句有多表关联(<code>join</code> )的时候，决定各个表的连接顺序。</li>
+<li>执行器: <code>MySQL</code>通过分析器知道了你要做什么，通过优化器知道了该怎么做，于是就进入了执行器阶段，开始执行语句。</li>
+</ol> 
+      <a class="article-more-link" href="/2025/06/01/MySQL%E7%AF%87/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-GDB笔记"
   class="article article-type-post"
   itemscope
@@ -816,66 +879,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/" rel="tag">大学课程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag">知识点</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-山水——游山篇"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/11/28/%E5%B1%B1%E6%B0%B4%E2%80%94%E2%80%94%E6%B8%B8%E5%B1%B1%E7%AF%87/"
-    >山水——游山篇</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/11/28/%E5%B1%B1%E6%B0%B4%E2%80%94%E2%80%94%E6%B8%B8%E5%B1%B1%E7%AF%87/" class="article-date">
-  <time datetime="2024-11-28T08:04:31.000Z" itemprop="datePublished">2024-11-28</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E5%AD%A6/">文学</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>前几天我无意间看到钱文忠的酒事会，谈到了中国人有关于山水的看法。我回想起我这10年的经历，浅谈一下我的看法。</p>
-<p>游山玩水，我们骨子里或多或少都有些期待，他寄托了我们摆脱工作、生活上各种繁杂琐碎的各种想象。现在文旅开始爆火，各大名山望川的人是络绎不绝。我玩水较少，但游山频繁。但每每游山多是乘兴而去，流连忘返，败兴而归。缘由以后有时间再专门讲述一番。每次游山归来，我禁不住问自己，我为什么这么喜欢去山里。</p>
-<h4 id="第一次理解：-纵使晴明无雨色，入云深处亦沾衣"><a href="#第一次理解：-纵使晴明无雨色，入云深处亦沾衣" class="headerlink" title="第一次理解： 纵使晴明无雨色，入云深处亦沾衣"></a>第一次理解： 纵使晴明无雨色，入云深处亦沾衣</h4><p>山中多云雾，凉爽宜人，又时有风。我很是喜欢沉浸在这种环境中，经常像效仿古人，建一小亭，叫上三五好友，带点酒，畅谈一下人生宇宙。累了便躺下，可以望着青树翠蔓、云深见寺发呆，任凭思绪四处飘悠。也可以闭上双眼，享受着清风的微抚，聆听山鸟鸣啼、流水潺潺。此行我们不为登山，只为享受这难得的良辰美景。</p>
-<h4 id="第二次理解：会当凌绝顶，一览众山小"><a href="#第二次理解：会当凌绝顶，一览众山小" class="headerlink" title="第二次理解：会当凌绝顶，一览众山小"></a>第二次理解：会当凌绝顶，一览众山小</h4><p>高处的风景很是壮观，可以俯看群山，可以极目远眺，往往此时我们壮怀激烈，心境开阔，有达成目标、苦尽甘来的舒畅、有一马平川的豪情、甚至有征服世界的雄心。除此之外，山顶的云海、日出、日落、雾凇，都是难得的美景。这时的我，此番来，只为登顶，去享受登顶带来的征服快感，去寻找、挑战和突破身体的极限，去体验山顶的那份开阔壮观。</p> 
-      <a class="article-more-link" href="/2024/11/28/%E5%B1%B1%E6%B0%B4%E2%80%94%E2%80%94%E6%B8%B8%E5%B1%B1%E7%AF%87/"
-        >阅读更多...</a
-      >
-       
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B1%B1%E6%B0%B4/" rel="tag">山水</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%9D%E8%80%83%EF%BC%8C%E6%B8%B8%E8%AE%B0/" rel="tag">思考，游记</a></li></ul>
 
     </footer>
   </div>

@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>正则表达式笔记 |  谢文灿</title>
+      <title>Vim高级用法 |  谢文灿</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -53,7 +53,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-正则表达式笔记"
+  id="post-Vim高级用法"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  正则表达式笔记
+  Vim高级用法
 </h1>
  
 
@@ -72,8 +72,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2024/09/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time datetime="2024-09-26T08:48:46.000Z" itemprop="datePublished">2024-09-26</time>
+      <a href="/2025/10/05/Vim%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" class="article-date">
+  <time datetime="2025-10-05T09:43:11.000Z" itemprop="datePublished">2025-10-05</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">1.2k</span>
         </span>
     </span>
 
@@ -108,138 +108,224 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ul>
-<li>精准匹配：<ul>
-<li><code>\d</code>：数字</li>
-<li><code>\w</code>：字符</li>
-<li><code>\r</code>：回车符</li>
-<li><code>\f</code>：换页符</li>
-<li><code>\n</code>：换行符</li>
-<li><code>\t</code>：制表符</li>
-<li><code>\s</code> ：任何空白字符，包括空格、制表符、换行符等</li>
-</ul>
-</li>
-<li>模糊匹配：<ul>
-<li><code>.</code>：单个任意字符</li>
-</ul>
-</li>
-<li>可变匹配：<ul>
-<li><code>*</code>：任意个字符</li>
-<li><code>+</code>：至少一个字符</li>
-<li><code>?</code>：0或1个字符</li>
-<li><code>&#123;&#125;</code>：<code>&#123;n&#125;</code>表示n个字符，用<code>&#123;n,m&#125;</code>表示n-m个字符</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
+  <h3 id="一、替代"><a href="#一、替代" class="headerlink" title="一、替代"></a>一、替代</h3><p><code>vi</code> 的替代功能远比普通的查找替换强大，它支持正则表达式和精确的范围控制。</p>
+<h4 id="1-基本语法"><a href="#1-基本语法" class="headerlink" title="1. 基本语法"></a>1. 基本语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:[range]s/&#123;pattern&#125;/&#123;string&#125;/[flags]</span><br></pre></td></tr></table></figure>
 
-<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><ul>
-<li><code>[]</code>：方括号中的符号需要转义，多个条件可以直接连接，或<ul>
-<li><code>0-9</code></li>
-<li><code>a-z</code></li>
-<li><code>A-Z</code></li>
-<li><code>\_</code></li>
-</ul>
-</li>
-<li><code>|</code>：表示或，<code>A|B</code>可以匹配A或B</li>
-<li><code>^</code>：表示行的开头，<code>^\d</code>表示必须以数字开头</li>
-<li><code>$</code>：表示行的结束，<code>\d$</code>表示必须以数字结束</li>
-</ul>
-<h2 id="捕获组"><a href="#捕获组" class="headerlink" title="捕获组"></a>捕获组</h2><h4 id="一、捕获组的基本概念"><a href="#一、捕获组的基本概念" class="headerlink" title="一、捕获组的基本概念"></a>一、捕获组的基本概念</h4><p>捕获组是正则表达式中用圆括号 <code>()</code>括起来的部分，它有两个主要功能：</p>
-<ol>
-<li>将多个字符作为一个整体进行匹配</li>
-<li>记住匹配的内容以便后续引用</li>
-</ol>
-<h4 id="二、捕获组的基本使用方法"><a href="#二、捕获组的基本使用方法" class="headerlink" title="二、捕获组的基本使用方法"></a>二、捕获组的基本使用方法</h4><ol>
-<li>创建捕获组<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)</span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>这个正则表达式匹配日期格式（如2023-05-20），并创建了3个捕获组</p>
 <ul>
-<li>第1组：4位数字的年份</li>
-<li>第2组：2位数字的月份</li>
-<li>第3组：2位数字的日期</li>
+<li><code>[range]</code>：作用范围，如不写则默认为当前行。</li>
+<li><code>s</code>：substitute（替代）的缩写。</li>
+<li><code>&#123;pattern&#125;</code>：要查找的模式（支持正则表达式）。</li>
+<li><code>&#123;string&#125;</code>：替换成的字符串。</li>
+<li><code>[flags]</code>：标志位，用来控制替换行为。</li>
 </ul>
-<ol start="2">
-<li>引用捕获组<br> 在正则表达式内部引用（反向引用）</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(\w+) \1</span><br></pre></td></tr></table></figure>
-
-<p>这个表达式匹配重复的单词，如”hello hello”或”test test”，其中<code>\1</code>引用了第一个捕获组匹配的内容</p>
-<p>在替换操作中引用</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">替换前: (\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)</span><br><span class="line">替换为: $3/$2/$1</span><br></pre></td></tr></table></figure>
-
-<p>这将把”2023-05-20”转换为”20&#x2F;05&#x2F;2023”（日&#x2F;月&#x2F;年格式）</p>
-<h4 id="三、捕获组的高级用法"><a href="#三、捕获组的高级用法" class="headerlink" title="三、捕获组的高级用法"></a>三、捕获组的高级用法</h4><h5 id="1-命名捕获组"><a href="#1-命名捕获组" class="headerlink" title="1. 命名捕获组"></a>1. 命名捕获组</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?&lt;year&gt;\d&#123;4&#125;)-(?&lt;month&gt;\d&#123;2&#125;)-(?&lt;day&gt;\d&#123;2&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>或</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?&#x27;year&#x27;\d&#123;4&#125;)-(?&#x27;month&#x27;\d&#123;2&#125;)-(?&#x27;day&#x27;\d&#123;2&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>命名捕获组可以通过名称引用，使正则表达式更易读和维护</p>
-<h5 id="2-非捕获组"><a href="#2-非捕获组" class="headerlink" title="2. 非捕获组"></a>2. 非捕获组</h5><p>当只需要分组而不需要捕获时，可以使用非捕获组<code>(?:...)</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?:https?|ftp)://([^/\r\n]+)(/[^\r\n]*)?</span><br></pre></td></tr></table></figure>
-
-<p>这个表达式匹配URL，但只捕获域名和路径部分，不捕获协议部分</p>
-<h4 id="四、捕获组的注意事项"><a href="#四、捕获组的注意事项" class="headerlink" title="四、捕获组的注意事项"></a>四、捕获组的注意事项</h4><h5 id="1-捕获组编号"><a href="#1-捕获组编号" class="headerlink" title="1. 捕获组编号"></a>1. 捕获组编号</h5><ul>
-<li>捕获组从左到右编号，从1开始</li>
-<li>每个左括号<code>(</code>对应一个捕获组，包括嵌套的括号</li>
-<li>命名捕获组不影响编号顺序</li>
-</ul>
-<h5 id="2-零宽断言中的捕获组"><a href="#2-零宽断言中的捕获组" class="headerlink" title="2. 零宽断言中的捕获组"></a>2. 零宽断言中的捕获组</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?=(\d&#123;3&#125;)$)</span><br></pre></td></tr></table></figure>
-
-<p>正向预查中的捕获组可以匹配但不消耗字符，但有些语言可能不支持</p>
-<h5 id="3-不同编程语言的差异"><a href="#3-不同编程语言的差异" class="headerlink" title="3. 不同编程语言的差异"></a>3. 不同编程语言的差异</h5><table>
+<h4 id="2-范围-range-的妙用"><a href="#2-范围-range-的妙用" class="headerlink" title="2. 范围 [range] 的妙用"></a>2. 范围 <code>[range]</code> 的妙用</h4><table>
 <thead>
 <tr>
-<th>语言&#x2F;工具</th>
-<th>引用方式</th>
-<th>命名组语法</th>
-<th>非捕获组语法</th>
+<th>范围</th>
+<th>含义</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>JavaScript</td>
-<td><code>$1</code>, <code>\1</code></td>
-<td><code>(?&lt;name&gt;)</code></td>
-<td><code>(?:)</code></td>
+<td><strong>无</strong></td>
+<td>当前行</td>
 </tr>
 <tr>
-<td>Python</td>
-<td><code>\1</code>, <code>\g&lt;1&gt;</code></td>
-<td><code>(?P&lt;name&gt;)</code></td>
-<td><code>(?:)</code></td>
+<td><code>%</code></td>
+<td>整个文件（最常用）</td>
 </tr>
 <tr>
-<td>Java</td>
-<td><code>$1</code>, <code>\1</code></td>
-<td><code>(?&lt;name&gt;)</code></td>
-<td><code>(?:)</code></td>
+<td><code>n,m</code></td>
+<td>从第 n 行到第 m 行</td>
 </tr>
 <tr>
-<td>.NET</td>
-<td><code>$1</code>, <code>\1</code></td>
-<td><code>(?&lt;name&gt;)</code></td>
-<td><code>(?:)</code></td>
+<td><code>.</code></td>
+<td>当前行</td>
 </tr>
 <tr>
-<td>PHP</td>
-<td><code>$1</code>, <code>\1</code></td>
-<td><code>(?P&lt;name&gt;)</code></td>
-<td><code>(?:)</code></td>
+<td><code>$</code></td>
+<td>最后一行</td>
+</tr>
+<tr>
+<td><code>&#39;&lt;,&#39;&gt;</code></td>
+<td><strong>可视模式下选中的范围</strong>（极其有用）</td>
 </tr>
 </tbody></table>
-<h4 id="五、实际应用示例"><a href="#五、实际应用示例" class="headerlink" title="五、实际应用示例"></a>五、实际应用示例</h4><ul>
-<li><p>日期转换</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// JavaScript示例</span><br><span class="line">const dateStr = &quot;2023-05-20&quot;;</span><br><span class="line">const newStr = dateStr.replace(/(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)/, &quot;$3/$2/$1&quot;);</span><br><span class="line">// 结果: &quot;20/05/2023&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>验证重复单词</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Python示例</span><br><span class="line">import re</span><br><span class="line">pattern = r&#x27;\b(\w+)\b\s+\1\b&#x27;</span><br><span class="line">text = &quot;This is is a test test sentence&quot;</span><br><span class="line">matches = re.findall(pattern, text)</span><br><span class="line"># 结果: [&#x27;is&#x27;, &#x27;test&#x27;]</span><br></pre></td></tr></table></figure></li>
+<h4 id="3-标志位-flags-的力量"><a href="#3-标志位-flags-的力量" class="headerlink" title="3. 标志位 [flags] 的力量"></a>3. 标志位 <code>[flags]</code> 的力量</h4><table>
+<thead>
+<tr>
+<th>标志</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>g</code></td>
+<td><strong>全局</strong>替换。默认只替换每行第一次出现的匹配项。</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td><strong>确认</strong>。每次替换前都会询问你（<code>y/n/a/q/l</code>）。</td>
+</tr>
+<tr>
+<td><code>i</code></td>
+<td><strong>忽略大小写</strong>。</td>
+</tr>
+<tr>
+<td><code>I</code></td>
+<td><strong>不忽略大小写</strong>（覆盖 <code>ignorecase</code> 设置）。</td>
+</tr>
+</tbody></table>
+<h4 id="4-高级实战示例"><a href="#4-高级实战示例" class="headerlink" title="4. 高级实战示例"></a>4. 高级实战示例</h4><p><strong>示例1：全局替换</strong><br>将文件中所有的 “foo” 替换为 “bar”。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/foo/bar/g</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例2：带确认的替换</strong><br>将第10行到第30行中所有的 “old” 替换为 “new”，每次都询问。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:10,30s/old/new/gc</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例3：在选中区域内替换</strong></p>
+<ol>
+<li>按 <code>v</code> 或 <code>V</code> 进入可视模式，选中一段文本。</li>
+<li>按 <code>:</code> 进入命令行，你会发现命令行自动填充了 <code>&#39;&lt;,&#39;&gt;</code>。</li>
+<li>输入替换命令，如 <code>s/TODO/DONE/g</code>，只会在选中的区域内生效。</li>
+</ol>
+<p><strong>示例4：使用正则表达式（捕获组）</strong><br>将所有 <code>name: &quot;John&quot;</code> 格式的字符串，替换为 <code>John&#39;s name</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s/name: &quot;\(\w\+\)&quot;/\1&#x27;s name/g</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>\(\w\+\)</code>：这是一个捕获组，匹配一个或多个单词字符，并捕获它们。</li>
+<li><code>\1</code>：引用第一个捕获组的内容。</li>
 </ul>
-<h2 id="re模块"><a href="#re模块" class="headerlink" title="re模块"></a>re模块</h2><h4 id="切分"><a href="#切分" class="headerlink" title="切分"></a>切分</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">re.split(正则表达式,字符串)</span><br><span class="line"></span><br><span class="line"># 举例，以多个空格或者逗号分割 </span><br><span class="line">&gt;&gt;&gt; re.split(r&#x27;[\s\,]+&#x27;, &#x27;a,b, c  d&#x27;)</span><br><span class="line">[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">re.match(表达式,字符串)</span><br><span class="line">分组用括号，括号内多个条件或时用|连接</span><br><span class="line"># 举例 时间分割</span><br><span class="line">&gt;&gt;&gt; t = &#x27;19:05:30&#x27;</span><br><span class="line">&gt;&gt;&gt; m = re.match(r&#x27;^(0[0-9]|1[0-9]|2[0-3]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])\:(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9]|[0-9])$&#x27;, t)</span><br><span class="line">&gt;&gt;&gt; m.groups()</span><br><span class="line">(&#x27;19&#x27;, &#x27;05&#x27;, &#x27;30&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="贪婪匹配"><a href="#贪婪匹配" class="headerlink" title="贪婪匹配"></a>贪婪匹配</h4><ul>
-<li>正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符</li>
-<li>在匹配符后面加上<code>?</code>号，为非贪婪匹配</li>
+<hr>
+<span id="more"></span>
+
+<h3 id="二、查找"><a href="#二、查找" class="headerlink" title="二、查找"></a>二、查找</h3><p><code>vi</code> 的查找功能与正则表达式紧密结合，是快速定位的利器。</p>
+<h4 id="1-基本查找"><a href="#1-基本查找" class="headerlink" title="1. 基本查找"></a>1. 基本查找</h4><ul>
+<li><code>/pattern</code>：<strong>向下</strong>查找 <code>pattern</code>。</li>
+<li><code>?pattern</code>：<strong>向上</strong>查找 <code>pattern</code>。</li>
+<li><code>n</code>：查找下一个匹配项。</li>
+<li><code>N</code>：查找上一个匹配项。</li>
 </ul>
+<h4 id="2-高级查找模式"><a href="#2-高级查找模式" class="headerlink" title="2. 高级查找模式"></a>2. 高级查找模式</h4><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>^</code></td>
+<td>匹配行首</td>
+<td><code>/^TODO</code> 查找以 TODO 开头的行</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>匹配行尾</td>
+<td><code>/error$</code> 查找以 error 结尾的行</td>
+</tr>
+<tr>
+<td><code>\&lt;</code></td>
+<td>匹配单词开头</td>
+<td><code>/\&lt;in</code> 查找以 in 开头的单词（如 <code>input</code>，但不会匹配 <code>win</code>）</td>
+</tr>
+<tr>
+<td><code>\&gt;</code></td>
+<td>匹配单词结尾</td>
+<td><code>/&gt;ing\&gt;</code> 查找以 ing 结尾的单词</td>
+</tr>
+<tr>
+<td><code>\c</code></td>
+<td>忽略大小写（写在模式里）</td>
+<td><code>/\cError</code> 会匹配 <code>error</code>, <code>Error</code>, <code>ERROR</code></td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td><strong>非常魔法</strong>模式（减少转义）</td>
+<td>&#96;&#x2F;\v(error</td>
+</tr>
+</tbody></table>
+<h4 id="3-查找与操作结合"><a href="#3-查找与操作结合" class="headerlink" title="3. 查找与操作结合"></a>3. 查找与操作结合</h4><p>这是 <code>vi</code> 最强大的功能之一：<strong>只对匹配的行进行操作</strong>。</p>
+<p><strong>语法</strong>：<code>:[range]g/&#123;pattern&#125;/[command]</code></p>
+<ul>
+<li><code>g</code>：global（全局）的缩写。</li>
+<li><code>&#123;pattern&#125;</code>：要匹配的行。</li>
+<li><code>[command]</code>：要执行的命令（如 <code>d</code> 删除, <code>s</code> 替换, <code>normal</code> 执行普通模式命令等）。</li>
+</ul>
+<p><strong>实战示例：</strong></p>
+<p><strong>示例1：删除所有包含 “debug” 的行</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:g/debug/d</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例2：删除所有空行</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:g/^$/d</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例3：将所有包含 “TODO” 的行复制到文件末尾</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:g/TODO/t$</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>t</code> 是 <code>copy</code> 的缩写，<code>$</code> 代表最后一行。</li>
+</ul>
+<p><strong>示例4：在不包含 “FIXME” 的行首添加 <code>//</code></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:v/FIXME/^s/^/\/\/ /</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>v</code> 或 <code>g!</code> 表示<strong>反向</strong>匹配，即对不匹配的行操作。</li>
+<li><code>^s/^/\/\/ /</code> 是一个替换命令，将行首（<code>^</code>）替换为 <code>//</code> 。</li>
+</ul>
+<hr>
+<h3 id="三、列选"><a href="#三、列选" class="headerlink" title="三、列选"></a>三、列选</h3><p>列选（或称块选择）允许你操作一个矩形区域内的文本，对于处理表格数据或代码对齐极其方便。</p>
+<h4 id="1-进入列选模式"><a href="#1-进入列选模式" class="headerlink" title="1. 进入列选模式"></a>1. 进入列选模式</h4><ul>
+<li><code>Ctrl + v</code> (Windows&#x2F;Linux) 或 <code>Cmd + v</code> (macOS)：进入<strong>可视块模式</strong>。</li>
+<li>然后使用 <code>h</code>, <code>j</code>, <code>k</code>, <code>l</code> 或方向键来扩展你的矩形选择区域。</li>
+</ul>
+<h4 id="2-列选核心操作"><a href="#2-列选核心操作" class="headerlink" title="2. 列选核心操作"></a>2. 列选核心操作</h4><p>进入可视块模式并选中区域后：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>d</code> 或 <code>x</code></td>
+<td>删除选中的块</td>
+</tr>
+<tr>
+<td><code>y</code></td>
+<td>复制选中的块</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>在光标后粘贴块</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>在光标前粘贴块</td>
+</tr>
+</tbody></table>
+<h4 id="3-列选的“杀手级应用”"><a href="#3-列选的“杀手级应用”" class="headerlink" title="3. 列选的“杀手级应用”"></a>3. 列选的“杀手级应用”</h4><p><strong>应用1：批量插入文本</strong></p>
+<p>假设你有以下代码，想在每行前面添加 <code>const</code> ：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name = &quot;John&quot;;</span><br><span class="line">age = 30;</span><br><span class="line">city = &quot;New York&quot;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>将光标移动到 <code>name</code> 的 <code>n</code> 上。</li>
+<li>按 <code>Ctrl + v</code> 进入列选模式。</li>
+<li>按 <code>2j</code> 向下选中三行。</li>
+<li>按 <code>Shift + i</code> (<code>I</code>) 进入<strong>插入模式</strong>（注意是 <code>I</code> 不是 <code>i</code>）。</li>
+<li>输入 <code>const</code> 。</li>
+<li><strong>按 <code>Esc</code> 键</strong>。</li>
+<li><strong>见证奇迹</strong>：<code>const</code>  会同时出现在所有选中的行首！</li>
+</ol>
+<p><strong>应用2：批量替换文本</strong></p>
+<p>假设你想把上面代码中的 <code>=</code> 符号全部替换为 <code>=</code> 前后加空格。</p>
+<p><strong>操作步骤：</strong></p>
+<ol>
+<li>将光标移动到第一行的 <code>=</code> 上。</li>
+<li>按 <code>Ctrl + v</code> 进入列选模式。</li>
+<li>按 <code>2j</code> 向下选中三行的 <code>=</code>。</li>
+<li>按 <code>c</code> 进入<strong>更改模式</strong>。</li>
+<li>输入 <code>=</code>（注意前后有空格）。</li>
+<li><strong>按 <code>Esc</code> 键</strong>。</li>
+<li>所有选中的 <code>=</code> 都被替换成了 <code>=</code>。</li>
+</ol>
  
       <!-- reward -->
       
@@ -310,12 +396,12 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2024/09/26/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://42.193.106.79/2025/10/05/Vim%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" rel="tag">工具教程</a></li></ul>
 
     </footer>
   </div>
@@ -323,19 +409,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2024/11/25/%E4%B9%A1%E9%97%B4%E5%B0%8F%E5%88%AB/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            乡间小别
-          
-        </div>
-      </a>
     
-    
-      <a href="/2024/09/26/%E8%87%AA%E7%94%B1%E4%BA%BA%EF%BC%8C%E6%97%A2%E6%98%AF%E5%A4%A9%E4%BD%BF%E4%B9%9F%E6%98%AF%E6%81%B6%E9%AD%94/" class="article-nav-link">
+      <a href="/2025/07/02/%E7%BC%96%E8%AF%91%E6%97%B6%E5%A4%9A%E6%80%81%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6%E5%A4%9A%E6%80%81/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">自由人，既是天使也是恶魔</div>
+        <div class="article-nav-title">编译时多态与运行时多态</div>
       </a>
     
   </nav>
