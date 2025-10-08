@@ -149,6 +149,114 @@
     
     
     <article
+  id="post-C++篇"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2025/06/01/C++%E7%AF%87/"
+    >C++篇</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2025/06/01/C++%E7%AF%87/" class="article-date">
+  <time datetime="2025-06-01T14:08:26.000Z" itemprop="datePublished">2025-06-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="静态变量和全局变量、局部变量的区别、在内存上是怎么分布的"><a href="#静态变量和全局变量、局部变量的区别、在内存上是怎么分布的" class="headerlink" title="静态变量和全局变量、局部变量的区别、在内存上是怎么分布的"></a>静态变量和全局变量、局部变量的区别、在内存上是怎么分布的</h4><ol>
+<li>静态局部变量</li>
+</ol>
+<ul>
+<li>特点：<ul>
+<li>作用域：仅限于声明它们的函数或代码块内部。</li>
+<li>生命周期：静态局部变量在程序的整个运行期间都存在，只初始化一次（在第一次使用前）。</li>
+<li>初始化：在首次进入函数时初始化，并保持值直到程序结束。</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>当你需要一个仅在函数内部使用，但希望其值在函数调用之间保持不变的变量时。</li>
+<li>适用于需要缓存数据以提高性能的情况。</li>
+</ul>
+</li>
+<li>内存分布：静态局部变量存储在<strong>全局&#x2F;静态存储区。</strong></li>
+</ul>
+<ol>
+<li>局部变量</li>
+</ol>
+<ul>
+<li>特点：<ul>
+<li>作用域：局部变量仅在声明它们的函数或代码块内部可见。</li>
+<li>生命周期：局部变量在函数调用时创建，函数调用结束后销毁。</li>
+<li>初始化：必须在使用前显式初始化。</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>需要临时存储数据，且这些数据只在当前作用域内使用时。</li>
+<li>作为循环计数器或中间计算结果。</li>
+</ul>
+</li>
+<li>内存分布：<strong>局部变量存储在栈上</strong>，与它们所在的作用域（如函数）相关联。</li>
+</ul>
+<ol>
+<li>全局变量</li>
+</ol>
+<ul>
+<li>特点：<ul>
+<li>作用域：全局变量在整个程序中都是可见的，可以在任何函数或代码块中访问。</li>
+<li>生命周期：全局变量同样具有静态存储期，它们在程序的整个运行期间都存在。</li>
+<li>初始化：通常在程序启动时初始化。</li>
+</ul>
+</li>
+<li>使用场景：<ul>
+<li>当你需要在程序的多个部分共享数据时。</li>
+<li>适用于存储配置信息或程序的状态信息。</li>
+<li>需要注意全局变量可能导致代码难以测试和维护。</li>
+</ul>
+</li>
+<li>内存分布：<strong>全局变量也存储在全局&#x2F;静态存储区。</strong></li>
+</ul> 
+      <a class="article-more-link" href="/2025/06/01/C++%E7%AF%87/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%AB%E8%82%A1%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag">八股文笔记</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+   
+  
+</article>
+
+    
+    <article
   id="post-MySQL篇"
   class="article article-type-post"
   itemscope
@@ -821,64 +929,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%80%9D%E8%80%83/" rel="tag">思考</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-   
-  
-</article>
-
-    
-    <article
-  id="post-校验和与二进制反码求和"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/12/09/%E6%A0%A1%E9%AA%8C%E5%92%8C%E4%B8%8E%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8F%8D%E7%A0%81%E6%B1%82%E5%92%8C/"
-    >校验和与二进制反码求和</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/12/09/%E6%A0%A1%E9%AA%8C%E5%92%8C%E4%B8%8E%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8F%8D%E7%A0%81%E6%B1%82%E5%92%8C/" class="article-date">
-  <time datetime="2024-12-09T11:49:09.000Z" itemprop="datePublished">2024-12-09</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>在复习计算机网络时候，看到了UDP校验，发现知识漏洞：二进制反码求和要回卷，特此记录<br>二进制反码求和有两种方式：</p>
-<ul>
-<li>先求反码再求和</li>
-<li>先求和再求反码 + 回卷<br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202412091938226.png" alt="反码求和.png"><br><img src="https://spade-photos.oss-cn-beijing.aliyuncs.com/202412091938932.png" alt="为什么要回卷.png"><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_48803456/article/details/129024911">图片来源博客链接</a></li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/" rel="tag">大学课程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag">知识点</a></li></ul>
 
     </footer>
   </div>
